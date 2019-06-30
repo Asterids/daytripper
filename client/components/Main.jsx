@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Navbar from './Navbar'
+import Navbar from './Navbar';
+import Content from './Content';
 
 export default class Main extends Component {
   constructor(props) {
@@ -11,7 +12,12 @@ export default class Main extends Component {
   render () {
     return (
       <div>
-          <Navbar />
+        <div>
+            <Navbar />
+        </div>
+        <div>
+            <Content />
+        </div>
       </div>
     );
   }
