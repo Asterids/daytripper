@@ -1,7 +1,7 @@
 {
-  "name": "carpo",
+  "name": "Daytripper",
   "version": "1.0.0",
-  "description": "Getting back into the swing of things",
+  "description": "A web app for plotting new adventures",
   "main": "index.js",
   "scripts": {
     "test": "test",
