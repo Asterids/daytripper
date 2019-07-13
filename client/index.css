@@ -5,9 +5,38 @@
 div {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+input {
+  margin-left: 12px;
 }
 
 #navbar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 0 !important;
+  background: #dfe6f2;
+  height: 11vh;
+  width: 100vw;
+  overflow-y: auto;
+  border-right: 3px solid #555;
+}
+
+#navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 15px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+#navbar ul li {
+  padding: 0 20px;
+}
+
+#sidebar {
   position: fixed;
   right: 0;
   top: 0;
@@ -22,7 +51,7 @@ div {
   align-items: left;
 }
 
-#navbar ul {
+#sidebar ul {
   padding-top: 50px;
 }
 
@@ -41,8 +70,8 @@ div {
 }
 
 #map {
-  height: 80vh;
-  width: 65vw;
+  height: 70vh;
+  width: 100vw;
 }
 
 section {

@@ -12,12 +12,8 @@ export default class Main extends Component {
   render () {
     return (
       <div>
-        <div>
-            <Navbar />
-        </div>
-        <div>
-            <Content />
-        </div>
+        <Content />
+        <Navbar />
       </div>
     );
   }

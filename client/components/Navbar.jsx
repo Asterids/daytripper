@@ -8,16 +8,27 @@ const Navbar = (props) => {
   return (
     <div id="navbar">
       <ul>
-        <h4>
-          <p>Search</p>
-          <input type="text" id="searchtext" name="searchtext" placeholder="Country, city, or zip code" required size="25"></input>
-        </h4>
-        <h4>
-          <p>Clear Markers</p>
-        </h4>
-        <h4>
-          <p>Save This Map</p>
-        </h4>
+        <li>
+          <h4>
+            Search
+            <input type="text" id="searchtext" name="searchtext" placeholder="Country, city, or zip code" required size="25"></input>
+          </h4>
+        </li>
+        <li>
+          <h4>
+            <a href="">Clear Markers</a>
+          </h4>
+        </li>
+        <li>
+          <h4>
+            <a href="">Save This Map</a>
+          </h4>
+        </li>
+        <li>
+          <h4>
+            <a href="">My Saved Maps</a>
+          </h4>
+        </li>
       </ul>
     </div>
   );
