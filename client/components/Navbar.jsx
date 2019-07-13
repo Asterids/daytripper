@@ -13,10 +13,10 @@ const Navbar = (props) => {
           <input type="text" id="searchtext" name="searchtext" placeholder="Country, city, or zip code" required size="25"></input>
         </h4>
         <h4>
-          <p>Save</p>
+          <p>Clear Markers</p>
         </h4>
         <h4>
-          <p>Clear</p>
+          <p>Save This Map</p>
         </h4>
       </ul>
     </div>
