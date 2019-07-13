@@ -16,6 +16,11 @@ const Navbar = (props) => {
         </li>
         <li>
           <h4>
+            <a href="">Add A Marker</a>
+          </h4>
+        </li>
+        <li>
+          <h4>
             <a href="">Clear Markers</a>
           </h4>
         </li>
