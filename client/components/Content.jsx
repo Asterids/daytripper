@@ -8,7 +8,9 @@ const Content = (props) => {
 
   return (
     <div id="content">
-      <h2 className="heading">Daytripper</h2>
+      <section>
+        <h2 className="heading">Daytripper</h2>
+      </section>
       <section>
         <Map />
       </section>

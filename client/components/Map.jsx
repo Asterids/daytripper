@@ -9,8 +9,8 @@ class Map extends Component {
 
     new MapboxGl.Map({
       container: "map",
-      center: [-74.009, 40.705],
-      zoom: 12, // starting zoom
+      center: [4.626541, 28.582692],
+      zoom: 1, // starting zoom
       style: "mapbox://styles/mapbox/streets-v10"
     });
   }

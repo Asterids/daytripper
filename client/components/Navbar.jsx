@@ -7,21 +7,18 @@ const Navbar = (props) => {
 
   return (
     <div id="navbar">
-      <section>
+      <ul>
         <h4>
-          <p>LIONS</p>
+          <p>Search</p>
+          <input type="text" id="searchtext" name="searchtext" placeholder="Country, city, or zip code" required size="25"></input>
         </h4>
-      </section>
-      <section>
         <h4>
-          <p>TIGERS</p>
+          <p>Save</p>
         </h4>
-      </section>
-      <section>
         <h4>
-          <p>BEARS</p>
+          <p>Clear</p>
         </h4>
-      </section>
+      </ul>
     </div>
   );
 }
