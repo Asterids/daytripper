@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 // stateless functional components HAVE NO THIS!
 
-const Navbar = (props) => {
+const Footer = (props) => {
 
   return (
-    <div id="navbar">
+    <div id="footer">
       <ul>
         <li>
           <h4>
@@ -39,4 +39,4 @@ const Navbar = (props) => {
   );
 }
 
-export default Navbar;
+export default Footer;

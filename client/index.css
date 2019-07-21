@@ -12,7 +12,19 @@ input {
   margin-left: 12px;
 }
 
-#navbar {
+#header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 0 !important;
+  background: #dfe6f2;
+  height: 11vh;
+  width: 100vw;
+  overflow-y: auto;
+  border-right: 3px solid #555;
+}
+
+#footer {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -24,7 +36,7 @@ input {
   border-right: 3px solid #555;
 }
 
-#navbar ul {
+#footer ul {
   list-style-type: none;
   margin: 0;
   padding: 15px 0;
@@ -32,7 +44,7 @@ input {
   flex-direction: row;
 }
 
-#navbar ul li {
+#footer ul li {
   padding: 0 20px;
 }
 
@@ -55,14 +67,6 @@ input {
   padding-top: 50px;
 }
 
-#content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80vw;
-  height: 100px;
-}
-
 .heading {
   display: flex;
   flex-direction: column;
@@ -70,6 +74,8 @@ input {
 }
 
 #map {
+  position: absolute;
+  top: 15%;
   height: 70vh;
   width: 100vw;
 }

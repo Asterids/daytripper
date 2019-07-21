@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Navbar from './Navbar';
-import Content from './Content';
+import Header from './Header';
+import Map from './Map';
 import Sidebar from './Sidebar';
+import Footer from './Footer';
 
 export default class Main extends Component {
   constructor(props) {
@@ -12,9 +13,10 @@ export default class Main extends Component {
 
   render () {
     return (
-      <div>
-        <Content />
-        <Navbar />
+      <div id="main">
+        <Header />
+        <Map />
+        <Footer />
       </div>
     );
   }

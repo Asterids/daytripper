@@ -1,21 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Map from './Map';
 
 // stateless functional components HAVE NO THIS!
 
-const Content = (props) => {
+const Header = (props) => {
 
   return (
-    <div id="content">
+    <div id="header">
       <section>
         <h2 className="heading">Daytripper</h2>
-      </section>
-      <section>
-        <Map />
       </section>
     </div>
   );
 }
 
-export default Content;
+export default Header;
