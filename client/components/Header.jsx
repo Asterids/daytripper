@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Header = (props) => {
 
   return (
-    <div id="header">
+    <div className="header">
       <h2 className="heading">DayTripper</h2>
     </div>
   );

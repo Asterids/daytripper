@@ -39,6 +39,7 @@ export default class Main extends Component {
         <Header />
         <Map />
         <Footer />
+        <Sidebar />
       </div>
     );
   }

@@ -15,7 +15,7 @@ class Sidebar extends React.Component {
   render() {
 
     return (
-      <div id="sidebar">
+      <div className="sidebar">
         <ul>
           <h4>
             <p>Trip Name</p>
