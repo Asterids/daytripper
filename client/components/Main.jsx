@@ -8,8 +8,30 @@ export default class Main extends Component {
   constructor(props) {
     super(props);
 
-    this.state =  {};
+    this.state =  {
+      sidebarActive: false
+    };
+
+    this.footerToggleSidebarHandler = this.footerToggleSidebarHandler.bind(this);
   }
+
+  footerToggleSidebarHandler() {
+    this.setState({
+      sidebarActive: !this.state.sidebarActive
+    })
+  }
+
+  // componentDidMount() {  // <-- look up lifecycle methods
+  //   document.addEventListener('click', this.handleClick, false);
+  // }
+  //
+  // toggleViewStatus(evt) {
+  //   evt.stopPropagation();  // <-- look up
+  //   this.setState({
+  //     isOpen: !this.state.isOpen
+  //   })
+  // }
+
 
   render () {
     return (
