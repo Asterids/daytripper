@@ -6,7 +6,7 @@ import Footer from './Footer';
 
 export default class Main extends Component {
   constructor(props) {
-    super();
+    super(props);
 
     this.state =  {};
   }

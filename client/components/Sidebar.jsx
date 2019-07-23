@@ -1,22 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Component, Link } from 'react-router-dom';
 
-// stateless functional components HAVE NO THIS!
+class Sidebar extends React.Component {
+  constructor(props) {
+    super(props)
 
-const Sidebar = (props) => {
+    this.state={
+      isOpen: false
+    };
+    // this.toggleViewStatus = this.toggleView.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
+  };
 
-  return (
-    <div id="sidebar">
-      <ul>
-        <h4>
-          <p>Trip Name</p>
-        </h4>
-        <h4>
-          <p>Pins</p>
-        </h4>
-      </ul>
-    </div>
-  );
+  render() {
+
+    return (
+      <div id="sidebar">
+        <ul>
+          <h4>
+            <p>Trip Name</p>
+          </h4>
+          <h4>
+            <p>Pins</p>
+          </h4>
+        </ul>
+      </div>
+    );
+  }
 }
 
 export default Sidebar;
