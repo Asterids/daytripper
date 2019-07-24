@@ -1,10 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// stateless functional components HAVE NO THIS!
-
-const Footer = (props) => {
-
+const Footer = props => {
   return (
     <div className="footer">
       <ul>
@@ -31,12 +28,12 @@ const Footer = (props) => {
         </li>
         <li>
           <h4>
-            <a href="">My Saved Maps</a>
+            <button className="toggleButton" onClick={props.toggleSidebar}>My Saved Maps</button>
           </h4>
         </li>
       </ul>
     </div>
-  );
-}
+  )
+};
 
 export default Footer;

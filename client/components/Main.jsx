@@ -12,10 +12,10 @@ export default class Main extends Component {
       sidebarActive: false
     };
 
-    this.footerToggleSidebarHandler = this.footerToggleSidebarHandler.bind(this);
+    this.footerToggleSidebar = this.footerToggleSidebar.bind(this);
   }
 
-  footerToggleSidebarHandler() {
+  footerToggleSidebar() {
     this.setState({
       sidebarActive: !this.state.sidebarActive
     })
@@ -38,8 +38,8 @@ export default class Main extends Component {
       <div id="main">
         <Header />
         <Map />
-        <Footer />
-        <Sidebar />
+        <Footer toggleSidebar={this.footerToggleSidebar} />
+        <Sidebar active={this.state.sidebarActive} />
       </div>
     );
   }
