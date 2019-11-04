@@ -5,7 +5,7 @@ import MapboxGl from 'mapbox-gl/dist/mapbox-gl.js'
 class Map extends Component {
 
   componentDidMount() {
-    MapboxGl.accessToken = "pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2phOXVlZzcyMGIwMjMycXBlNnRmZHo1dyJ9.ilgJUCqm6sJIh6NCPCLdow";
+    MapboxGl.accessToken = "pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg";
 
     new MapboxGl.Map({
       container: "map",
