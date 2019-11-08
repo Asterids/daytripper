@@ -22,11 +22,16 @@ class Map extends Component {
     let mapInstance = new MapboxGl.Map({
       container: "map",
       center: [4.626541, 28.582692],
-      zoom: 1, // starting zoom
+      zoom: 1.5, // starting zoom
       style: "mapbox://styles/ruthtown/cjy1zfey01ai51cp31xzhmwnw"
     });
 
+    let marker = new MapboxGl.Marker()
+      .setLngLat([4.626541, 28.582692]) // [lng, lat] coordinates to place the marker at
+      .addTo(mapInstance); // add the marker to the map
+
     mapInstance.on('click', function(e) {
+      console.log("Marker position: ", marker)
       console.log(e);
       console.log(e.lngLat.lat, " ", e.lngLat.lng)
         // window[e.type].innerHTML = e.containerPoint.toString() + ', ' + e.latlng.toString();

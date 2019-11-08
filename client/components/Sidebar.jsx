@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Sidebar = props => {
-  let sidebarClasses = props.active ? 'sidebar active' : 'sidebar';
+  let sidebarClasses = props.active ? 'sidebar active notMain' : 'sidebar notMain';
 
   return (
     <div className={sidebarClasses}>

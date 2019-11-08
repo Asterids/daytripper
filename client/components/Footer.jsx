@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = props => {
   return (
-    <div className="footer">
+    <div className="footer notMain">
       <ul>
         <li>
           <h4>
