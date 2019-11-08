@@ -2,22 +2,28 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import MapboxGl from 'mapbox-gl/dist/mapbox-gl.js'
 
-class Map extends Component {
+export default class Map extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state =  {
+      markers: []
+    };
+
+    this.updateMap = this.updateMap.bind(this);
+  }
+
+  updateMap(longitude, latitude) {
+    this.setState({
+      markers: [[longitude, latitude]]
+    })
+  }
 
   componentDidMount() {
     MapboxGl.accessToken = "pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg";
 
-    let click = document.getElementById('click');
-    let mousemove = document.getElementById('mousemove');
-
-    // const map = L.mapbox.map('map')
-    //     .setView([0, 0], 3)
-    //     .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-    //
-    // map.on('mousemove click', function(e) {
-    //     window[e.type].innerHTML = e.containerPoint.toString() + ', ' + e.latlng.toString();
-    //     console.log("Mouse Position: ", e.containerPoint.toString() + ', ' + e.latlng.toString())
-    // });
+    const click = document.getElementById('click');
+    const mousemove = document.getElementById('mousemove');
 
     let mapInstance = new MapboxGl.Map({
       container: "map",
@@ -32,8 +38,20 @@ class Map extends Component {
       new MapboxGl.Marker()
         .setLngLat([e.lngLat.lng, e.lngLat.lat])
         .addTo(mapInstance);
+
+      // ***   #1   ***
+      // how to save markers to list held in state?
+      // console.log("STATE MARKERS: " + this.state.markers)
     });
   }
+
+  // *** need to add markers to markers list held in state before comparison to empty can be made
+
+  // componentWillReceiveProps(props) {
+  //   if (this.state.markers.length > 0) {
+  //     this.setState({markers: []})
+  //   }
+  // }
 
   render() {
     return (
@@ -42,5 +60,3 @@ class Map extends Component {
     )
   }
 }
-
-export default Map;

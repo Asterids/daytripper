@@ -9,16 +9,22 @@ export default class Main extends Component {
     super(props);
 
     this.state =  {
-      sidebarActive: false
+      sidebarActive: false,
+      markers: []
     };
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
+    this.clearMap = this.clearMap.bind(this);
   }
 
   toggleSidebar() {
     this.setState({
       sidebarActive: !this.state.sidebarActive
     })
+  }
+  
+  clearMap() {
+    this.setState({markers: []})
   }
 
   // componentDidMount() {  // <-- look up lifecycle methods
@@ -37,8 +43,8 @@ export default class Main extends Component {
     return (
       <div id="main">
         <Header />
-        <Map />
-        <Footer toggleSidebar={this.toggleSidebar} />
+        <Map markers={this.state.markers} />
+        <Footer toggleSidebar={this.toggleSidebar} clearMap={this.clearMap} />
         <Sidebar active={this.state.sidebarActive} />
       </div>
     );
