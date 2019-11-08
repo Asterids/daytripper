@@ -2,7 +2,3 @@ node_modules
 bundle.js
 bundle.js.map
 package-lock.json
-firebase-debug.log
-database.rules.json
-firebase.json
-.firebaserc
