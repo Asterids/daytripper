@@ -2,24 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import MapboxGl from 'mapbox-gl/dist/mapbox-gl.js'
 
+
 export default class Map extends Component {
   constructor(props) {
     super(props);
-
-    this.state =  {
-      markers: []
-    };
-
-    this.updateMap = this.updateMap.bind(this);
-  }
-
-  updateMap(longitude, latitude) {
-    this.setState({
-      markers: [[longitude, latitude]]
-    })
   }
 
   componentDidMount() {
+    const addNewMarker = this.props.addMarker;
+
     MapboxGl.accessToken = "pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg";
 
     const click = document.getElementById('click');
@@ -39,6 +30,7 @@ export default class Map extends Component {
         .setLngLat([e.lngLat.lng, e.lngLat.lat])
         .addTo(mapInstance);
 
+      addNewMarker({long: e.lngLat.lng, lat: e.lngLat.lat});
       // ***   #1   ***
       // how to save markers to list held in state?
       // console.log("STATE MARKERS: " + this.state.markers)
@@ -48,12 +40,13 @@ export default class Map extends Component {
   // *** need to add markers to markers list held in state before comparison to empty can be made
 
   // componentWillReceiveProps(props) {
-  //   if (this.state.markers.length > 0) {
-  //     this.setState({markers: []})
+  //   if (props.markers.length > 0) {
+  //     props.clearMap()
   //   }
   // }
 
   render() {
+    console.log("PROPS.MARKERS: " + this.props.markers)
     return (
       <div id='map' ref={(x) => { this.container = x }}>
       </div>
