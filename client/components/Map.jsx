@@ -9,7 +9,7 @@ export default class Map extends Component {
   }
 
   componentDidMount() {
-    const addNewMarker = this.props.addMarker;
+    const { addMarker } = this.props;
 
     MapboxGl.accessToken = "pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg";
 
@@ -30,23 +30,17 @@ export default class Map extends Component {
         .setLngLat([e.lngLat.lng, e.lngLat.lat])
         .addTo(mapInstance);
 
-      addNewMarker({long: e.lngLat.lng, lat: e.lngLat.lat});
-      // ***   #1   ***
-      // how to save markers to list held in state?
-      // console.log("STATE MARKERS: " + this.state.markers)
+      addMarker({long: e.lngLat.lng, lat: e.lngLat.lat});
     });
   }
 
-  // *** need to add markers to markers list held in state before comparison to empty can be made
-
-  // componentWillReceiveProps(props) {
-  //   if (props.markers.length > 0) {
-  //     props.clearMap()
-  //   }
-  // }
+  componentWillReceiveProps(props) {
+    if (props.markers.length > 0) {
+      props.clearMap()
+    }
+  }
 
   render() {
-    console.log("PROPS.MARKERS: " + this.props.markers)
     return (
       <div id='map' ref={(x) => { this.container = x }}>
       </div>

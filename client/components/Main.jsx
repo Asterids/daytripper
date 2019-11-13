@@ -26,7 +26,7 @@ export default class Main extends Component {
 
   addMarker(newMarker) {
     this.setState((prevState) => {
-      return {markers: [prevState.markers, newMarker]};
+      return {markers: [...prevState.markers, newMarker]};
     });
   }
 
@@ -34,23 +34,12 @@ export default class Main extends Component {
     this.setState({markers: []})
   }
 
-  // componentDidMount() {  // <-- look up lifecycle methods
-  //   document.addEventListener('click', this.handleClick, false);
-  // }
-  //
-  // toggleViewStatus(evt) {
-  //   evt.stopPropagation();  // <-- look up
-  //   this.setState({
-  //     isOpen: !this.state.isOpen
-  //   })
-  // }
-
 
   render () {
     return (
       <div id="main">
         <Header />
-        <Map markers={this.state.markers} addMarker={this.addMarker} />
+        <Map markers={this.state.markers} addMarker={this.addMarker} clearMap={this.clearMap} />
         <Footer toggleSidebar={this.toggleSidebar} clearMap={this.clearMap} />
         <Sidebar active={this.state.sidebarActive} />
       </div>
