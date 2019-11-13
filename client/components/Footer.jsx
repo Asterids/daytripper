@@ -13,12 +13,7 @@ const Footer = props => {
         </li>
         <li>
           <h4>
-            <a href="">Add A Marker</a>
-          </h4>
-        </li>
-        <li>
-          <h4>
-            <a href="">Clear Markers</a>
+            <button className="clearMarkers" onClick={props.clearMap}>Clear Markers</button>
           </h4>
         </li>
         <li>

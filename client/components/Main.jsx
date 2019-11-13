@@ -9,10 +9,13 @@ export default class Main extends Component {
     super(props);
 
     this.state =  {
-      sidebarActive: false
+      sidebarActive: false,
+      markers: []
     };
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
+    this.clearMap = this.clearMap.bind(this);
+    this.addMarker = this.addMarker.bind(this);
   }
 
   toggleSidebar() {
@@ -21,24 +24,23 @@ export default class Main extends Component {
     })
   }
 
-  // componentDidMount() {  // <-- look up lifecycle methods
-  //   document.addEventListener('click', this.handleClick, false);
-  // }
-  //
-  // toggleViewStatus(evt) {
-  //   evt.stopPropagation();  // <-- look up
-  //   this.setState({
-  //     isOpen: !this.state.isOpen
-  //   })
-  // }
+  addMarker(newMarker) {
+    this.setState((prevState) => {
+      return {markers: [...prevState.markers, newMarker]};
+    });
+  }
+
+  clearMap() {
+    this.setState({markers: []})
+  }
 
 
   render () {
     return (
       <div id="main">
         <Header />
-        <Map />
-        <Footer toggleSidebar={this.toggleSidebar} />
+        <Map markers={this.state.markers} addMarker={this.addMarker} clearMap={this.clearMap} />
+        <Footer toggleSidebar={this.toggleSidebar} clearMap={this.clearMap} />
         <Sidebar active={this.state.sidebarActive} />
       </div>
     );
