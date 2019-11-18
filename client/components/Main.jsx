@@ -14,7 +14,7 @@ export default class Main extends Component {
     };
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
-    this.clearMap = this.clearMap.bind(this);
+    // this.clearMap = this.clearMap.bind(this);
     this.addMarker = this.addMarker.bind(this);
   }
 
@@ -28,11 +28,12 @@ export default class Main extends Component {
     this.setState((prevState) => {
       return {markers: [...prevState.markers, newMarker]};
     });
+    console.log(this.state.markers)
   }
 
-  clearMap() {
-    this.setState({markers: []})
-  }
+  // clearMap() {
+  //   this.setState({markers: []})
+  // }
 
 
   render () {

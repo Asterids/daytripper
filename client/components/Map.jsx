@@ -13,8 +13,8 @@ export default class Map extends Component {
 
     MapboxGl.accessToken = "pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg";
 
-    const click = document.getElementById('click');
-    const mousemove = document.getElementById('mousemove');
+    // const click = document.getElementById('click');
+    // const mousemove = document.getElementById('mousemove');
 
     let mapInstance = new MapboxGl.Map({
       container: "map",
@@ -34,11 +34,11 @@ export default class Map extends Component {
     });
   }
 
-  componentWillReceiveProps(props) {
-    if (props.markers.length > 0) {
-      props.clearMap()
-    }
-  }
+  // componentWillReceiveProps(props) {
+  //   if (props.markers.length > 0) {
+  //     props.clearMap()
+  //   }
+  // }
 
   render() {
     return (
