@@ -1,15 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
-import MapboxGl from 'mapbox-gl/dist/mapbox-gl.js'
+import MapboxGl from 'mapbox-gl/dist/mapbox-gl.js';
+// import SVG from 'react-inlinesvg';
+
+// const Icon = () => <SVG src='../../public/images/marker-15.svg' />;
 
 
 export default class Map extends Component {
   constructor(props) {
     super(props);
+
   }
 
   componentDidMount() {
-    const { addMarker } = this.props;
+    const { addMarker, markers } = this.props;
 
     MapboxGl.accessToken = "pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg";
 
@@ -26,13 +30,44 @@ export default class Map extends Component {
     mapInstance.on('click', function(e) {
       console.log(e.lngLat.lat + ", " + e.lngLat.lng)
 
-      new MapboxGl.Marker()
-        .setLngLat([e.lngLat.lng, e.lngLat.lat])
-        .addTo(mapInstance);
+      addMarker({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [e.lngLat.lng, e.lngLat.lat]
+        },
+        properties: {
+          title: 'Marker',
+          description: '' + (markers.length + 1),
+          // 'marker-symbol': '' + (markers.length + 1),
+        }
+      })
 
-      addMarker({long: e.lngLat.lng, lat: e.lngLat.lat});
+      // markers.forEach(marker => {
+      //   // create a HTML element for each feature
+        // let icon = document.createElement('SVG');
+        // icon.src = '../../public/images/marker-15.svg';
+        // icon.className = 'marker';
+      //
+      //   console.log("MARKER INSTANCE: " + marker)
+      //   // make a marker for each feature and add to the map
+      //   new MapboxGl.Marker()
+      //     .setLngLat(marker.geometry.coordinates)
+      //     .addTo(mapInstance);
+      // });
+
+
+      let newMarker = new MapboxGl.Marker()
+        .setLngLat([e.lngLat.lng, e.lngLat.lat])
+        .addTo(mapInstance)
     });
   }
+
+  // function ActionLink() {
+  //   function handleClick(e) {
+  //     e.preventDefault();
+  //     console.log('The link was clicked.');
+  // }
 
   // componentWillReceiveProps(props) {
   //   if (props.markers.length > 0) {
