@@ -14,8 +14,9 @@ export default class Main extends Component {
     };
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
-    // this.clearMap = this.clearMap.bind(this);
     this.addMarker = this.addMarker.bind(this);
+    this.clearMap = this.clearMap.bind(this);
+    this.clearMarkersFromState = this.clearMarkersFromState.bind(this);
   }
 
   toggleSidebar() {
@@ -28,19 +29,29 @@ export default class Main extends Component {
     this.setState((prevState) => {
       return {markers: [...prevState.markers, newMarker]};
     });
+    console.log("PARENT STATE MARKERS: ")
     console.log(this.state.markers)
   }
 
-  // clearMap() {
-  //   this.setState({markers: []})
-  // }
+  clearMap() {
+    console.log("Clearing Map...")
+    this.setState({markers: []})
+  }
+
+  clearMarkersFromState() {
+    // this.setState({markers: []})
+  }
 
 
   render () {
     return (
       <div id="main">
         <Header />
-        <Map markers={this.state.markers} addMarker={this.addMarker} clearMap={this.clearMap} />
+        <Map markers={this.state.markers}
+             addMarker={this.addMarker}
+             clearMap={this.clearMap}
+             clearMarkersFromState={this.clearMarkersFromState}
+        />
         <Footer toggleSidebar={this.toggleSidebar} clearMap={this.clearMap} />
         <Sidebar active={this.state.sidebarActive} />
       </div>
