@@ -10,15 +10,17 @@ export default class Map extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      map: {},
+      markers: this.props.markers
+    }
   }
 
   componentDidMount() {
-    const { addMarker, markers } = this.props;
+    const { addMarker } = this.props;
+    // console.log("PROPS ON LOAD: " + this.props);
 
     MapboxGl.accessToken = "pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg";
-
-    // const click = document.getElementById('click');
-    // const mousemove = document.getElementById('mousemove');
 
     let mapInstance = new MapboxGl.Map({
       container: "map",
@@ -27,58 +29,79 @@ export default class Map extends Component {
       style: "mapbox://styles/ruthtown/cjy1zfey01ai51cp31xzhmwnw"
     });
 
+    // *** IMPLEMENT & TEST WHEN MARKERS ARE PERSISTENT/SAVEABLE TO DB
+
+    // mapInstance.on('load', function (markers) {
+    //   markers.forEach(marker => {
+    //     let existingMarker = new MapboxGl.Marker()
+    //       .setLngLat(marker._lngLat.lng, marker._lngLat.lat)
+    //       .addTo(mapInstance)
+    //   })
+    // }
+
     mapInstance.on('click', function(e) {
       console.log(e.lngLat.lat + ", " + e.lngLat.lng)
-
-      addMarker({
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [e.lngLat.lng, e.lngLat.lat]
-        },
-        properties: {
-          title: 'Marker',
-          description: '' + (markers.length + 1),
-          // 'marker-symbol': '' + (markers.length + 1),
-        }
-      })
-
-      // markers.forEach(marker => {
-      //   // create a HTML element for each feature
-        // let icon = document.createElement('SVG');
-        // icon.src = '../../public/images/marker-15.svg';
-        // icon.className = 'marker';
-      //
-      //   console.log("MARKER INSTANCE: " + marker)
-      //   // make a marker for each feature and add to the map
-      //   new MapboxGl.Marker()
-      //     .setLngLat(marker.geometry.coordinates)
-      //     .addTo(mapInstance);
-      // });
-
 
       let newMarker = new MapboxGl.Marker()
         .setLngLat([e.lngLat.lng, e.lngLat.lat])
         .addTo(mapInstance)
+
+      addMarker(newMarker);
     });
+
+    // mapInstance.on('mouseout', function(e2) {
+    //   console.log(e2.target)
+      // this.state.markers.forEach(marker => marker.remove())
+    // });
+
+    this.setState({map: mapInstance});
   }
 
-  // function ActionLink() {
-  //   function handleClick(e) {
-  //     e.preventDefault();
-  //     console.log('The link was clicked.');
-  // }
+  componentWillReceiveProps(props) {
+    // console.log("GET YER STATE HERE: ")
+    // console.log(this.state)
+    // console.log("GETCHA PROPS HERE: ")
+    // console.log(props);
+    // console.log(props.markers.length) // are there no markers in parent state
+    // console.log(this.state.markers.length) // do any markers exist in local state
 
-  // componentWillReceiveProps(props) {
-  //   if (props.markers.length > 0) {
-  //     props.clearMap()
-  //   }
-  // }
+    if (props.markers.length > this.state.markers.length) {
+      this.setState({markers: [...props.markers]})
+    } else if ((props.markers.length === 0) && !(this.state.markers.length === 0)) {
+      this.state.markers.forEach(marker => {
+        marker.remove();
+      })
+      this.setState({markers: []})
+    }
+  }
 
   render() {
     return (
-      <div id='map' ref={(x) => { this.container = x }}>
+      <div id='map' ref={(el) => { this.container = el }}>
       </div>
     )
   }
 }
+
+
+
+// ***** NOTES *****
+
+// *** GEOJSON: ***
+// addMarker({
+//   type: 'Feature',
+//   geometry: {
+//     type: 'Point',
+//     coordinates: [e.lngLat.lng, e.lngLat.lat]
+//   },
+//   properties: {
+//     title: 'Marker',
+//     description: '' + (markers.length + 1),
+//     // 'marker-symbol': '' + (markers.length + 1),
+//   }
+// })
+
+// *** DOM ELEMENT: ***
+// let icon = document.createElement('SVG');
+// icon.src = '../../public/images/marker-15.svg';
+// icon.className = 'marker';
