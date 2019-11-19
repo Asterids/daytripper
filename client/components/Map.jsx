@@ -18,7 +18,6 @@ export default class Map extends Component {
 
   componentDidMount() {
     const { addMarker } = this.props;
-    // console.log("PROPS ON LOAD: " + this.props);
 
     MapboxGl.accessToken = "pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg";
 
@@ -58,13 +57,6 @@ export default class Map extends Component {
   }
 
   componentWillReceiveProps(props) {
-    // console.log("GET YER STATE HERE: ")
-    // console.log(this.state)
-    // console.log("GETCHA PROPS HERE: ")
-    // console.log(props);
-    // console.log(props.markers.length) // are there no markers in parent state
-    // console.log(this.state.markers.length) // do any markers exist in local state
-
     if (props.markers.length > this.state.markers.length) {
       this.setState({markers: [...props.markers]})
     } else if ((props.markers.length === 0) && !(this.state.markers.length === 0)) {
