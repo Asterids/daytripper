@@ -34,7 +34,6 @@ export default class Main extends Component {
   }
 
   clearMap() {
-    console.log("Clearing Map...")
     this.setState({markers: []})
   }
 
