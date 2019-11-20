@@ -46,8 +46,6 @@ export default class Map extends Component {
         .addTo(mapInstance)
 
       addMarker(newMarker, MapboxGl.accessToken);
-      console.log("NEW MARKER: ")
-      console.log(newMarker)
     });
 
     // mapInstance.on('mouseout', function(e2) {
