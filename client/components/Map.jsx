@@ -45,7 +45,7 @@ export default class Map extends Component {
         .setLngLat([e.lngLat.lng, e.lngLat.lat])
         .addTo(mapInstance)
 
-      addMarker(newMarker);
+      addMarker(newMarker, MapboxGl.accessToken);
     });
 
     // mapInstance.on('mouseout', function(e2) {
