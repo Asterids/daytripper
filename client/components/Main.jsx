@@ -3,6 +3,7 @@ import Header from './Header';
 import Map from './Map';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
+import axios from 'axios';
 
 export default class Main extends Component {
   constructor(props) {
@@ -25,12 +26,20 @@ export default class Main extends Component {
     })
   }
 
-  addMarker(newMarker) {
+  addMarker(newMarker, tkn) {
+    const longitude = newMarker._lngLat.lng
+    const latitude = newMarker._lngLat.lat
+
     this.setState((prevState) => {
       return {markers: [...prevState.markers, newMarker]};
     });
-    console.log("PARENT STATE MARKERS: ")
-    console.log(this.state.markers)
+
+    axios.get(`/api/marker/${latitude}/${longitude}/${tkn}`)
+        .then(res => {
+            console.log("MARKER PLACED ON: ")
+            console.log(res.data.place_name);
+            // return res.json()
+         })
   }
 
   clearMap() {
