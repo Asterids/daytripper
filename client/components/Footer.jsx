@@ -18,7 +18,7 @@ const Footer = props => {
         </li>
         <li>
           <h4>
-            <a href="">Save This Map</a>
+            <button className="saveMap" onClick={props.saveMap}>Save This Map</button>
           </h4>
         </li>
         <li>

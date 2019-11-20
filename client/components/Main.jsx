@@ -14,10 +14,16 @@ export default class Main extends Component {
       markers: []
     };
 
+    this.saveMap = this.saveMap.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.addMarker = this.addMarker.bind(this);
     this.clearMap = this.clearMap.bind(this);
-    this.clearMarkersFromState = this.clearMarkersFromState.bind(this);
+  }
+
+  saveMap() {
+    this.setState({
+      sidebarActive: true
+    })
   }
 
   toggleSidebar() {
@@ -30,26 +36,22 @@ export default class Main extends Component {
     const longitude = newMarker._lngLat.lng
     const latitude = newMarker._lngLat.lat
 
-    this.setState((prevState) => {
-      return {markers: [...prevState.markers, newMarker]};
-    });
-
     axios.get(`/api/marker/${latitude}/${longitude}/${tkn}`)
         .then(res => {
             console.log("MARKER PLACED ON: ")
             console.log(res.data.place_name);
-            // return res.json()
+            newMarker.placeName = res.data.place_name
+            console.log("New Marker: ")
+            console.log(newMarker)
          })
+         .then(this.setState((prevState) => {
+           return {markers: [...prevState.markers, newMarker]};
+         }));
   }
 
   clearMap() {
     this.setState({markers: []})
   }
-
-  clearMarkersFromState() {
-    // this.setState({markers: []})
-  }
-
 
   render () {
     return (
@@ -58,9 +60,10 @@ export default class Main extends Component {
         <Map markers={this.state.markers}
              addMarker={this.addMarker}
              clearMap={this.clearMap}
-             clearMarkersFromState={this.clearMarkersFromState}
         />
-        <Footer toggleSidebar={this.toggleSidebar} clearMap={this.clearMap} />
+        <Footer saveMap={this.saveMap}
+                toggleSidebar={this.toggleSidebar}
+                clearMap={this.clearMap} />
         <Sidebar active={this.state.sidebarActive} />
       </div>
     );
