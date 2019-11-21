@@ -76,7 +76,6 @@ export default class Map extends Component {
 }
 
 
-
 // ***** NOTES *****
 
 // *** GEOJSON: ***
