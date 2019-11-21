@@ -3,16 +3,27 @@ import { Link } from 'react-router-dom';
 
 const Sidebar = props => {
   let sidebarClasses = props.active ? 'sidebar active notMain' : 'sidebar notMain';
+  // let markers = { props };
+  console.log("SIDEBAR PROPS")
+  console.log(props)
 
   return (
     <div className={sidebarClasses}>
       <ul>
         <h4>
-          <p>Trip Name</p>
+          <p>Map Title</p>
         </h4>
-        <h4>
-          <p>Pins</p>
-        </h4>
+        <div className="itinerary">
+          <ol>
+          {
+            props.markers.map((marker, index) => {
+              return (
+                <li key={index}>{ marker.placeName }</li>
+              );
+            })
+          }
+          </ol>
+        </div>
       </ul>
     </div>
   );
