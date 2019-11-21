@@ -61,14 +61,16 @@ ul {
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   right: 0;
   top: 0;
   z-index: 2;
-  padding: 0 !important;
+  padding: 0;
   background: rgba(255, 255, 255, 0.95);
   height: 100vh;
-  width: 22vw;
+  width: 25vw;
   overflow-y: auto;
   transform: translateX(100%);
   transition: transform 0.5s ease-out;
@@ -79,8 +81,17 @@ ul {
 }
 
 .sidebar ul {
-  padding-top: 50px;
-  padding-left: 0;
+  padding: 0;
+  margin: 40px 30px 20px 30px;
+}
+
+.sidebar ol {
+  padding: 0;
+  margin: 40px 30px 20px 30px;
+}
+
+.sidebar li {
+  padding: 6px 0px;
 }
 
 .heading {
