@@ -38,11 +38,11 @@ export default class Main extends Component {
 
     axios.get(`/api/marker/${latitude}/${longitude}/${tkn}`)
         .then(res => {
-            console.log("MARKER PLACED ON: ")
-            console.log(res.data.place_name);
+            // console.log("MARKER PLACED ON: ")
+            // console.log(res.data.place_name);
             newMarker.placeName = res.data.place_name
-            console.log("New Marker: ")
-            console.log(newMarker)
+            // console.log("New Marker: ")
+            // console.log(newMarker)
          })
          .then(this.setState((prevState) => {
            return {markers: [...prevState.markers, newMarker]};
@@ -50,7 +50,10 @@ export default class Main extends Component {
   }
 
   clearMap() {
-    this.setState({markers: []})
+    this.setState({
+      sidebarActive: false,
+      markers: []
+    })
   }
 
   render () {
@@ -64,7 +67,9 @@ export default class Main extends Component {
         <Footer saveMap={this.saveMap}
                 toggleSidebar={this.toggleSidebar}
                 clearMap={this.clearMap} />
-        <Sidebar active={this.state.sidebarActive} />
+        <Sidebar active={this.state.sidebarActive}
+                 markers={this.state.markers}
+        />
       </div>
     );
   }
