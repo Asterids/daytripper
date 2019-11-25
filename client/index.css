@@ -39,6 +39,8 @@ ul {
 
 .footer {
   position: fixed;
+  display: flex;
+  justify-content: center;
   left: 0;
   bottom: 0;
   padding: 0 !important;
@@ -57,7 +59,7 @@ ul {
 }
 
 .footer ul li {
-  padding: 0 20px;
+  padding: 0 15px;
 }
 
 .sidebar {
@@ -131,14 +133,21 @@ a {
 }
 
 button {
-  color: #494949;
+  color: #aeb6bf;
   font-size: 1em;
+  font-weight: bold;
   text-decoration: none;
-  background: #ffffff;
-  border: 3px solid #52b380;
+  background: #182229;
+  /* border: #abebc6; */
+  border: #182229;
   padding: 5px;
   border-radius: 3px;
   transition: all 0.4s ease 0s;
+}
+
+button:focus {
+  outline: none;
+  /* border: 2px solid white; */
 }
 
 button:hover {
