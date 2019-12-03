@@ -11,7 +11,8 @@ export default class Main extends Component {
 
     this.state =  {
       sidebarActive: false,
-      markers: []
+      markers: [],
+      isSaveMap: false
     };
 
     this.saveMap = this.saveMap.bind(this);
@@ -22,7 +23,8 @@ export default class Main extends Component {
 
   saveMap() {
     this.setState({
-      sidebarActive: true
+      sidebarActive: true,
+      isSaveMap: true
     })
   }
 
@@ -66,6 +68,7 @@ export default class Main extends Component {
         />
         <Sidebar active={this.state.sidebarActive}
                  markers={this.state.markers}
+                 isSaveMap={this.state.isSaveMap}
         />
       </div>
     );
