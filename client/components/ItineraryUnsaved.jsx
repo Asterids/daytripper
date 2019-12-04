@@ -11,9 +11,9 @@ const ItineraryUnsaved = props => {
         minlength="4" maxlength="200" size="30" placeholder="Give this itinerary a name..." />
         <div className="itinerary">
           <ol>
-            {props.markers.map((marker, index) => {
+            {props.markers.map((marker) => {
                 return (
-                  <li key={index}>{ marker.placeName }<button className="remove"> x </button></li>
+                  <li key={marker.id}>{marker.placeName}<button className="remove" onClick={()=>props.removeMarker(marker)}> x </button></li>
                 )
             })}
           </ol>
