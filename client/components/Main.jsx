@@ -19,12 +19,20 @@ export default class Main extends Component {
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.addMarker = this.addMarker.bind(this);
     this.clearMap = this.clearMap.bind(this);
+    this.toggleSaved = this.toggleSaved.bind(this);
   }
 
   saveMap() {
     this.setState({
       sidebarActive: true,
       isSaveMap: true
+    })
+    console.log(this.state.isSaveMap)
+  }
+
+  toggleSaved() {
+    this.setState({
+      isSaveMap: !this.state.isSaveMap
     })
   }
 
@@ -69,6 +77,7 @@ export default class Main extends Component {
         <Sidebar active={this.state.sidebarActive}
                  markers={this.state.markers}
                  isSaveMap={this.state.isSaveMap}
+                 toggleSaved={this.toggleSaved}
         />
       </div>
     );

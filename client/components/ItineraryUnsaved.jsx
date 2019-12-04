@@ -13,11 +13,11 @@ const ItineraryUnsaved = props => {
           <ol>
             {props.markers.map((marker, index) => {
                 return (
-                  <li key={index}>{ marker.placeName }</li>
+                  <li key={index}>{ marker.placeName }<button className="remove"> x </button></li>
                 )
             })}
           </ol>
-          <button className="saveMap">Save</button>
+          <button className="saveMap" onClick={props.toggleSaved}>Save</button>
         </div>
       </ul>
     </div>
