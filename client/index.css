@@ -85,7 +85,7 @@ ul {
   transform: translateX(0);
 }
 
-.sidebar ul, ol {
+.sidebar ul {
   padding: 0;
   margin: 40px 30px 20px 30px;
 }

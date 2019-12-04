@@ -38,12 +38,16 @@ export default class Map extends Component {
     //   })
     // }
 
+    let counter = 0;
+
     mapInstance.on('click', function(e) {
       console.log(e.lngLat.lat + ", " + e.lngLat.lng)
 
       let newMarker = new MapboxGl.Marker()
         .setLngLat([e.lngLat.lng, e.lngLat.lat])
         .addTo(mapInstance)
+      newMarker.id = counter;
+      counter++;
 
       addMarker(newMarker, MapboxGl.accessToken);
     });

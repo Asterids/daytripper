@@ -20,6 +20,7 @@ export default class Main extends Component {
     this.addMarker = this.addMarker.bind(this);
     this.clearMap = this.clearMap.bind(this);
     this.toggleSaved = this.toggleSaved.bind(this);
+    this.removeMarker = this.removeMarker.bind(this);
   }
 
   saveMap() {
@@ -55,6 +56,16 @@ export default class Main extends Component {
          }));
   }
 
+  removeMarker(marker) {
+    marker.remove();
+    this.setState((prevState) => {
+      return {
+        markers: [...prevState.markers.filter(elem => elem !== marker)]
+      }
+    })
+  }
+
+
   clearMap() {
     this.setState({
       sidebarActive: false,
@@ -78,6 +89,7 @@ export default class Main extends Component {
                  markers={this.state.markers}
                  isSaveMap={this.state.isSaveMap}
                  toggleSaved={this.toggleSaved}
+                 removeMarker={this.removeMarker}
         />
       </div>
     );
