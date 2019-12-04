@@ -10,12 +10,12 @@ const Sidebar = props => {
   if (isSaveMap) {
     return (
     <div className={sidebarClasses}>
-      <ItineraryUnsaved markers={props.markers} />
+      <ItineraryUnsaved markers={props.markers} toggleSaved={props.toggleSaved} />
     </div>
   )}
   return (
     <div className={sidebarClasses}>
-      <ItinerarySaved />
+      <ItinerarySaved toggleSaved={props.toggleSaved} />
     </div>
   );
 

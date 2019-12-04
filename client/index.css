@@ -156,3 +156,14 @@ button:hover {
   background: #52b380;
   transition: all 0.4s ease 0s;
 }
+
+.remove {
+  border: none;
+  background: none;
+  color: #52b380;
+}
+
+.remove:hover {
+  color: #2d4352;
+  background: none;
+}
