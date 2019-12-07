@@ -53,6 +53,7 @@ export default class Map extends Component {
     this.setState({map: mapInstance});
   }
 
+  // need to change to getDerivedStateFromProps or else prepend with UNSAFE_
   componentWillReceiveProps(props) {
     if (props.markers.length > this.state.markers.length) {
       this.setState({markers: [...props.markers]})
