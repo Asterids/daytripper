@@ -24,7 +24,7 @@ const ItineraryUnsaved = props => {
     "Springtime Trek (next year)"
   ]
 
-  let placeholderText = placeholderSamples[Math.round(Math.random() * 10)]
+  let placeholderText = placeholderSamples[Math.floor(Math.random() * (placeholderSamples.length + 1))]
 
   return (
     <div className={itineraryClasses}>
