@@ -99,6 +99,21 @@ ul {
   padding: 6px 0px;
 }
 
+.itinerary {
+  display: flex;
+  flex-direction: column;
+}
+
+#itineraryTitle {
+  width: 85%;
+  height: 28px;
+  font-size: 16px;
+}
+
+.itinerary button {
+  align-self: center;
+}
+
 .heading {
   display: flex;
   flex-direction: column;
