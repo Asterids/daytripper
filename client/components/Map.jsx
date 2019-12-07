@@ -41,8 +41,6 @@ export default class Map extends Component {
     let counter = 0;
 
     mapInstance.on('click', function(e) {
-      console.log(e.lngLat.lat + ", " + e.lngLat.lng)
-
       let newMarker = new MapboxGl.Marker()
         .setLngLat([e.lngLat.lng, e.lngLat.lat])
         .addTo(mapInstance)
@@ -51,11 +49,6 @@ export default class Map extends Component {
 
       addMarker(newMarker, MapboxGl.accessToken);
     });
-
-    // mapInstance.on('mouseout', function(e2) {
-    //   console.log(e2.target)
-      // this.state.markers.forEach(marker => marker.remove())
-    // });
 
     this.setState({map: mapInstance});
   }
