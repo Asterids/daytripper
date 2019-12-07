@@ -28,7 +28,6 @@ export default class Main extends Component {
       sidebarActive: true,
       isSaveMap: true
     })
-    console.log(this.state.isSaveMap)
   }
 
   toggleSaved() {
