@@ -28,7 +28,7 @@ export default class Map extends Component {
       style: "mapbox://styles/ruthtown/cjy1zfey01ai51cp31xzhmwnw"
     });
 
-    // *** IMPLEMENT & TEST WHEN MARKERS ARE PERSISTENT/SAVEABLE TO DB
+    // *** Implement & test when markers are persistent/saveable to DB
 
     // mapInstance.on('load', function (markers) {
     //   markers.forEach(marker => {

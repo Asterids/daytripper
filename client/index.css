@@ -70,15 +70,16 @@ ul {
   top: 0;
   z-index: 2;
   padding: 0;
+  margin: 40px 20px 0 0;
   background: rgba(229, 242, 251, 0.95);
-  border-left: 1px dashed #3e5d72;
-  height: 100vh;
+  border-radius: 5px;
+  height: 65vh;
   width: 25vw;
   overflow-y: auto;
-  transform: translateX(100%);
-  transition: transform 0.5s ease-out;
+  transform: translateX(110%);
+  transition: transform 0.3s ease-out;
   color: #182229;
-  font-family: 'Averia Libre', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 .active {
@@ -87,16 +88,16 @@ ul {
 
 .sidebar ul {
   padding: 0;
-  margin: 40px 30px 20px 30px;
+  margin: 30px 20px 5px 30px;
 }
 
 .sidebar ol {
   padding: 0;
-  margin: 40px 30px 20px 30px;
+  margin: 10px 20px 20px 20px;
 }
 
-.sidebar li {
-  padding: 6px 0px;
+.sidebar ul li {
+  padding: 0 0 8px 0;
 }
 
 .itinerary {
@@ -120,7 +121,7 @@ ul {
   align-self: center;
   justify-content: center;
   color: #d5e5f0;
-  font-family: 'Averia Libre', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 32px;
 }
 
@@ -146,12 +147,13 @@ section {
 
 a {
   color: #d5e5f0;
-  font-family: 'Averia Libre', sans-serif;
+  font-family: 'Nunito', sans-serif;
   text-decoration: none;
 }
 
 button {
   color: #aeb6bf;
+  font-family: 'Nunito', sans-serif;
   font-size: 1em;
   font-weight: bold;
   text-decoration: none;
