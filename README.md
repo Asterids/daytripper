@@ -10,7 +10,7 @@ As a user, you can add and remove map markers with a mouse-click, name & save it
 
 On loading the application, the user sees a map of the world.
 
-![alt text](./public/images/DT_OnPageLoad.png =500x "Blue map showing the whole world")
+![alt text](./public/images/DT_OnPageLoad.png "Blue map showing the whole world")
 
 
 From here, they can add and remove markers and save sets of markers as itineraries.
