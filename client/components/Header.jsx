@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// stateless functional components HAVE NO THIS!
-
 const Header = (props) => {
   return (
     <div className="header notMain">
