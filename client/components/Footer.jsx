@@ -13,16 +13,6 @@ const Footer = props => {
         </li>
         <li>
           <h4>
-            <button className="clearMarkers" onClick={props.clearMap}>Clear Markers</button>
-          </h4>
-        </li>
-        <li>
-          <h4>
-            <button className="saveMap" onClick={props.saveMap}>Save This Map</button>
-          </h4>
-        </li>
-        <li>
-          <h4>
             <button className="toggleButton" onClick={props.toggleSidebar}>My Saved Maps</button>
           </h4>
         </li>
@@ -32,3 +22,15 @@ const Footer = props => {
 };
 
 export default Footer;
+
+
+// <li>
+//   <h4>
+//     <button className="clearMarkers" onClick={props.clearMap}>Clear Markers</button>
+//   </h4>
+// </li>
+// <li>
+//   <h4>
+//     <button className="saveMap" onClick={props.saveMap}>Save This Map</button>
+//   </h4>
+// </li>

@@ -70,16 +70,27 @@ ul {
   top: 0;
   z-index: 2;
   padding: 0;
-  margin: 40px 20px 0 0;
+  margin: 103px 20px 0 0;
   background: rgba(229, 242, 251, 0.95);
   border-radius: 5px;
-  height: 65vh;
+  height: 73vh;
   width: 25vw;
   overflow-y: auto;
   transform: translateX(110%);
   transition: transform 0.3s ease-out;
   color: #182229;
   font-family: 'Nunito', sans-serif;
+}
+
+.sidebarButtons {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin: 5px;
+}
+
+.sidebarButtons button {
+  margin: inherit;
 }
 
 .active {
@@ -106,9 +117,10 @@ ul {
 }
 
 #itineraryTitle {
-  width: 85%;
+  width: 90%;
   height: 28px;
   font-size: 16px;
+  margin: 5px;
 }
 
 .itinerary button {
