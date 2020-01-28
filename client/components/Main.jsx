@@ -3,7 +3,6 @@ import Header from './Header';
 import Map from './Map';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import axios from 'axios';
 
 export default class Main extends Component {
   constructor(props) {
@@ -12,7 +11,7 @@ export default class Main extends Component {
     this.state =  {
       sidebarActive: false,
       markers: [],
-      isSaveMap: false
+      editingItinerary: false
     };
 
     this.saveMap = this.saveMap.bind(this);
@@ -26,13 +25,13 @@ export default class Main extends Component {
   saveMap() {
     this.setState({
       sidebarActive: true,
-      isSaveMap: true
+      editingItinerary: true
     })
   }
 
   toggleSaved() {
     this.setState({
-      isSaveMap: !this.state.isSaveMap
+      editingItinerary: !this.state.editingItinerary
     })
   }
 
@@ -42,18 +41,16 @@ export default class Main extends Component {
     })
   }
 
-  addMarker(newMarker, tkn) {
-    const longitude = newMarker._lngLat.lng
-    const latitude = newMarker._lngLat.lat
-
-    axios.get(`/api/marker/${latitude}/${longitude}/${tkn}`)
-        .then(res => {
-            newMarker.placeName = res.data.place_name
-         })
-         .then(this.setState((prevState) => {
-           return {markers: [...prevState.markers, newMarker]};
-         }));
+  addMarker(newMarker) {
+    this.setState((prevState) => {
+       return {
+         sidebarActive: true,
+         markers: [...prevState.markers, newMarker],
+         editingItinerary: true
+       };
+     })
   }
+
 
   removeMarker(marker) {
     marker.remove();
@@ -86,9 +83,10 @@ export default class Main extends Component {
         />
         <Sidebar active={this.state.sidebarActive}
                  markers={this.state.markers}
-                 isSaveMap={this.state.isSaveMap}
+                 editingItinerary={this.state.editingItinerary}
                  toggleSaved={this.toggleSaved}
                  removeMarker={this.removeMarker}
+                 clearMap={this.clearMap}
         />
       </div>
     );

@@ -82,6 +82,17 @@ ul {
   font-family: 'Nunito', sans-serif;
 }
 
+.sidebarButtons {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin: 5px;
+}
+
+.sidebarButtons button {
+  margin: inherit;
+}
+
 .active {
   transform: translateX(0);
 }
@@ -106,9 +117,10 @@ ul {
 }
 
 #itineraryTitle {
-  width: 85%;
+  width: 90%;
   height: 28px;
   font-size: 16px;
+  margin: 5px;
 }
 
 .itinerary button {

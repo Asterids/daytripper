@@ -29,3 +29,7 @@ const port = process.env.PORT || 5000;
 app.listen(port, function() {
   console.log(`Your server is listening on port ${port}`);
 })
+
+
+// NOTE: for tests, include the following:
+// mocha --compilers js:babel-core/register --require babel-polyfill

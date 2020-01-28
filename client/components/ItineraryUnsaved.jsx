@@ -5,26 +5,20 @@ const ItineraryUnsaved = props => {
   let itineraryClasses = props.active ? 'active' : '';
 
   const placeholderSamples = [
-    "Camino de Santiago 2020",
-    "Banana Pancake Trail",
-    "Andes Adventure, July",
-    "The Final Frontier",
-    "Northern Lights Tour 2021",
-    "World Heritage Sites",
-    "Reunion Trip 2020",
-    "Road Trip Destinations",
-    "Archaeological Sites of Interest",
-    "Cheese Tour of Europe",
-    "Cycling Abroad",
-    "EcoTrek 2020",
-    "Post-Conference Stops",
-    "Architectural Wonders",
-    "Famous Filming Locations",
-    "Art Must-Sees",
-    "Springtime Trek (next year)"
+    "Camino de Santiago 2020", "Banana Pancake Trail", "Andes Adventure, July",
+    "The Final Frontier", "Northern Lights Tour 2021", "World Heritage Sites",
+    "Reunion Trip 2020", "Road Trip Destinations", "Archaeological Sites of Interest",
+    "Cheese Tour of Europe", "Cycling Abroad", "EcoTrek 2020",
+    "Post-Conference Stops", "Architectural Wonders", "Famous Filming Locations",
+    "Art Must-Sees", "Springtime Trek (next year)"
   ]
 
-  let placeholderText = placeholderSamples[Math.floor(Math.random() * (placeholderSamples.length + 1))]
+  function generateText(dataset) {
+    const num = (1 + Math.floor(Math.random() * (dataset.length)))
+    return dataset[num-1];
+  }
+
+  let placeholderText = generateText(placeholderSamples)
 
   return (
     <div className={itineraryClasses}>
@@ -39,7 +33,10 @@ const ItineraryUnsaved = props => {
                 )
             })}
           </ol>
-          <button className="saveItinerary" onClick={props.toggleSaved}>Save</button>
+          <div className="sidebarButtons">
+            <button className="saveItinerary" onClick={props.clearMap}>Clear</button>
+            <button className="saveItinerary" onClick={props.toggleSaved}>Save</button>
+          </div>
         </div>
       </ul>
     </div>

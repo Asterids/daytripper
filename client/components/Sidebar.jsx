@@ -5,14 +5,15 @@ import ItineraryUnsaved from "./ItineraryUnsaved";
 
 const Sidebar = props => {
   let sidebarClasses = props.active ? 'sidebar active notMain' : 'sidebar notMain';
-  const isSaveMap = props.isSaveMap;
+  const editingItinerary = props.editingItinerary;
 
-  if (isSaveMap) {
+  if (editingItinerary) {
     return (
     <div className={sidebarClasses}>
       <ItineraryUnsaved markers={props.markers}
             toggleSaved={props.toggleSaved}
             removeMarker={props.removeMarker}
+            clearMap = {props.clearMap}
       />
     </div>
   )}

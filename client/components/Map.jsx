@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import MapboxGl from 'mapbox-gl/dist/mapbox-gl.js';
+import axios from 'axios';
 // import SVG from 'react-inlinesvg';
 
 // const Icon = () => <SVG src='../../public/images/marker-15.svg' />;
@@ -41,13 +42,25 @@ export default class Map extends Component {
     let counter = 0;
 
     mapInstance.on('click', function(e) {
-      let newMarker = new MapboxGl.Marker()
-        .setLngLat([e.lngLat.lng, e.lngLat.lat])
-        .addTo(mapInstance)
-      newMarker.id = counter;
-      counter++;
-
-      addMarker(newMarker, MapboxGl.accessToken);
+      axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
+          .then(res => {
+              return res.data.place_name
+           })
+           .then(result => {
+             let newMarker = new MapboxGl.Marker()
+               .setLngLat([e.lngLat.lng, e.lngLat.lat])
+               .addTo(mapInstance)
+             newMarker.id = counter;
+             newMarker.placeName = result
+             counter++;
+             return newMarker
+           })
+           .then(mrkr => {
+             addMarker(mrkr)
+           })
+          .catch(function(error) {
+            console.error(error);
+          });
     });
 
     this.setState({map: mapInstance});
