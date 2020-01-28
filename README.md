@@ -16,9 +16,9 @@ This project is built using Node, React, and [MapboxGL](https://docs.mapbox.com/
 
 On loading the application, the user sees a map of the world.
 
-![alt text](./public/images/DT_OnPageLoad.png "Blue map showing the whole world")
+![alt text](./public/images/DT_LoadView.png "Blue map showing the whole world")
 
 
 From here they can zoom & explore, add and remove markers, and save sets of markers as itineraries. Once saved, the user can view or edit their itineraries.
 
-![alt text](./public/images/DT_CreateItinerary.png "Blue map zoomed in on Spain with 4 markers, and a sidebar showing an editable list of the markers with corresponding place names")
+![alt text](./public/images/DT_SaveList.png "Blue map zoomed in on Spain with 4 markers, and a sidebar showing an editable list of the markers with corresponding place names")
