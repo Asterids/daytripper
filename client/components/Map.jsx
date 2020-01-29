@@ -53,7 +53,8 @@ export default class Map extends Component {
                .setLngLat([e.lngLat.lng, e.lngLat.lat])
                .addTo(mapInstance)
              newMarker.id = counter;
-             newMarker.placeName = result
+             newMarker.placeName = result;
+             newMarker.notes = '';
              counter++;
              return newMarker
            })

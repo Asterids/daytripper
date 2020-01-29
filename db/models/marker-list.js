@@ -7,6 +7,10 @@ const MarkerList = db.define('marker-list', {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true
+  },
+  notes: {
+    type: Sequelize.TEXT,
+    allowNull: true
   }
 }, {
   scopes: {
