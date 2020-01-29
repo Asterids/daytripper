@@ -36,6 +36,8 @@ export default class Map extends Component {
     //     let existingMarker = new MapboxGl.Marker()
     //       .setLngLat(marker._lngLat.lng, marker._lngLat.lat)
     //       .addTo(mapInstance)
+    //
+    //     addMarker(existingMarker)
     //   })
     // }
 
