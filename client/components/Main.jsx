@@ -20,24 +20,34 @@ export default class Main extends Component {
     this.clearMap = this.clearMap.bind(this);
     this.toggleSaved = this.toggleSaved.bind(this);
     this.removeMarker = this.removeMarker.bind(this);
+    this.openSaved = this.openSaved.bind(this);
   }
 
+// placeholder for saving a given itinerary -
+// needs logic to save the markers in state to the session store
   saveMap() {
-    this.setState({
-      sidebarActive: true,
-      editingItinerary: true
-    })
+    this.setState({})
   }
 
+// toggles between saved (read-only) and unsaved (editable) itinerary components in sidebar
   toggleSaved() {
     this.setState({
       editingItinerary: !this.state.editingItinerary
     })
   }
 
+// toggles sidebar 'active' class
   toggleSidebar() {
     this.setState({
       sidebarActive: !this.state.sidebarActive
+    })
+  }
+
+// opens the sidebar with the saved (read-only) view
+  openSaved() {
+    this.setState({
+      sidebarActive: true,
+      editingItinerary: false
     })
   }
 
@@ -51,7 +61,6 @@ export default class Main extends Component {
      })
   }
 
-
   removeMarker(marker) {
     marker.remove();
     this.setState((prevState) => {
@@ -60,7 +69,6 @@ export default class Main extends Component {
       }
     })
   }
-
 
   clearMap() {
     this.setState({
@@ -75,18 +83,15 @@ export default class Main extends Component {
         <Header />
         <Map markers={this.state.markers}
              addMarker={this.addMarker}
-             clearMap={this.clearMap}
         />
-        <Footer saveMap={this.saveMap}
-                toggleSidebar={this.toggleSidebar}
-                clearMap={this.clearMap}
-        />
+        <Footer openSaved={this.openSaved} />
         <Sidebar active={this.state.sidebarActive}
                  markers={this.state.markers}
                  editingItinerary={this.state.editingItinerary}
                  toggleSaved={this.toggleSaved}
                  removeMarker={this.removeMarker}
                  clearMap={this.clearMap}
+                 saveMap={this.saveMap}
         />
       </div>
     );

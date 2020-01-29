@@ -13,7 +13,7 @@ const Footer = props => {
         </li>
         <li>
           <h4>
-            <button className="toggleButton" onClick={props.toggleSidebar}>My Saved Maps</button>
+            <button className="toggleButton" onClick={props.openSaved}>My Saved Maps</button>
           </h4>
         </li>
       </ul>

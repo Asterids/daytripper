@@ -14,6 +14,7 @@ const Sidebar = props => {
             toggleSaved={props.toggleSaved}
             removeMarker={props.removeMarker}
             clearMap = {props.clearMap}
+            saveMap = {props.saveMap}
       />
     </div>
   )}
