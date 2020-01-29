@@ -12,6 +12,18 @@ const Marker = db.define('marker', {
   placeName: {
     type: Sequelize.TEXT,
     allowNull: false
+  },
+  latitude: {
+    type: Sequelize.DECIMAL(14),
+    allowNull: false
+  },
+  longitude: {
+    type: Sequelize.DECIMAL(14),
+    allowNull: false
+  },
+  notes: {
+    type: Sequelize.TEXT,
+    allowNull: true
   }
 }, {
   scopes: {

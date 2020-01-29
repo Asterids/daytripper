@@ -5,13 +5,13 @@ const MarkerList = require('./marker-list');
 const Marker = require('./marker');
 
 MarkerList.hasMany(Marker, {
-  foreignKey: 'marker_id',
+  foreignKey: 'id',
   onDelete: 'cascade',  // remove all associated markers
   hooks: true // makes the cascade actually work
 })
 
 User.hasMany(MarkerList, {
-  foreignKey: 'list_id',
+  foreignKey: 'id',
   onDelete: 'cascade',
   hooks: true
 });

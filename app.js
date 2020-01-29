@@ -28,11 +28,8 @@ app.use(function (err, req, res, next) {
 });
 
 const port = process.env.PORT || 5000;
-// app.listen(port, function() {
-//   console.log(`Your server is listening on port ${port}`);
-// })
 
-models.db.sync()
+models.db.sync({force: true})
   .then(() => {
     console.log('The postgres server is up and running!');
 		app.listen(port, (err) => {
@@ -41,7 +38,3 @@ models.db.sync()
 	  })
 	})
 	.catch(console.error)
-
-
-// NOTE: for tests, include the following:
-// mocha --compilers js:babel-core/register --require babel-polyfill
