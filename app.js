@@ -1,6 +1,8 @@
 const path = require('path');
 const express = require('express');
 const app = express();
+const pg = require('pg');
+const models = require('./db/models');
 
 const morgan = require('morgan');
 app.use(morgan('dev'));
@@ -26,9 +28,19 @@ app.use(function (err, req, res, next) {
 });
 
 const port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log(`Your server is listening on port ${port}`);
-})
+// app.listen(port, function() {
+//   console.log(`Your server is listening on port ${port}`);
+// })
+
+models.db.sync()
+  .then(() => {
+    console.log('The postgres server is up and running!');
+		app.listen(port, (err) => {
+		  if (err) throw err;
+		  console.log(`Your server is listening on port ${port}`);
+	  })
+	})
+	.catch(console.error)
 
 
 // NOTE: for tests, include the following:
