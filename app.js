@@ -50,3 +50,6 @@ models.db.sync()
     });
   })
   .catch(console.error);
+
+
+module.exports = app;
