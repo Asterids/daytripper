@@ -10,7 +10,7 @@ As a user, you can add and remove map markers with a mouse-click, name & save it
 
 ### React + MapboxGL
 
-This project is built using Node, React, Sequelize/Postgres, and [MapboxGL](https://docs.mapbox.com/mapbox-gl-js/api/).
+This project is built using Node, Express, Sequelize/Postgres, React, and [MapboxGL](https://docs.mapbox.com/mapbox-gl-js/api/).
 
 ## Map & User Interface
 
