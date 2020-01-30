@@ -4,7 +4,7 @@ const db = require('../_db');
 
 
 const Marker = db.define('marker', {
-  marker_id: {
+  markerOrder: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
@@ -13,11 +13,11 @@ const Marker = db.define('marker', {
     allowNull: false,
   },
   latitude: {
-    type: Sequelize.DECIMAL(15),
+    type: Sequelize.FLOAT(15),
     allowNull: false,
   },
   longitude: {
-    type: Sequelize.DECIMAL(15),
+    type: Sequelize.FLOAT(15),
     allowNull: false,
   },
   notes: {

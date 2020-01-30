@@ -1,23 +1,24 @@
 const db = require('../_db');
 
 const User = require('./user');
-const MarkerList = require('./marker-list');
+const MarkerList = require('./markerList');
 const Marker = require('./marker');
 
-MarkerList.hasMany(Marker, {
-  foreignKey: 'id',
-  onDelete: 'cascade', // remove all associated markers
-  hooks: true, // makes the cascade actually work
-});
 
-User.hasMany(MarkerList, {
-  foreignKey: 'id',
+Marker.belongsTo(MarkerList, {
+  as: 'parentList', // creates the "parentListId" FK in Marker
+  targetKey: 'id',
   onDelete: 'cascade',
   hooks: true,
 });
 
-Marker.belongsTo(MarkerList, { as: 'parentList' }); // creates the "parentListId" FK in Marker
-MarkerList.belongsTo(User, { as: 'owner' }); // creates the `ownerId` FK in MarkerList
+MarkerList.belongsTo(User, {
+  as: 'owner', // creates the `ownerId` FK in MarkerList
+  targetKey: 'id',
+  onDelete: 'cascade',
+  hooks: true,
+});
+
 
 module.exports = {
   db,
