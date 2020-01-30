@@ -13,11 +13,11 @@ const Marker = db.define('marker', {
     allowNull: false,
   },
   latitude: {
-    type: Sequelize.FLOAT(15),
+    type: Sequelize.FLOAT,
     allowNull: false,
   },
   longitude: {
-    type: Sequelize.FLOAT(15),
+    type: Sequelize.FLOAT,
     allowNull: false,
   },
   notes: {
