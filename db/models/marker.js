@@ -2,38 +2,37 @@ const Sequelize = require('sequelize');
 
 const db = require('../_db');
 
+
 const Marker = db.define('marker', {
-  id: {
+  marker_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    unique: true,
-    primaryKey: true
   },
   placeName: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: false,
   },
   latitude: {
-    type: Sequelize.DECIMAL(14),
-    allowNull: false
+    type: Sequelize.DECIMAL(15),
+    allowNull: false,
   },
   longitude: {
-    type: Sequelize.DECIMAL(14),
-    allowNull: false
+    type: Sequelize.DECIMAL(15),
+    allowNull: false,
   },
   notes: {
     type: Sequelize.TEXT,
-    allowNull: true
-  }
+    allowNull: true,
+  },
 }, {
   scopes: {
     populated: () => ({
       include: [{
         model: db.model('marker-list'),
-        as: 'parentList'
-      }]
-    })
-  }
+        as: 'parentList',
+      }],
+    }),
+  },
 });
 
 module.exports = Marker;

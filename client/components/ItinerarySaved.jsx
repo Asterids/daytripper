@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ItinerarySaved = props => {
-  let itineraryClasses = props.active ? 'active' : '';
+const ItinerarySaved = (props) => {
+  const itineraryClasses = props.active ? 'active' : '';
 
   return (
     <div className={itineraryClasses}>
