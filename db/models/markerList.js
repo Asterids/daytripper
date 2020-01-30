@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 const db = require('../_db');
 
-const MarkerList = db.define('marker-list', {
+const MarkerList = db.define('markerList', {
   title: {
     type: Sequelize.STRING,
     allowNull: false,
