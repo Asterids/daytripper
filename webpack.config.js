@@ -3,7 +3,7 @@ module.exports = {
   mode: 'development',
   output: {
     path: __dirname + '/public',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   devtool: 'source-maps',
   module: {
@@ -12,11 +12,11 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-            loader: 'babel-loader',
-            options: {
-                presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -27,26 +27,26 @@ module.exports = {
         ],
       },
       {
-          test: /\.svg$/,
-          use: [
-            {
-              loader: 'svg-inline-loader'
-            },
-          ],
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-inline-loader',
+          },
+        ],
       },
       {
         test: /\.css$/,
         use: [
           'style-loader',
           'css-loader',
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
   },
   node: {
-    fs: 'empty'
-  }
-}
+    fs: 'empty',
+  },
+};

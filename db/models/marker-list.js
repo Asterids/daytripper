@@ -6,21 +6,21 @@ const MarkerList = db.define('marker-list', {
   title: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
   },
   notes: {
     type: Sequelize.TEXT,
-    allowNull: true
-  }
+    allowNull: true,
+  },
 }, {
   scopes: {
     populated: () => ({
       include: [{
         model: db.model('user'),
-        as: 'owner'
-      }]
-    })
-  }
+        as: 'owner',
+      }],
+    }),
+  },
 });
 
 module.exports = MarkerList;

@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router-dom';
-import MapboxGl from 'mapbox-gl/dist/mapbox-gl.js';
+import React, { Component } from 'react';
+// import { Link } from 'react-router-dom';
+import MapboxGl from 'mapbox-gl/dist/mapbox-gl';
 import axios from 'axios';
 // import SVG from 'react-inlinesvg';
 
@@ -11,22 +11,24 @@ export default class Map extends Component {
   constructor(props) {
     super(props);
 
+    const { markers } = this.props
+
     this.state = {
       map: {},
-      markers: this.props.markers
+      markers
     }
   }
 
   componentDidMount() {
     const { addMarker } = this.props;
 
-    MapboxGl.accessToken = "pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg";
+    MapboxGl.accessToken = 'pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg';
 
-    let mapInstance = new MapboxGl.Map({
-      container: "map",
+    const mapInstance = new MapboxGl.Map({
+      container: 'map',
       center: [4.626541, 28.582692],
       zoom: 1.5, // starting zoom
-      style: "mapbox://styles/ruthtown/cjy1zfey01ai51cp31xzhmwnw"
+      style: 'mapbox://styles/ruthtown/cjy1zfey01ai51cp31xzhmwnw',
     });
 
     // *** Implement & test when markers are persistent/saveable to DB
@@ -43,30 +45,30 @@ export default class Map extends Component {
 
     let counter = 0;
 
-    mapInstance.on('click', function(e) {
+    mapInstance.on('click', (e) => {
       axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
-          .then(res => {
-              return res.data.place_name
-           })
-           .then(result => {
-             let newMarker = new MapboxGl.Marker()
-               .setLngLat([e.lngLat.lng, e.lngLat.lat])
-               .addTo(mapInstance)
-             newMarker.id = counter;
-             newMarker.placeName = result;
-             newMarker.notes = '';
-             counter++;
-             return newMarker
-           })
-           .then(mrkr => {
-             addMarker(mrkr)
-           })
-          .catch(function(error) {
-            console.error(error);
-          });
+        .then((res) => (
+          res.data.place_name
+        ))
+        .then((result) => {
+          const newMarker = new MapboxGl.Marker()
+            .setLngLat([e.lngLat.lng, e.lngLat.lat])
+            .addTo(mapInstance);
+          newMarker.marker_id = counter;
+          newMarker.placeName = result;
+          newMarker.notes = '';
+          counter++;
+          return newMarker;
+        })
+        .then((mrkr) => {
+          addMarker(mrkr);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     });
 
-    this.setState({map: mapInstance});
+    this.setState({ map: mapInstance });
   }
 
   // need to change to getDerivedStateFromProps or else prepend with UNSAFE_
@@ -77,15 +79,14 @@ export default class Map extends Component {
       this.state.markers.forEach(marker => {
         marker.remove();
       })
-      this.setState({markers: []})
+      this.setState({ markers: [] });
     }
   }
 
   render() {
     return (
-      <div id='map' ref={(el) => { this.container = el }}>
-      </div>
-    )
+      <div id="map" ref={(el) => { this.container = el; }} />
+    );
   }
 }
 

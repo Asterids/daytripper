@@ -8,90 +8,85 @@ export default class Main extends Component {
   constructor(props) {
     super(props);
 
-    this.state =  {
+    this.state = {
       sidebarActive: false,
       markers: [],
-      editingItinerary: false
+      editingItinerary: false,
     };
-
-    this.saveMap = this.saveMap.bind(this);
-    this.toggleSidebar = this.toggleSidebar.bind(this);
-    this.addMarker = this.addMarker.bind(this);
-    this.clearMap = this.clearMap.bind(this);
-    this.toggleSaved = this.toggleSaved.bind(this);
-    this.removeMarker = this.removeMarker.bind(this);
-    this.openSaved = this.openSaved.bind(this);
   }
 
-// placeholder for saving a given itinerary -
-// needs logic to save the markers in state to the session store
-  saveMap() {
-    this.setState({})
+  // placeholder for saving a given itinerary -
+  // needs logic to save the markers in state to the session store
+  saveMap = () => {
+    this.setState({});
   }
 
-// toggles between saved (read-only) and unsaved (editable) itinerary components in sidebar
-  toggleSaved() {
+  // toggles between saved (read-only) and unsaved (editable) itinerary components in sidebar
+  toggleSaved = () => {
+    const { editingItinerary } = this.state;
+
     this.setState({
-      editingItinerary: !this.state.editingItinerary
-    })
+      editingItinerary: !editingItinerary,
+    });
   }
 
-// toggles sidebar 'active' class
-  toggleSidebar() {
+  // toggles sidebar 'active' class
+  toggleSidebar = () => {
+    const { sidebarActive } = this.state;
+
     this.setState({
-      sidebarActive: !this.state.sidebarActive
-    })
+      sidebarActive: !sidebarActive,
+    });
   }
 
-// opens the sidebar with the saved (read-only) view
-  openSaved() {
+  // opens the sidebar with the saved (read-only) view
+  openSaved = () => {
     this.setState({
       sidebarActive: true,
-      editingItinerary: false
-    })
+      editingItinerary: false,
+    });
   }
 
-  addMarker(newMarker) {
-    this.setState((prevState) => {
-       return {
-         sidebarActive: true,
-         markers: [...prevState.markers, newMarker],
-         editingItinerary: true
-       };
-     })
+  addMarker = (newMarker) => {
+    this.setState((prevState) => ({
+      sidebarActive: true,
+      markers: [...prevState.markers, newMarker],
+      editingItinerary: true,
+    }));
   }
 
-  removeMarker(marker) {
+  removeMarker = (marker) => {
     marker.remove();
-    this.setState((prevState) => {
-      return {
-        markers: [...prevState.markers.filter(elem => elem !== marker)]
-      }
-    })
+    this.setState((prevState) => ({
+      markers: [...prevState.markers.filter((elem) => elem !== marker)],
+    }));
   }
 
-  clearMap() {
+  clearMap = () => {
     this.setState({
       sidebarActive: false,
-      markers: []
-    })
+      markers: [],
+    });
   }
 
-  render () {
+  render() {
+    const { markers, sidebarActive, editingItinerary } = this.state;
     return (
       <div id="main">
         <Header />
-        <Map markers={this.state.markers}
-             addMarker={this.addMarker}
+        <Map
+          markers={markers}
+          addMarker={this.addMarker}
         />
         <Footer openSaved={this.openSaved} />
-        <Sidebar active={this.state.sidebarActive}
-                 markers={this.state.markers}
-                 editingItinerary={this.state.editingItinerary}
-                 toggleSaved={this.toggleSaved}
-                 removeMarker={this.removeMarker}
-                 clearMap={this.clearMap}
-                 saveMap={this.saveMap}
+        <Sidebar
+          active={sidebarActive}
+          markers={markers}
+          editingItinerary={editingItinerary}
+          toggleSaved={this.toggleSaved}
+          removeMarker={this.removeMarker}
+          clearMap={this.clearMap}
+          saveMap={this.saveMap}
         />
       </div>
     );

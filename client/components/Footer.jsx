@@ -1,14 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Footer = props => {
+const Footer = (props) => {
   return (
     <div className="footer notMain">
       <ul>
         <li>
           <h4>
             Search
-            <input type="text" id="searchtext" name="searchtext" placeholder="Country, city, or zip code" required size="25"></input>
+            <input
+              type="text"
+              id="searchtext"
+              name="searchtext"
+              placeholder="Country, city, or zip code"
+              required
+              size="25"
+            />
           </h4>
         </li>
         <li>
@@ -18,7 +25,7 @@ const Footer = props => {
         </li>
       </ul>
     </div>
-  )
+  );
 };
 
 export default Footer;
