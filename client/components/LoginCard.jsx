@@ -2,11 +2,12 @@ import React from 'react';
 
 const LoginCard = (props) => {
 
-  const { loginCardActive } = props;
+  const { loginCardActive, closeLoginCard } = props;
   const loginCardClasses = loginCardActive ? 'login active' : 'login';
 
   return (
     <div className={loginCardClasses}>
+    <button type="button" className="close" onClick={closeLoginCard}>x</button>
     <h2 className="heading">Login To Save</h2>
       <div className="loginDetails">
         Username:
