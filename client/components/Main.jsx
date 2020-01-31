@@ -3,6 +3,7 @@ import Header from './Header';
 import Map from './Map';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
+import LoginCard from './LoginCard';
 
 export default class Main extends Component {
   constructor(props) {
@@ -10,8 +11,10 @@ export default class Main extends Component {
 
     this.state = {
       sidebarActive: false,
+      loginCardActive: false,
       markers: [],
       editingItinerary: false,
+      isUserOnSession: false,
     };
   }
 
@@ -37,6 +40,18 @@ export default class Main extends Component {
     this.setState({
       sidebarActive: !sidebarActive,
     });
+  }
+
+  openLoginCard = () => {
+    this.setState({
+      loginCardActive: true,
+    })
+  }
+
+  closeLoginCard = () => {
+    this.setState({
+      loginCardActive: false,
+    })
   }
 
   // opens the sidebar with the saved (read-only) view
@@ -70,7 +85,7 @@ export default class Main extends Component {
   }
 
   render() {
-    const { markers, sidebarActive, editingItinerary } = this.state;
+    const { markers, sidebarActive, editingItinerary, isUserOnSession, loginCardActive } = this.state;
     return (
       <div id="main">
         <Header />
@@ -78,7 +93,14 @@ export default class Main extends Component {
           markers={markers}
           addMarker={this.addMarker}
         />
-        <Footer openSaved={this.openSaved} />
+        <LoginCard
+          loginCardActive={loginCardActive}
+          closeLoginCard={this.closeLoginCard}
+        />
+        <Footer
+          openSaved={this.openSaved}
+          openLoginCard={this.openLoginCard}
+        />
         <Sidebar
           active={sidebarActive}
           markers={markers}
@@ -87,6 +109,8 @@ export default class Main extends Component {
           removeMarker={this.removeMarker}
           clearMap={this.clearMap}
           saveMap={this.saveMap}
+          isUserOnSession={isUserOnSession}
+          openLoginCard={this.openLoginCard}
         />
       </div>
     );

@@ -18,6 +18,9 @@ app.use(session({
   saveUninitialized: true,
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 // FOR DEBUGGING PURPOSES ONLY -- REMOVE after implementing auth
 app.use(function (req, res, next) {
   if (!req.session.counter) {

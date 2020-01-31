@@ -62,6 +62,44 @@ ul {
   padding: 0 15px;
 }
 
+.login {
+  position: relative;
+  left: 30%;
+  top: 170px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 40vw;
+  height: 50vh;
+  background: rgba(229, 242, 251, 0.95);
+  transform: translateX(180%);
+  transition: transform 0.1s ease;
+  color: #182229;
+  font-family: 'Nunito', sans-serif;
+  border: #182229 2px solid;
+  border-radius: 5px;
+}
+
+.loginDetails {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 80%;
+  margin: 20px 0 0 0;
+}
+
+.login button, input {
+  margin: 5px;
+  align-self: center;
+}
+
+.login a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 0 0 0;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -135,6 +173,11 @@ ul {
   color: #d5e5f0;
   font-family: 'Nunito', sans-serif;
   font-size: 32px;
+}
+
+.login .heading {
+  color: #182229;
+  font-size: 24px;
 }
 
 #map {
