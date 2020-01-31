@@ -5,43 +5,38 @@ import ItineraryUnsaved from "./ItineraryUnsaved";
 
 const Sidebar = props => {
   let sidebarClasses = props.active ? 'sidebar active notMain' : 'sidebar notMain';
-  const editingItinerary = props.editingItinerary;
+  const {
+    markers,
+    editingItinerary,
+    toggleSaved,
+    isUserOnSession,
+    openLoginCard,
+    removeMarker,
+    clearMap,
+    saveMap,
+  } = props;
 
   if (editingItinerary) {
     return (
     <div className={sidebarClasses}>
-      <ItineraryUnsaved markers={props.markers}
-            toggleSaved={props.toggleSaved}
-            removeMarker={props.removeMarker}
-            clearMap = {props.clearMap}
-            saveMap = {props.saveMap}
+      <ItineraryUnsaved markers={markers}
+        toggleSaved={toggleSaved}
+        removeMarker={removeMarker}
+        clearMap = {clearMap}
+        saveMap = {saveMap}
+        isUserOnSession={isUserOnSession}
+        openLoginCard={openLoginCard}
       />
     </div>
-  )}
+    )
+  }
   return (
     <div className={sidebarClasses}>
-      <ItinerarySaved toggleSaved={props.toggleSaved} />
+      <ItinerarySaved
+        toggleSaved={toggleSaved}
+      />
     </div>
   );
-
-  // return (
-  //   <div className={sidebarClasses}>
-  //     <ul>
-  //       <h4>
-  //         <p>Map Title</p>
-  //       </h4>
-  //       <div className="itinerary">
-  //         <ol>
-  //           {props.markers.map((marker, index) => {
-  //               return (
-  //                 <li key={index}>{ marker.placeName }</li>
-  //               );
-  //           })}
-  //         </ol>
-  //       </div>
-  //     </ul>
-  //   </div>
-  // );
 }
 
 export default Sidebar;

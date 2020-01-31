@@ -23,6 +23,11 @@ const Footer = (props) => {
             <button className="toggleButton" onClick={props.openSaved}>My Saved Maps</button>
           </h4>
         </li>
+        <li>
+          <h4>
+            <button className="toggleLogin" onClick={props.openLoginCard}>Login</button>
+          </h4>
+        </li>
       </ul>
     </div>
   );

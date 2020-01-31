@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ItineraryUnsaved = (props) => {
-  const itineraryClasses = props.active ? 'active' : '';
+  const { toggleSaved, active, openLoginCard, isUserOnSession, markers, removeMarker, clearMap } = props;
+  const itineraryClasses = active ? 'active' : '';
 
   const placeholderSamples = [
     'Camino de Santiago 2020', 'Banana Pancake Trail', 'Andes Adventure, July',
@@ -20,6 +21,13 @@ const ItineraryUnsaved = (props) => {
 
   const placeholderText = generateText(placeholderSamples);
 
+  const saveButtonNoUser = (
+    <button type="button" className="openLoginCard" onClick={openLoginCard}>Save</button>
+  );
+  const saveButtonWithUser = (
+    <button type="button" className="saveItinerary" onClick={toggleSaved}>Save</button>
+  );
+
   return (
     <div className={itineraryClasses}>
       <ul>
@@ -35,20 +43,28 @@ const ItineraryUnsaved = (props) => {
         />
         <div className="itinerary">
           <ol>
-            {props.markers.map((marker) => {
+            {markers.map((marker) => {
                 return (
-                  <li key={marker.id}>{marker.placeName}<button className="remove" onClick={()=>props.removeMarker(marker)}> x </button></li>
+                  <li key={marker.id}>{marker.placeName}<button className="remove" onClick={()=>removeMarker(marker)}> x </button></li>
                 )
             })}
           </ol>
           <div className="sidebarButtons">
-            <button className="saveItinerary" onClick={props.clearMap}>Clear</button>
-            <button className="saveItinerary" onClick={props.toggleSaved}>Save</button>
+            <button className="saveItinerary" onClick={clearMap}>Clear</button>
+            {isUserOnSession ? saveButtonWithUser : saveButtonNoUser}
           </div>
         </div>
       </ul>
     </div>
   );
 }
+
+// <a
+//   target="_self"
+//   href="/auth/google"
+//   className="btn btn-social btn-google">
+//   <i className="fa fa-google" />
+//   <span>{message} with Google</span>
+// </a>
 
 export default ItineraryUnsaved;
