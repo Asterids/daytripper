@@ -11,6 +11,17 @@ app.use(session({
   saveUninitialized: true,
 }));
 
+
+// FOR DEBUGGING PURPOSES ONLY -- REMOVE after implementing auth
+app.use(function (req, res, next) {
+  if (!req.session.counter) {
+    req.session.counter = 0;
+  }
+  console.log(req.session)
+  console.log('counter', ++req.session.counter);
+  next();
+});
+
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
@@ -23,6 +34,7 @@ app.use(morgan('dev'));
 
 
 app.use('/api', require('./routes'));
+app.use('/auth', require('./auth'))
 
 // Need both of the calls below to set up paths for static resource routing.
 // Without the static middleware, will see 'Unexpected token <' error when server runs
