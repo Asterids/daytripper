@@ -1,16 +1,22 @@
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const passport = require('passport');
 
 const app = express();
+const port = process.env.PORT || 5000;
+
+if (process.env.NODE_ENV !== 'production') require('./secrets');
 
 const session = require('express-session');
+const models = require('./db/models');
 
 app.use(session({
   secret: 'APintsAPoundTheWorldAround',
   resave: false,
   saveUninitialized: true,
 }));
-
 
 // FOR DEBUGGING PURPOSES ONLY -- REMOVE after implementing auth
 app.use(function (req, res, next) {
@@ -22,22 +28,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-const bodyParser = require('body-parser');
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const morgan = require('morgan');
-const models = require('./db/models');
-
 app.use(morgan('dev'));
-
-
 app.use('/api', require('./routes'));
-app.use('/auth', require('./auth'))
+app.use('/auth', require('./auth'));
 
-// Need both of the calls below to set up paths for static resource routing.
-// Without the static middleware, will see 'Unexpected token <' error when server runs
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('*', (req, res) => {
@@ -50,8 +47,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).send(err.message || 'Internal server error');
   next();
 });
-
-const port = process.env.PORT || 5000;
 
 models.db.sync()
   .then(() => {
