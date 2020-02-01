@@ -2,6 +2,34 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = (props) => {
+  const { isUserOnSession } = props;
+
+  if (isUserOnSession) {
+    return (
+      <div className="footer notMain">
+        <ul>
+          <li>
+            <h4>
+              Search
+              <input
+                type="text"
+                id="searchtext"
+                name="searchtext"
+                placeholder="Country, city, or zip code"
+                required
+                size="25"
+              />
+            </h4>
+          </li>
+          <li>
+            <h4>
+              <button className="toggleButton" onClick={props.openSaved}>My Saved Maps</button>
+            </h4>
+          </li>
+        </ul>
+      </div>
+    )
+  }
   return (
     <div className="footer notMain">
       <ul>
@@ -20,17 +48,17 @@ const Footer = (props) => {
         </li>
         <li>
           <h4>
-            <button className="toggleButton" onClick={props.openSaved}>My Saved Maps</button>
+            <button className="toggleLogin" onClick={props.openLoginCard}>Login</button>
           </h4>
         </li>
         <li>
           <h4>
-            <button className="toggleLogin" onClick={props.openLoginCard}>Login</button>
+            <button className="toggleLogin" onClick={props.openLoginCard}>Sign Up</button>
           </h4>
         </li>
       </ul>
     </div>
-  );
+  )
 };
 
 export default Footer;

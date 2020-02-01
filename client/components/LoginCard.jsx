@@ -7,8 +7,8 @@ const LoginCard = (props) => {
 
   return (
     <div className={loginCardClasses}>
-    <button type="button" className="close" onClick={closeLoginCard}>x</button>
-    <h2 className="heading">Login To Save</h2>
+      <button type="button" className="close secondaryButton" onClick={closeLoginCard}>x</button>
+      <h2 className="heading">Login</h2>
       <div className="loginDetails">
         Username:
         <input
@@ -26,15 +26,16 @@ const LoginCard = (props) => {
           required
           size="20"
         />
-        <button type="submit">Submit</button>
+        <button type="submit" id="submitLogin">Submit</button>
         <a
           target="_self"
           href="/auth/google"
           className="googleLogin"
         >
-          <button type="button">Login with Google</button>
+          <button type="button" className="secondaryButton">Login with Google</button>
         </a>
       </div>
+      <p>Don't have an account? <a href="" className="greenLink">Sign up</a> to save your itineraries!</p>
     </div>
   );
 };

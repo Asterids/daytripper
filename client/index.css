@@ -16,8 +16,37 @@ main {
   align-items: center;
 }
 
+.introText {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 110px;
+  left: 210px;
+  width: 68vw;
+  height: 12vh;
+  background: rgba(229, 242, 251, 0.95);
+  border: #182229 2px solid;
+  border-radius: 5px;
+  z-index: 4;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+}
+
+h3 {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
 input {
   margin-left: 12px;
+  width: 140px;
+  height: 30px;
+  border-style: hidden;
+  border: 1px #adbbc4 solid;
+  border-radius: 2px;
+  font-family:  'Nunito', sans-serif;
+  font-size: 16px;
 }
 
 ul {
@@ -70,7 +99,7 @@ ul {
   align-items: center;
   flex-direction: column;
   width: 40vw;
-  height: 50vh;
+  height: 55vh;
   background: rgba(229, 242, 251, 0.95);
   transform: translateX(180%);
   transition: transform 0.1s ease;
@@ -86,7 +115,11 @@ ul {
   flex-direction: column;
   width: 40%;
   height: 80%;
-  margin: 20px 0 0 0;
+  margin-top: 10px;
+}
+
+#submitLogin {
+  margin-top: 15px;
 }
 
 .login button, input {
@@ -94,11 +127,20 @@ ul {
   align-self: center;
 }
 
-.login a {
+.login p {
+  padding: 5px 0 12px 0;
+  align-self: center;
+}
+
+.googleLogin {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 40px 0 0 0;
+  margin-top: 30px;
+}
+
+.greenLink {
+  color: #52b380;
 }
 
 .close {
@@ -106,6 +148,9 @@ ul {
   top: 5px;
   right: 5px;
   padding: 3px 9px;
+}
+
+.secondaryButton {
   background: rgba(229, 242, 251, 0.95);
   color: #182229;
   border: #182229 1px solid;

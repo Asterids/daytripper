@@ -22,7 +22,7 @@ const ItineraryUnsaved = (props) => {
   const placeholderText = generateText(placeholderSamples);
 
   const saveButtonNoUser = (
-    <button type="button" className="openLoginCard" onClick={openLoginCard}>Save</button>
+    <button type="button" className="openLoginCard" onClick={openLoginCard}>Login to Save</button>
   );
   const saveButtonWithUser = (
     <button type="button" className="saveItinerary" onClick={toggleSaved}>Save</button>
@@ -58,13 +58,5 @@ const ItineraryUnsaved = (props) => {
     </div>
   );
 }
-
-// <a
-//   target="_self"
-//   href="/auth/google"
-//   className="btn btn-social btn-google">
-//   <i className="fa fa-google" />
-//   <span>{message} with Google</span>
-// </a>
 
 export default ItineraryUnsaved;

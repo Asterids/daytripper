@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
+import IntroCard from './IntroCard';
 import Map from './Map';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
@@ -89,6 +90,7 @@ export default class Main extends Component {
     return (
       <div id="main">
         <Header />
+        <IntroCard />
         <Map
           markers={markers}
           addMarker={this.addMarker}
@@ -98,6 +100,7 @@ export default class Main extends Component {
           closeLoginCard={this.closeLoginCard}
         />
         <Footer
+          isUserOnSession={isUserOnSession}
           openSaved={this.openSaved}
           openLoginCard={this.openLoginCard}
         />
