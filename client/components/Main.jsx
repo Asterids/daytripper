@@ -13,6 +13,7 @@ export default class Main extends Component {
     this.state = {
       sidebarActive: false,
       loginCardActive: false,
+      introCardActive: false,
       markers: [],
       editingItinerary: false,
       isUserOnSession: false,
@@ -43,16 +44,24 @@ export default class Main extends Component {
     });
   }
 
+  toggleIntroCard = () => {
+    const { introCardActive } = this.state;
+
+    this.setState({
+      introCardActive: !introCardActive,
+    });
+  }
+
   openLoginCard = () => {
     this.setState({
       loginCardActive: true,
-    })
+    });
   }
 
   closeLoginCard = () => {
     this.setState({
       loginCardActive: false,
-    })
+    });
   }
 
   // opens the sidebar with the saved (read-only) view
@@ -86,11 +95,22 @@ export default class Main extends Component {
   }
 
   render() {
-    const { markers, sidebarActive, editingItinerary, isUserOnSession, loginCardActive } = this.state;
+    const {
+      markers,
+      sidebarActive,
+      editingItinerary,
+      introCardActive,
+      isUserOnSession,
+      loginCardActive,
+    } = this.state;
+
     return (
       <div id="main">
-        <Header />
-        <IntroCard />
+        <Header toggleIntroCard={this.toggleIntroCard} />
+        <IntroCard
+          introCardActive={introCardActive}
+          toggleIntroCard={this.toggleIntroCard}
+        />
         <Map
           markers={markers}
           addMarker={this.addMarker}
