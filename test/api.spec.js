@@ -3,7 +3,7 @@ const request = require('supertest');
 
 const app = require('../app');
 
-// If cookies needed:
+// If cookies are needed:
 // const agent = request.agent(app);
 
 describe('GET /', () => {
