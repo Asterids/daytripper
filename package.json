@@ -4,7 +4,7 @@
   "description": "A web app for plotting new adventures",
   "main": "app.js",
   "scripts": {
-    "test": "NODE_ENV='test' mocha -w ./test/*.spec.js",
+    "test": "NODE_ENV='test' mocha ./test/*.spec.js",
     "start": "node app.js",
     "start-dev": "webpack -w & nodemon app.js",
     "seed": "node seed"

@@ -5,7 +5,7 @@ import axios from 'axios';
 // import SVG from 'react-inlinesvg';
 
 // const Icon = () => <SVG src='../../public/images/marker-15.svg' />;
-
+const token = require('../../secrets')
 
 export default class Map extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class Map extends Component {
   componentDidMount() {
     const { addMarker } = this.props;
 
-    MapboxGl.accessToken = 'pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2sybDBzd2VvMDI2cjNvcG43YzdxZHptcyJ9.39XFWCL8XvT7UqVK7M8BLg';
+    MapboxGl.accessToken = token;
 
     const mapInstance = new MapboxGl.Map({
       container: 'map',

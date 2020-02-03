@@ -22,14 +22,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // FOR DEBUGGING PURPOSES ONLY -- REMOVE after implementing auth
-app.use(function (req, res, next) {
-  if (!req.session.counter) {
-    req.session.counter = 0;
-  }
-  console.log(req.session)
-  console.log('counter', ++req.session.counter);
-  next();
-});
+// app.use(function (req, res, next) {
+//   if (!req.session.counter) {
+//     req.session.counter = 0;
+//   }
+//   console.log(req.session)
+//   console.log('counter', ++req.session.counter);
+//   next();
+// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
