@@ -1,76 +1,71 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
+// Child Components
+const Search = (props) => (
+  <h4>
+    Search
+    <input
+      type="text"
+      id="searchtext"
+      name="searchtext"
+      placeholder="Country, city, or zip code"
+      required
+      size="25"
+    />
+  </h4>
+);
+
+const LoginButton = (props) => (
+  <button type="button" className="toggleLogin" onClick={props.openLogin}>
+    Login
+  </button>
+);
+
+const SignupButton = (props) => (
+  <button type="button" className="toggleLogin" onClick={props.openSignup}>
+    Sign Up
+  </button>
+);
+
+const MyMapsButton = (props) => (
+  <button type="button" className="toggleButton" onClick={props.openSaved}>
+    My Saved Maps
+  </button>
+);
+
+const LogoutButton = (props) => (
+  <button type="button" className="logout" onClick={() => {}}>
+    Logout
+  </button>
+);
+
+// Main Footer Component
 const Footer = (props) => {
-  const { isUserOnSession } = props;
+  const { isUserOnSession, openSaved, openLoginCard } = props;
 
-  if (isUserOnSession) {
-    return (
-      <div className="footer notMain">
-        <ul>
-          <li>
-            <h4>
-              Search
-              <input
-                type="text"
-                id="searchtext"
-                name="searchtext"
-                placeholder="Country, city, or zip code"
-                required
-                size="25"
-              />
-            </h4>
-          </li>
-          <li>
-            <h4>
-              <button className="toggleButton" onClick={props.openSaved}>My Saved Maps</button>
-            </h4>
-          </li>
-        </ul>
-      </div>
-    )
-  }
   return (
     <div className="footer notMain">
       <ul>
         <li>
+          <Search />
+        </li>
+        <li>
           <h4>
-            Search
-            <input
-              type="text"
-              id="searchtext"
-              name="searchtext"
-              placeholder="Country, city, or zip code"
-              required
-              size="25"
-            />
+            {
+              isUserOnSession ? <MyMapsButton openSaved={openSaved} /> : <LoginButton openLogin={openLoginCard} />
+            }
           </h4>
         </li>
         <li>
           <h4>
-            <button className="toggleLogin" onClick={props.openLoginCard}>Login</button>
-          </h4>
-        </li>
-        <li>
-          <h4>
-            <button className="toggleLogin" onClick={props.openLoginCard}>Sign Up</button>
+            {
+              isUserOnSession ? <LogoutButton /> : <SignupButton openSignup={openLoginCard} />
+            }
           </h4>
         </li>
       </ul>
     </div>
-  )
+  );
 };
 
 export default Footer;
-
-
-// <li>
-//   <h4>
-//     <button className="clearMarkers" onClick={props.clearMap}>Clear Markers</button>
-//   </h4>
-// </li>
-// <li>
-//   <h4>
-//     <button className="saveMap" onClick={props.saveMap}>Save This Map</button>
-//   </h4>
-// </li>
