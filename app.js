@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 if (process.env.NODE_ENV !== 'production') require('./secrets');
 
 const session = require('express-session');
-const models = require('./db/models');
+const { db, User } = require('./db/models');
 
 app.use(session({
   secret: 'APintsAPoundTheWorldAround',
@@ -19,15 +19,20 @@ app.use(session({
 }));
 
 app.use(passport.initialize());
+
+passport.serializeUser((user, done) => done(null, user.id));
+
+passport.deserializeUser((userId, done) => {
+  User.findByPk(userId)
+    .then((user) => done(null, user))
+    .catch(done);
+});
+
 app.use(passport.session());
 
-// FOR DEBUGGING PURPOSES ONLY -- REMOVE after implementing auth
-// app.use(function (req, res, next) {
-//   if (!req.session.counter) {
-//     req.session.counter = 0;
-//   }
-//   console.log(req.session)
-//   console.log('counter', ++req.session.counter);
+// FOR DEBUGGING PURPOSES ONLY
+// app.use((req, res, next) => {
+//   console.log("Session REQ.USER:", req.user)
 //   next();
 // });
 
@@ -51,7 +56,7 @@ app.use((err, req, res, next) => {
   next();
 });
 
-models.db.sync()
+db.sync()
   .then(() => {
     console.log('The postgres server is up and running!');
     app.listen(port, (err) => {

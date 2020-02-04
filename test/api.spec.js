@@ -3,7 +3,7 @@ const request = require('supertest');
 
 const app = require('../app');
 // const agent = request.agent(app);
-const token = require('../secrets');
+const { mapboxAPIKey } = require('../secrets');
 
 describe('GET /', () => {
   it('On load, app responds with status code 200', (done) => {
@@ -20,7 +20,7 @@ describe('GET /api/marker/:lat/:lng/:token', () => {
 
   it('On add marker, object is returned containing the corresponding place name', (done) => {
     request(app)
-      .get(`/api/marker/${lat}/${lng}/${token}`)
+      .get(`/api/marker/${lat}/${lng}/${mapboxAPIKey}`)
       .expect('Content-Type', /json/)
       .expect(200)
       .expect((res) => {

@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const axios = require('axios');
-const token = require('../secrets')
+const { mapboxAPIKey } = require('../secrets')
 
 router.get('/:lat/:long/:token', async(req, res, next) =>{
   try {
     const { lat, long } = req.params;
-    const { data } = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.json?access_token=${token}&language=en`);
+    const { data } = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.json?access_token=${mapboxAPIKey}&language=en`);
     const cityObj = data.features.find((elem) => {
       return (
         (elem.place_type.includes('region') && elem.place_type.includes('place'))

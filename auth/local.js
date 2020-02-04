@@ -14,33 +14,31 @@ const { User } = require('../db/models')
 // })
 
 router.post('/login', (req, res, next) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   User.findOne({
     where:
-    { email, password },
+    { username, password },
   })
     .then((user) => {
       if (!user) {
         console.log('That user does not exist'); // replace with thrown error
       } else {
-        req.session.userId = user.id;
-        res.end();
-        // req.login(user, (err) => {
-        //   if (err) { return next(err) }
-        //   return res.json(user);
-        // })
+        req.login(user, (err) => {
+          if (err) { return next(err); }
+          res.end();
+        })
       }
     })
     .catch(next);
 });
+
 
 // router.get('/me', (req, res, next) => {
 //   res.json(req.user);
 // })
 
 router.delete('/logout', (req, res, next) => {
-  req.session.destroy();
-  // req.logout();
+  req.logout();
   res.sendStatus(204);
 });
 

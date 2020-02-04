@@ -5,7 +5,7 @@ import axios from 'axios';
 // import SVG from 'react-inlinesvg';
 
 // const Icon = () => <SVG src='../../public/images/marker-15.svg' />;
-const token = require('../../secrets')
+const { mapboxAPIKey } = require('../../secrets')
 
 export default class Map extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class Map extends Component {
   componentDidMount() {
     const { addMarker } = this.props;
 
-    MapboxGl.accessToken = token;
+    MapboxGl.accessToken = mapboxAPIKey;
 
     const mapInstance = new MapboxGl.Map({
       container: 'map',
