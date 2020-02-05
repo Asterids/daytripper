@@ -17,7 +17,15 @@ export default class Main extends Component {
       markers: [],
       editingItinerary: false,
       isUserOnSession: false,
+      loggedInUser: '',
     };
+  }
+
+  setUser = (username) => {
+    this.setState({
+      isUserOnSession: true,
+      loggedInUser: username,
+    });
   }
 
   // placeholder for saving a given itinerary -
@@ -102,11 +110,16 @@ export default class Main extends Component {
       introCardActive,
       isUserOnSession,
       loginCardActive,
+      loggedInUser,
     } = this.state;
 
     return (
       <div id="main">
-        <Header toggleIntroCard={this.toggleIntroCard} />
+        <Header
+          toggleIntroCard={this.toggleIntroCard}
+          isUserOnSession={isUserOnSession}
+          loggedInUser={loggedInUser}
+        />
         <IntroCard
           introCardActive={introCardActive}
           toggleIntroCard={this.toggleIntroCard}
@@ -118,6 +131,7 @@ export default class Main extends Component {
         <LoginCard
           loginCardActive={loginCardActive}
           closeLoginCard={this.closeLoginCard}
+          setUser={this.setUser}
         />
         <Footer
           isUserOnSession={isUserOnSession}

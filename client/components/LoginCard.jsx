@@ -1,45 +1,92 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 
-const LoginCard = (props) => {
+export default class LoginCard extends Component {
+  constructor(props) {
+    super(props);
 
-  const { loginCardActive, closeLoginCard } = props;
-  const loginCardClasses = loginCardActive ? 'login active' : 'login';
+    this.state = {
+      username: '',
+      password: '',
+    };
+  }
 
-  return (
-    <div className={loginCardClasses}>
-      <button type="button" className="close secondaryButton" onClick={closeLoginCard}>x</button>
-      <h2 className="heading">Login</h2>
-      <div className="loginDetails">
-        Username:
-        <input
-          type="text"
-          id="username"
-          name="username"
-          required
-          size="20"
-        />
-        Password:
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          size="20"
-        />
-        <button type="submit" id="submitLogin">Submit</button>
-        <a
-          target="_self"
-          href="/auth/google"
-          className="googleLogin"
-        >
-          <button type="button" className="secondaryButton">Login with Google</button>
-        </a>
+
+  handleChange = (e) => {
+    const { name } = e.target;
+
+    this.setState({
+      [name]: e.target.value,
+    });
+  }
+
+  login = async (credentials) => {
+    const { setUser } = this.props;
+    const { data } = await axios.post('/auth/local/login', credentials);
+
+    setUser(data.username);
+  };
+
+  handleLogin = (e) => {
+    e.preventDefault();
+    const { username, password } = this.state;
+    const { closeLoginCard } = this.props;
+
+    this.login({
+      username,
+      password,
+    });
+
+    this.setState({
+      username: '',
+      password: '',
+    });
+
+    closeLoginCard();
+  };
+
+
+  render() {
+    const { username, password } = this.state
+    const { loginCardActive, closeLoginCard } = this.props;
+    const loginCardClasses = loginCardActive ? 'login active' : 'login';
+
+    return (
+      <div className={loginCardClasses}>
+        <button type="button" className="close secondaryButton" onClick={closeLoginCard}>x</button>
+        <h2 className="heading">Login</h2>
+        <div className="loginDetails">
+          Username:
+          <input
+            type="text"
+            value={username}
+            onChange={this.handleChange}
+            id="username"
+            name="username"
+            required
+            size="20"
+          />
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={this.handleChange}
+            id="password"
+            name="password"
+            required
+            size="20"
+          />
+          <button type="submit" id="submitLogin" onClick={this.handleLogin}>Submit</button>
+          <a
+            target="_self"
+            href="/auth/google"
+            className="googleLogin"
+          >
+            <button type="button" className="secondaryButton">Login with Google</button>
+          </a>
+        </div>
+        <p>Don't have an account? <a href="" className="greenLink">Sign up</a> to save your itineraries!</p>
       </div>
-      <p>Don't have an account? <a href="" className="greenLink">Sign up</a> to save your itineraries!</p>
-    </div>
-  );
-};
-
-// <i className="fa fa-google" />
-
-export default LoginCard;
+    );
+  }
+}
