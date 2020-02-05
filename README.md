@@ -29,4 +29,4 @@ From here, users can zoom, explore, and add markers to the map to create lists. 
 
 Once saved, the user can view or edit their itineraries.
 
-![alt text](./public/images/DT_3_save.png "Blue map zoomed in on Central America with 5 markers, and a sidebar listing the location of each marker")
+![alt text](./public/images/DT_3_markerList.png "Blue map zoomed in on Central America with 5 markers, and a sidebar listing the location of each marker")
