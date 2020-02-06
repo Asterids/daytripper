@@ -5,6 +5,7 @@ import Map from './Map';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import LoginCard from './LoginCard';
+import axios from 'axios';
 
 export default class Main extends Component {
   constructor(props) {
@@ -100,6 +101,17 @@ export default class Main extends Component {
       sidebarActive: false,
       markers: [],
     });
+  }
+
+  componentDidMount() {
+    const checkSession = async () => {
+      const user = await axios.get('/auth/local/me');
+      if (user.data.username) {
+        this.setUser(user.data.username);
+      }
+    };
+
+    checkSession();
   }
 
   render() {
