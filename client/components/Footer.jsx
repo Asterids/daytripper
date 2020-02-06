@@ -34,14 +34,14 @@ const MyMapsButton = (props) => (
 );
 
 const LogoutButton = (props) => (
-  <button type="button" className="logout" onClick={() => {}}>
+  <button type="button" className="logout" onClick={props.logout}>
     Logout
   </button>
 );
 
 // Main Footer Component
 const Footer = (props) => {
-  const { isUserOnSession, openSaved, openLoginCard } = props;
+  const { isUserOnSession, openSaved, openLoginCard, logout } = props;
 
   return (
     <div className="footer notMain">
@@ -59,7 +59,7 @@ const Footer = (props) => {
         <li>
           <h4>
             {
-              isUserOnSession ? <LogoutButton /> : <SignupButton openSignup={openLoginCard} />
+              isUserOnSession ? <LogoutButton logout={logout} /> : <SignupButton openSignup={openLoginCard} />
             }
           </h4>
         </li>

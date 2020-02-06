@@ -29,21 +29,6 @@ export default class Main extends Component {
     });
   }
 
-  // placeholder for saving a given itinerary -
-  // needs logic to save the markers in state to the session store
-  saveMap = () => {
-    this.setState({});
-  }
-
-  // toggles between saved (read-only) and unsaved (editable) itinerary components in sidebar
-  toggleSaved = () => {
-    const { editingItinerary } = this.state;
-
-    this.setState({
-      editingItinerary: !editingItinerary,
-    });
-  }
-
   // toggles sidebar 'active' class
   toggleSidebar = () => {
     const { sidebarActive } = this.state;
@@ -73,14 +58,6 @@ export default class Main extends Component {
     });
   }
 
-  // opens the sidebar with the saved (read-only) view
-  openSaved = () => {
-    this.setState({
-      sidebarActive: true,
-      editingItinerary: false,
-    });
-  }
-
   addMarker = (newMarker) => {
     this.setState((prevState) => ({
       sidebarActive: true,
@@ -101,6 +78,40 @@ export default class Main extends Component {
       sidebarActive: false,
       markers: [],
     });
+  }
+
+  // opens the sidebar with the saved (read-only) view
+  openSaved = () => {
+    this.setState({
+      sidebarActive: true,
+      editingItinerary: false,
+    });
+  }
+
+  // toggles between saved (read-only) and unsaved (editable) itinerary components in sidebar
+  toggleSaved = () => {
+    const { editingItinerary } = this.state;
+
+    this.setState({
+      editingItinerary: !editingItinerary,
+    });
+  }
+
+  // placeholder for saving a given itinerary -
+  // needs logic to save the markers in state to the session store
+  saveMap = () => {
+    this.setState({});
+  }
+
+  logout = () => {
+    axios.delete('/auth/local/logout')
+      .then(() => this.setState({
+        isUserOnSession: false,
+        loggedInUser: '',
+      }))
+      .catch((err) => console.error('Logging out was unsuccesful', err));
+
+    this.clearMap();
   }
 
   componentDidMount() {
@@ -149,6 +160,7 @@ export default class Main extends Component {
           isUserOnSession={isUserOnSession}
           openSaved={this.openSaved}
           openLoginCard={this.openLoginCard}
+          logout={this.logout}
         />
         <Sidebar
           active={sidebarActive}
