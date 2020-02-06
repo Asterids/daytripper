@@ -33,9 +33,9 @@ router.post('/login', (req, res, next) => {
 });
 
 
-// router.get('/me', (req, res, next) => {
-//   res.json(req.user);
-// })
+router.get('/me', (req, res, next) => {
+  res.json(req.user);
+})
 
 router.delete('/logout', (req, res, next) => {
   req.logout();

@@ -44,19 +44,19 @@ const ItineraryUnsaved = (props) => {
         <div className="itinerary">
           <ol>
             {markers.map((marker) => {
-                return (
-                  <li key={marker.id}>{marker.placeName}<button className="remove" onClick={()=>removeMarker(marker)}> x </button></li>
-                )
+              return (
+                <li key={marker.id}>{marker.placeName}<button className="remove" onClick={()=>removeMarker(marker)}> x </button></li>
+              );
             })}
           </ol>
           <div className="sidebarButtons">
-            <button className="saveItinerary" onClick={clearMap}>Clear</button>
+            <button type="button" className="saveItinerary" onClick={clearMap}>Clear</button>
             {isUserOnSession ? saveButtonWithUser : saveButtonNoUser}
           </div>
         </div>
       </ul>
     </div>
   );
-}
+};
 
 export default ItineraryUnsaved;
