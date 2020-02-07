@@ -1,17 +1,17 @@
-const router = require('express').Router()
-const { User } = require('../db/models')
+const router = require('express').Router();
+const { User } = require('../db/models');
 
-// router.post('/signup', (req, res, next) => {
-//   const { email, password } = req.body
-//   User.create({ email, password })
-//     .then(user => {
-//       req.login(user, (err) => {
-//         if (err) { return next(err) }
-//         res.status(201).json(user);
-//       })
-//     })
-//     .catch(next)
-// })
+router.post('/signup', (req, res, next) => {
+  const { username, password } = req.body;
+  User.create({ username, password })
+    .then((user) => {
+      req.login(user, (err) => {
+        if (err) { return next(err); }
+        res.status(201).json(user);
+      });
+    })
+    .catch(next);
+});
 
 router.post('/login', (req, res, next) => {
   const { username, password } = req.body;
@@ -21,7 +21,7 @@ router.post('/login', (req, res, next) => {
   })
     .then((user) => {
       if (!user) {
-        console.log('That user does not exist'); // replace with thrown error
+        res.status(400).send('This user does not exist.');
       } else {
         req.login(user, (err) => {
           if (err) { return next(err); }

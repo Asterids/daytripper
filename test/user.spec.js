@@ -10,9 +10,9 @@ describe('User routes', () => {
 
   describe('/api/users/', () => {
     beforeEach(() => User.create({
-      username: 'Church Peanut',
+      username: 'ChurchPeanut',
       email: 'churchp@catmail.com',
-      password: 'abc',
+      password: '123',
     }));
 
     // MarkerList.create({

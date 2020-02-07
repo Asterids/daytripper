@@ -34,6 +34,29 @@ describe('GET /api/marker/:lat/:lng/:token', () => {
 // - sidebar should be visible
 // - sidebar should include a list item with the corresponding place name
 
+
+describe('POST /auth/local/login', () => {
+  it('On login where a user exists in db, that user is found and logged in', (done) => {
+    request(app)
+      .post(`/auth/local/login`)
+      .send({ username: 'ChurchPeanut', password: '123' })
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .expect((res) => {
+        res.username = 'ChurchPeanut';
+      })
+      .end(done);
+  });
+
+  it('On login where a user does NOT exist, an error message is thrown', (done) => {
+    request(app)
+      .post(`/auth/local/login`)
+      .send({ username: 'Nobody44', password: '123' })
+      .expect(400)
+      .end(done);
+  })
+});
+
 // Functionality yet to be added (and subsequently tested):
-// - Login / Logout
+// - Logout
 // - Text search
