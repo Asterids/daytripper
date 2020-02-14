@@ -58,6 +58,8 @@ export default class Main extends Component {
     });
   }
 
+  // Consideration for persisting new markers through login -
+  // utilize session for temporary storage of new markers when a user is not yet logged in?
   addMarker = (newMarker) => {
     this.setState((prevState) => ({
       sidebarActive: true,
