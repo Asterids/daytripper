@@ -82,7 +82,7 @@ export default class LoginCard extends Component {
             href="/auth/google"
             className="googleLogin"
           >
-            <button type="button" className="secondaryButton">Login with Google</button>
+            <button type="button" className="secondaryButton">Continue with Google</button>
           </a>
         </div>
         <p>Don't have an account? <a href="" className="greenLink">Sign up</a> to save your itineraries!</p>
