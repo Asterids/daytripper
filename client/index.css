@@ -16,6 +16,13 @@ main {
   align-items: center;
 }
 
+.error {
+  position: absolute;
+  top: 40px;
+  font-size: 14px;
+  color: red;
+}
+
 section {
   padding: 10px 0;
 }

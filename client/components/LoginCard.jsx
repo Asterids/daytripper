@@ -8,6 +8,7 @@ export default class LoginCard extends Component {
     this.state = {
       username: '',
       password: '',
+      errorMsg: '',
     };
   }
 
@@ -21,33 +22,45 @@ export default class LoginCard extends Component {
   }
 
   login = async (credentials) => {
-    const { setUser } = this.props;
-    const { data } = await axios.post('/auth/local/login', credentials);
+    const { setUser, closeLoginCard, checkSession } = this.props;
+    try {
+      const { data } = await axios.post('/auth/local/login', credentials);
 
-    setUser(data.username);
+      if (data) {
+        setUser(data.username);
+
+        this.setState({
+          username: '',
+          password: '',
+          errorMsg: '',
+        });
+
+        closeLoginCard();
+        checkSession();
+      }
+    } catch (err) {
+      console.error(err);
+      if (err.message === 'Request failed with status code 400') {
+        this.setState({ errorMsg: 'Oops, those are invalid login credentials! Please try again.' });
+      } else {
+        this.setState({ errorMsg: err.message });
+      }
+    }
   };
 
   handleLogin = (e) => {
     e.preventDefault();
     const { username, password } = this.state;
-    const { closeLoginCard } = this.props;
 
     this.login({
       username,
       password,
     });
-
-    this.setState({
-      username: '',
-      password: '',
-    });
-
-    closeLoginCard();
   };
 
 
   render() {
-    const { username, password } = this.state
+    const { username, password, errorMsg } = this.state
     const { loginCardActive, closeLoginCard } = this.props;
     const loginCardClasses = loginCardActive ? 'login active' : 'login';
 
@@ -55,6 +68,10 @@ export default class LoginCard extends Component {
       <div className={loginCardClasses}>
         <button type="button" className="close secondaryButton" onClick={closeLoginCard}>x</button>
         <h2 className="heading">Login</h2>
+        {(
+        !!errorMsg.length &&
+        <p className="error">{errorMsg}</p>
+        )}
         <div className="loginDetails">
           Username:
           <input

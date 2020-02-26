@@ -27,6 +27,7 @@ export default class Main extends Component {
       isUserOnSession: true,
       loggedInUser: username,
     });
+    console.log("STATE: ", this.state)
   }
 
   // toggles sidebar 'active' class
@@ -116,15 +117,17 @@ export default class Main extends Component {
     this.clearMap();
   }
 
-  componentDidMount() {
-    const checkSession = async () => {
-      const user = await axios.get('/auth/local/me');
-      if (user.data.username) {
-        this.setUser(user.data.username);
-      }
-    };
+  checkSession = async () => {
+    const user = await axios.get('/auth/local/me');
+    console.log('USER: ', user.data);
+    console.log('USERNAME: ', user.data.username);
+    if (user.data.username) {
+      this.setUser(user.data.username);
+    }
+  };
 
-    checkSession();
+  componentDidMount() {
+    this.checkSession();
   }
 
   render() {
@@ -157,6 +160,7 @@ export default class Main extends Component {
           loginCardActive={loginCardActive}
           closeLoginCard={this.closeLoginCard}
           setUser={this.setUser}
+          checkSession={this.checkSession}
         />
         <Footer
           isUserOnSession={isUserOnSession}

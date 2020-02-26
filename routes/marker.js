@@ -17,4 +17,25 @@ router.get('/:lat/:long/:token', async (req, res, next) => {
   }
 });
 
+// first we need to save the markerList
+// then we need to save the individual markers and associate them
+router.post('/save', (req, res, next) => {
+  const { placeName,  } = req.body;
+  User.findOne({
+    where:
+    { username, password },
+  })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send('This user does not exist.');
+      } else {
+        req.login(user, (err) => {
+          if (err) { return next(err); }
+          res.send({ username: user.username });
+        });
+      }
+    })
+    .catch(next);
+});
+
 module.exports = router;

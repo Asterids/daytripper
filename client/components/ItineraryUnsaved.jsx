@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
+
+// Make into stateful component
+// needs to hold state of the list being edited - title, notes, and all current markers
 const ItineraryUnsaved = (props) => {
   const { toggleSaved, active, openLoginCard, isUserOnSession, markers, removeMarker, clearMap } = props;
   const itineraryClasses = active ? 'active' : '';
@@ -27,6 +31,32 @@ const ItineraryUnsaved = (props) => {
   const saveButtonWithUser = (
     <button type="button" className="saveItinerary" onClick={toggleSaved}>Save</button>
   );
+
+  // send all markers on state to back end with user id
+  // include all important data points - lat, long, placename
+  const prepareListToSave = async (markerList) => {
+    const { data } = axios.post('/api/marker/save', markerList);
+  }
+  // MarkerList:
+
+/*
+{
+  title: "Some Title",
+  notes: "",
+  markers: [
+    {...},
+    {...},
+    {...}
+  ]
+}
+*/
+
+  // login = async (credentials) => {
+  //   const { setUser } = this.props;
+  //   const { data } = await axios.post('/auth/local/login', credentials);
+  //
+  //   setUser(data.username);
+  // };
 
   return (
     <div className={itineraryClasses}>
