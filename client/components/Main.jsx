@@ -22,45 +22,11 @@ export default class Main extends Component {
     };
   }
 
-  setUser = (username) => {
-    this.setState({
-      isUserOnSession: true,
-      loggedInUser: username,
-    });
-    console.log("STATE: ", this.state)
-  }
-
-  // toggles sidebar 'active' class
-  toggleSidebar = () => {
-    const { sidebarActive } = this.state;
-
-    this.setState({
-      sidebarActive: !sidebarActive,
-    });
-  }
-
-  toggleIntroCard = () => {
-    const { introCardActive } = this.state;
-
-    this.setState({
-      introCardActive: !introCardActive,
-    });
-  }
-
-  openLoginCard = () => {
-    this.setState({
-      loginCardActive: true,
-    });
-  }
-
-  closeLoginCard = () => {
-    this.setState({
-      loginCardActive: false,
-    });
-  }
-
   // Consideration for persisting new markers through login -
   // utilize session for temporary storage of new markers when a user is not yet logged in?
+
+  //  --- MAP INTERACTION ---
+
   addMarker = (newMarker) => {
     this.setState((prevState) => ({
       sidebarActive: true,
@@ -80,6 +46,17 @@ export default class Main extends Component {
     this.setState({
       sidebarActive: false,
       markers: [],
+    });
+  }
+
+  // --- ENVIRONMENTAL INTERACTION ---
+
+  // toggles sidebar 'active' class
+  toggleSidebar = () => {
+    const { sidebarActive } = this.state;
+
+    this.setState({
+      sidebarActive: !sidebarActive,
     });
   }
 
@@ -106,6 +83,28 @@ export default class Main extends Component {
     this.setState({});
   }
 
+  toggleIntroCard = () => {
+    const { introCardActive } = this.state;
+
+    this.setState({
+      introCardActive: !introCardActive,
+    });
+  }
+
+  openLoginCard = () => {
+    this.setState({
+      loginCardActive: true,
+    });
+  }
+
+  closeLoginCard = () => {
+    this.setState({
+      loginCardActive: false,
+    });
+  }
+
+  // --- AUTHENTICATION ---
+
   logout = () => {
     axios.delete('/auth/local/logout')
       .then(() => this.setState({
@@ -117,17 +116,23 @@ export default class Main extends Component {
     this.clearMap();
   }
 
-  checkSession = async () => {
+  setUserOnState = (username) => {
+    this.setState({
+      isUserOnSession: true,
+      loggedInUser: username,
+    });
+  }
+
+  getUserFromSession = async () => {
     const user = await axios.get('/auth/local/me');
-    console.log('USER: ', user.data);
-    console.log('USERNAME: ', user.data.username);
     if (user.data.username) {
-      this.setUser(user.data.username);
+      this.setUserOnState(user.data.username);
     }
+    return this.state.loggedInUser;
   };
 
   componentDidMount() {
-    this.checkSession();
+    this.getUserFromSession();
   }
 
   render() {
@@ -159,8 +164,8 @@ export default class Main extends Component {
         <LoginCard
           loginCardActive={loginCardActive}
           closeLoginCard={this.closeLoginCard}
-          setUser={this.setUser}
-          checkSession={this.checkSession}
+          setUserOnState={this.setUserOnState}
+          getUserFromSession={this.getUserFromSession}
         />
         <Footer
           isUserOnSession={isUserOnSession}

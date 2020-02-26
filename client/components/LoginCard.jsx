@@ -22,12 +22,12 @@ export default class LoginCard extends Component {
   }
 
   login = async (credentials) => {
-    const { setUser, closeLoginCard, checkSession } = this.props;
+    const { setUserOnState, closeLoginCard, getUserFromSession } = this.props;
     try {
       const { data } = await axios.post('/auth/local/login', credentials);
 
       if (data) {
-        setUser(data.username);
+        setUserOnState(data.username);
 
         this.setState({
           username: '',
@@ -36,14 +36,14 @@ export default class LoginCard extends Component {
         });
 
         closeLoginCard();
-        checkSession();
+        getUserFromSession();
       }
     } catch (err) {
       console.error(err);
       if (err.message === 'Request failed with status code 400') {
-        this.setState({ errorMsg: 'Oops, those are invalid login credentials! Please try again.' });
+        this.setState({ errorMsg: 'Invalid login credentials! Please try again.' });
       } else {
-        this.setState({ errorMsg: err.message });
+        this.setState({ errorMsg: 'Oops, an error occurred!' });
       }
     }
   };
@@ -56,6 +56,8 @@ export default class LoginCard extends Component {
       username,
       password,
     });
+
+    this.setState({ password: '' });
   };
 
 
