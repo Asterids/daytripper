@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 
 const app = express();
+process.env.PORT = 3200;
 const port = process.env.PORT || 5000;
 
 if (process.env.NODE_ENV !== 'production') require('./secrets');
