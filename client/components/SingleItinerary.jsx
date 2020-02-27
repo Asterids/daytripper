@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ItinerarySaved = (props) => {
+const SingleItinerary = (props) => {
   const itineraryClasses = props.active ? 'active' : '';
+  const { loggedInUser } = props;
+
+  getUserData = () => {
+
+  }
 
   return (
     <div className={itineraryClasses}>
@@ -27,4 +32,4 @@ const ItinerarySaved = (props) => {
   );
 }
 
-export default ItinerarySaved;
+export default SingleItinerary;

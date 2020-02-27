@@ -51,13 +51,6 @@ const ItineraryUnsaved = (props) => {
 }
 */
 
-  // login = async (credentials) => {
-  //   const { setUser } = this.props;
-  //   const { data } = await axios.post('/auth/local/login', credentials);
-  //
-  //   setUser(data.username);
-  // };
-
   return (
     <div className={itineraryClasses}>
       <ul>

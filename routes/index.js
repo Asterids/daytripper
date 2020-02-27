@@ -16,9 +16,24 @@ router.get('/markers', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/lists/:userId', (req, res, next) => {
+  const { userId } = req.params;
+  MarkerList.findAll({
+    where: {
+      ownerId: userId,
+    },
+  })
+    .then((lists) => {
+      res.json(lists);
+    })
+    .catch(next);
+});
+
 router.get('/lists', (req, res, next) => {
   MarkerList.findAll()
-    .then((lists) => res.json(lists))
+    .then((lists) => {
+      res.json(lists);
+    })
     .catch(next);
 });
 
