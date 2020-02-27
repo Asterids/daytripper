@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ItinerarySaved from "./ItinerarySaved";
+import SavedItineraries from "./SavedItineraries";
 import ItineraryUnsaved from "./ItineraryUnsaved";
 
 const Sidebar = props => {
@@ -10,6 +10,7 @@ const Sidebar = props => {
     editingItinerary,
     toggleSaved,
     isUserOnSession,
+    loggedInUser,
     openLoginCard,
     removeMarker,
     clearMap,
@@ -32,7 +33,9 @@ const Sidebar = props => {
   }
   return (
     <div className={sidebarClasses}>
-      <ItinerarySaved
+      <SavedItineraries
+        isUserOnSession={isUserOnSession}
+        loggedInUser={loggedInUser}
         toggleSaved={toggleSaved}
       />
     </div>

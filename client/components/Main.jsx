@@ -182,6 +182,7 @@ export default class Main extends Component {
           clearMap={this.clearMap}
           saveMap={this.saveMap}
           isUserOnSession={isUserOnSession}
+          loggedInUser={loggedInUser}
           openLoginCard={this.openLoginCard}
         />
       </div>
