@@ -6,16 +6,19 @@ export default class SavedItineraries extends Component {
     super(props);
 
     this.state = {
+      savedLists: [],
       errorMsg: '',
     };
   }
 
-  componentDidUpdate() {
-    const { isUserOnSession, loggedInUser } = this.props;
-    if (isUserOnSession) {
-      console.log(loggedInUser)
-      // call getUserLists with the userId
-      // this.getUserLists(loggedInUser);
+  // if new user has logged in, fetch their saved lists
+  componentDidUpdate(prevProps) {
+    const { isUserOnSession, currentUser } = this.props;
+
+    if (prevProps.currentUser.id !== currentUser.id) {
+      if (isUserOnSession) {
+        this.getUserLists(currentUser.id);
+      }
     }
   }
 
@@ -24,7 +27,7 @@ export default class SavedItineraries extends Component {
       const { data } = await axios.get(`/api/lists/${userId}`);
 
       if (data) {
-        console.log('Data!! ', data) // NOTE: Not seeing Data
+        this.setState({ savedLists: data })
       }
     } catch (err) {
       console.error(err);
@@ -33,19 +36,19 @@ export default class SavedItineraries extends Component {
   };
 
   render() {
-    const { errorMsg } = this.state;
-    const { active } = this.props;
-    const itineraryClasses = active ? 'active' : '';
+    const { savedLists, errorMsg } = this.state;
 
     return (
-      <div className={itineraryClasses}>
+      <div className="saved">
         <h3>
           My Saved Itineraries
         </h3>
         <hr />
         <div className="itinerary">
           <ul>
-            <li><button type="button" className="remove" onClick={()=>{}}>Banana Pancake Trail 2021</button></li>
+            {savedLists.map((list) => (
+              <li key={list.id}><button type="button" className="remove" onClick={()=>{}}>{list.title}</button></li>
+            ))}
           </ul>
         </div>
       </div>

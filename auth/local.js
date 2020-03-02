@@ -25,7 +25,7 @@ router.post('/login', (req, res, next) => {
       } else {
         req.login(user, (err) => {
           if (err) { return next(err); }
-          res.send({ username: user.username });
+          res.send({ username: user.username, userId: user.id });
         });
       }
     })

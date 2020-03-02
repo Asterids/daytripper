@@ -27,8 +27,6 @@ export default class LoginCard extends Component {
       const { data } = await axios.post('/auth/local/login', credentials);
 
       if (data) {
-        setUserOnState(data.username);
-
         this.setState({
           username: '',
           password: '',
