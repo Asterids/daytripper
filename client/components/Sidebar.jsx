@@ -15,12 +15,14 @@ const Sidebar = props => {
     removeMarker,
     clearMap,
     saveMap,
+    lists,
   } = props;
 
   if (editingItinerary) {
     return (
     <div className={sidebarClasses}>
-      <ItineraryUnsaved markers={markers}
+      <ItineraryUnsaved
+        markers={markers}
         toggleSaved={toggleSaved}
         removeMarker={removeMarker}
         clearMap = {clearMap}
@@ -37,6 +39,7 @@ const Sidebar = props => {
         isUserOnSession={isUserOnSession}
         currentUser={currentUser}
         toggleSaved={toggleSaved}
+        lists={lists}
       />
     </div>
   );

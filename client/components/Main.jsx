@@ -19,6 +19,8 @@ export default class Main extends Component {
       editingItinerary: false,
       isUserOnSession: false,
       currentUser: {},
+      lists: [],
+      errorMsg: '',
     };
   }
 
@@ -56,7 +58,7 @@ export default class Main extends Component {
     });
   }
 
-  // --- ENVIRONMENTAL INTERACTION ---
+  // --- SURROUNDING PAGE INTERACTION ---
 
   // toggles sidebar 'active' class
   toggleSidebar = () => {
@@ -118,15 +120,29 @@ export default class Main extends Component {
         isUserOnSession: false,
         currentUser: {},
       }))
-      .catch((err) => console.error('Logging out was unsuccesful', err));
+      .catch((err) => {
+        this.setState({ errorMsg: 'Logout was unsuccessful.' })
+      });
 
     this.clearMap();
   }
 
-  setUserOnState = (user) => {
+  setUserOnState = async (user) => {
+    let savedLists = [];
+    try {
+      const { data } = await axios.get(`/api/lists/${user.id}`);
+
+      if (data) {
+        savedLists = data;
+      }
+    } catch (err) {
+      this.setState({ errorMsg: err.message });
+    }
+
     this.setState({
       isUserOnSession: true,
       currentUser: { id: user.id, username: user.username },
+      lists: savedLists,
     });
   }
 
@@ -149,6 +165,7 @@ export default class Main extends Component {
       isUserOnSession,
       loginCardActive,
       currentUser,
+      lists,
     } = this.state;
 
     return (
@@ -188,6 +205,7 @@ export default class Main extends Component {
           saveMap={this.saveMap}
           isUserOnSession={isUserOnSession}
           currentUser={currentUser}
+          lists={lists}
           openLoginCard={this.openLoginCard}
         />
       </div>
