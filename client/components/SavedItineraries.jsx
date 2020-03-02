@@ -6,37 +6,13 @@ export default class SavedItineraries extends Component {
     super(props);
 
     this.state = {
-      savedLists: [],
       errorMsg: '',
     };
   }
 
-  // if new user has logged in, fetch their saved lists
-  componentDidUpdate(prevProps) {
-    const { isUserOnSession, currentUser } = this.props;
-
-    if (prevProps.currentUser.id !== currentUser.id) {
-      if (isUserOnSession) {
-        this.getUserLists(currentUser.id);
-      }
-    }
-  }
-
-  getUserLists = async (userId) => {
-    try {
-      const { data } = await axios.get(`/api/lists/${userId}`);
-
-      if (data) {
-        this.setState({ savedLists: data })
-      }
-    } catch (err) {
-      console.error(err);
-      this.setState({ errorMsg: err.message });
-    }
-  };
-
   render() {
-    const { savedLists, errorMsg } = this.state;
+    const { errorMsg } = this.state;
+    const { lists } = this.props;
 
     return (
       <div className="saved">
@@ -46,7 +22,7 @@ export default class SavedItineraries extends Component {
         <hr />
         <div className="itinerary">
           <ul>
-            {savedLists.map((list) => (
+            {lists && lists.map((list) => (
               <li key={list.id}><button type="button" className="remove" onClick={()=>{}}>{list.title}</button></li>
             ))}
           </ul>
