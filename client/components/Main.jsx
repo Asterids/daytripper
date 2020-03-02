@@ -48,6 +48,8 @@ export default class Main extends Component {
   }
 
   clearMap = () => {
+    const { markers } = this.state;
+    markers.forEach((marker) => marker.remove());
     this.setState({
       sidebarActive: false,
       markers: [],

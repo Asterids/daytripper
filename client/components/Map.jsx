@@ -14,7 +14,7 @@ export default class Map extends Component {
     const { markers } = this.props
 
     this.state = {
-      map: {},
+      // map: {},
       markers
     }
   }
@@ -68,19 +68,7 @@ export default class Map extends Component {
         });
     });
 
-    this.setState({ map: mapInstance });
-  }
-
-  // need to change to getDerivedStateFromProps or else prepend with UNSAFE_
-  componentWillReceiveProps(props) {
-    if (props.markers.length > this.state.markers.length) {
-      this.setState({markers: [...props.markers]})
-    } else if ((props.markers.length === 0) && !(this.state.markers.length === 0)) {
-      this.state.markers.forEach(marker => {
-        marker.remove();
-      })
-      this.setState({ markers: [] });
-    }
+    // this.setState({ map: mapInstance });
   }
 
   render() {
