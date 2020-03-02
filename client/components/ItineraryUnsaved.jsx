@@ -66,9 +66,9 @@ const ItineraryUnsaved = (props) => {
         />
         <div className="itinerary">
           <ol>
-            {markers.map((marker) => {
+            {markers && markers.map((marker) => {
               return (
-                <li key={marker.id}>{marker.placeName}<button className="remove" onClick={()=>removeMarker(marker)}> x </button></li>
+                <li key={marker.marker_id}>{marker.placeName}<button className="remove" onClick={()=>removeMarker(marker)}> x </button></li>
               );
             })}
           </ol>
