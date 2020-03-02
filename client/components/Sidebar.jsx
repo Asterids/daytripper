@@ -10,7 +10,7 @@ const Sidebar = props => {
     editingItinerary,
     toggleSaved,
     isUserOnSession,
-    loggedInUser,
+    currentUser,
     openLoginCard,
     removeMarker,
     clearMap,
@@ -35,7 +35,7 @@ const Sidebar = props => {
     <div className={sidebarClasses}>
       <SavedItineraries
         isUserOnSession={isUserOnSession}
-        loggedInUser={loggedInUser}
+        currentUser={currentUser}
         toggleSaved={toggleSaved}
       />
     </div>

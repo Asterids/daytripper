@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Header from './Header';
 import IntroCard from './IntroCard';
 import Map from './Map';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import LoginCard from './LoginCard';
-import axios from 'axios';
 
 export default class Main extends Component {
   constructor(props) {
@@ -18,8 +18,13 @@ export default class Main extends Component {
       markers: [],
       editingItinerary: false,
       isUserOnSession: false,
-      loggedInUser: '',
+      currentUser: {},
     };
+  }
+
+  // check if a user is already on the session when the component mounts
+  componentDidMount() {
+    this.getUserFromSession();
   }
 
   // Consideration for persisting new markers through login -
@@ -109,31 +114,29 @@ export default class Main extends Component {
     axios.delete('/auth/local/logout')
       .then(() => this.setState({
         isUserOnSession: false,
-        loggedInUser: '',
+        currentUser: {},
       }))
       .catch((err) => console.error('Logging out was unsuccesful', err));
 
     this.clearMap();
   }
 
-  setUserOnState = (username) => {
+  setUserOnState = (user) => {
     this.setState({
       isUserOnSession: true,
-      loggedInUser: username,
+      currentUser: { id: user.id, username: user.username },
     });
   }
 
   getUserFromSession = async () => {
-    const user = await axios.get('/auth/local/me');
-    if (user.data.username) {
-      this.setUserOnState(user.data.username);
-    }
-    return this.state.loggedInUser;
-  };
+    const { loggedInUser } = this.state;
 
-  componentDidMount() {
-    this.getUserFromSession();
-  }
+    const user = await axios.get('/auth/local/me');
+    if (user.data.id) {
+      this.setUserOnState(user.data);
+    }
+    return loggedInUser;
+  };
 
   render() {
     const {
@@ -143,7 +146,7 @@ export default class Main extends Component {
       introCardActive,
       isUserOnSession,
       loginCardActive,
-      loggedInUser,
+      currentUser,
     } = this.state;
 
     return (
@@ -151,7 +154,7 @@ export default class Main extends Component {
         <Header
           toggleIntroCard={this.toggleIntroCard}
           isUserOnSession={isUserOnSession}
-          loggedInUser={loggedInUser}
+          currentUser={currentUser}
         />
         <IntroCard
           introCardActive={introCardActive}
@@ -182,7 +185,7 @@ export default class Main extends Component {
           clearMap={this.clearMap}
           saveMap={this.saveMap}
           isUserOnSession={isUserOnSession}
-          loggedInUser={loggedInUser}
+          currentUser={currentUser}
           openLoginCard={this.openLoginCard}
         />
       </div>
