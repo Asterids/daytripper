@@ -16,6 +16,10 @@ main {
   align-items: center;
 }
 
+.hidden {
+  display: none;
+}
+
 .error {
   position: absolute;
   top: 40px;
