@@ -10,6 +10,17 @@ router.get('/users', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/markers/:listId', (req, res, next) => {
+  const { listId } = req.params;
+  Marker.findAll({
+    where: {
+      parentList: listId,
+    },
+  })
+    .then((markers) => res.json(markers))
+    .catch(next);
+});
+
 router.get('/markers', (req, res, next) => {
   Marker.findAll()
     .then((markers) => res.json(markers))
