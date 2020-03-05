@@ -25,9 +25,10 @@ const Sidebar = props => {
         markers={markers}
         toggleSaved={toggleSaved}
         removeMarker={removeMarker}
-        clearMap = {clearMap}
-        saveMap = {saveMap}
+        clearMap={clearMap}
+        saveMap={saveMap}
         isUserOnSession={isUserOnSession}
+        currentUser={currentUser}
         openLoginCard={openLoginCard}
       />
     </div>

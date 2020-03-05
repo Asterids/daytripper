@@ -43,7 +43,7 @@ export default class Map extends Component {
     //   })
     // }
 
-    let counter = 0;
+    let counter = 1;
 
     mapInstance.on('click', (e) => {
       axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
