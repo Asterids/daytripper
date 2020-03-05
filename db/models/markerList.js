@@ -6,7 +6,6 @@ const MarkerList = db.define('markerList', {
   title: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
   },
   notes: {
     type: Sequelize.TEXT,

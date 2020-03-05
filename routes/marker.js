@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const axios = require('axios');
 const { mapboxAPIKey } = require('../secrets')
+const { Marker } = require('../db/models');
+
 
 router.get('/:lat/:long/:token', async (req, res, next) => {
   try {
@@ -17,23 +19,20 @@ router.get('/:lat/:long/:token', async (req, res, next) => {
   }
 });
 
-// first we need to save the markerList
-// then we need to save the individual markers and associate them
-router.post('/save', (req, res, next) => {
-  const { placeName,  } = req.body;
-  User.findOne({
-    where:
-    { username, password },
-  })
-    .then((user) => {
-      if (!user) {
-        res.status(400).send('This user does not exist.');
-      } else {
-        req.login(user, (err) => {
-          if (err) { return next(err); }
-          res.send({ username: user.username });
-        });
-      }
+router.post('/save/:listId', (req, res, next) => {
+  const { markersPrepared } = req.body;
+  const { listId } = req.params;
+
+  Marker.bulkCreate(markersPrepared)
+    .then(() => {
+      return Marker.findAll({
+        where: {
+          parentList: listId,
+        },
+      });
+    })
+    .then((foundMarkers) => {
+      res.status(201).send(foundMarkers);
     })
     .catch(next);
 });

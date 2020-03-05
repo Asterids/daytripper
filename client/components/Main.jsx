@@ -38,7 +38,7 @@ export default class Main extends Component {
     this.setState((prevState) => ({
       sidebarActive: true,
       markers: [...prevState.markers, newMarker],
-      editingItinerary: true,
+      editingItinerary: true, // Should be controlling user intent independently of marker creation
     }));
   }
 
@@ -86,10 +86,48 @@ export default class Main extends Component {
     });
   }
 
-  // placeholder for saving a given itinerary -
-  // needs logic to save the markers in state to the session store
-  saveMap = () => {
-    this.setState({});
+  // saves the markers corresponding with a given list
+  saveMarkers = async (listId) => {
+    const { markers } = this.state
+    // Prepare the data - only want to send the relevant data points to the db
+    const markersPrepared = markers.map((m) => (
+      {
+        markerOrder: m.marker_id,
+        placeName: m.placeName,
+        latitude: m._lngLat.lat,
+        longitude: m._lngLat.lng,
+        notes: m.notes,
+        parentList: listId,
+      }
+    ));
+    try {
+      const { data } = await axios.post(`/api/marker/save/${listId}`, { markersPrepared });
+      if (data) {
+        this.setState({
+          markers: data,
+        });
+      }
+    } catch (err) {
+      this.setState({ errorMsg: err.message });
+    }
+  }
+
+ // saves a list with details, and calls saveMarkers to save the related markers
+  saveList = async (newList) => {
+    const userId = this.state.currentUser.id;
+    const { lists, markers } = this.state;
+    try {
+      const { data } = await axios.post(`/api/lists/new/${userId}`, newList);
+      if (data) {
+        this.saveMarkers(data.id);
+        this.setState({
+          lists: [...lists, data],
+        });
+        this.toggleSaved();
+      }
+    } catch (err) {
+      this.setState({ errorMsg: err.message });
+    }
   }
 
   toggleIntroCard = () => {
@@ -202,7 +240,7 @@ export default class Main extends Component {
           toggleSaved={this.toggleSaved}
           removeMarker={this.removeMarker}
           clearMap={this.clearMap}
-          saveMap={this.saveMap}
+          saveMap={this.saveList}
           isUserOnSession={isUserOnSession}
           currentUser={currentUser}
           lists={lists}
