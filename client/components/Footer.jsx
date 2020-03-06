@@ -41,7 +41,7 @@ const LogoutButton = (props) => (
 
 // Main Footer Component
 const Footer = (props) => {
-  const { isUserOnSession, openSaved, openLoginCard, logout } = props;
+  const { isUserOnSession, openSaved, openLoginCard, openSignupCard, logout } = props;
 
   return (
     <div className="footer notMain">
@@ -59,7 +59,7 @@ const Footer = (props) => {
         <li>
           <h4>
             {
-              isUserOnSession ? <LogoutButton logout={logout} /> : <SignupButton openSignup={openLoginCard} />
+              isUserOnSession ? <LogoutButton logout={logout} /> : <SignupButton openSignup={openSignupCard} />
             }
           </h4>
         </li>

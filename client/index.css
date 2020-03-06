@@ -175,15 +175,15 @@ ul {
   padding: 0 15px;
 }
 
-.login {
-  position: relative;
+.loginSignup {
+  position: absolute;
   left: 30%;
-  top: 170px;
+  top: 150px;
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 40vw;
-  height: 55vh;
+  height: 65vh;
   background: rgba(229, 242, 251, 0.95);
   transform: translateX(180%);
   transition: transform 0.1s ease;
@@ -197,6 +197,7 @@ ul {
 .loginDetails {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 40%;
   height: 80%;
   margin-top: 10px;
@@ -206,12 +207,12 @@ ul {
   margin-top: 15px;
 }
 
-.login button, input {
+.loginSignup button, input {
   margin: 5px;
   align-self: center;
 }
 
-.login p {
+.loginSignup p {
   padding: 5px 0 12px 0;
   align-self: center;
 }
@@ -225,6 +226,20 @@ ul {
 
 .greenLink {
   color: #52b380;
+  font-family: 'Nunito', sans-serif;
+  text-decoration: none;
+  background: none;
+  border: none;
+  border-color: none;
+  padding: 0;
+  border-radius: 0;
+  transition: none;
+}
+
+.greenLink:hover {
+  color: #a7d6cc;
+  background: none;
+  transition: none;
 }
 
 .close {
@@ -306,7 +321,7 @@ ul {
   align-self: center;
 }
 
-.login .heading {
+.loginSignup .heading {
   color: #182229;
   font-size: 24px;
 }

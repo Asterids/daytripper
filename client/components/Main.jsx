@@ -6,6 +6,7 @@ import Map from './Map';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import LoginCard from './LoginCard';
+import SignupCard from './SignupCard';
 
 export default class Main extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class Main extends Component {
     this.state = {
       sidebarActive: false,
       loginCardActive: false,
+      signupCardActive: false,
       introCardActive: false,
       markers: [],
       editingItinerary: false,
@@ -88,7 +90,7 @@ export default class Main extends Component {
 
   // saves the markers corresponding with a given list
   saveMarkers = async (listId) => {
-    const { markers } = this.state
+    const { markers } = this.state;
     // Prepare the data - only want to send the relevant data points to the db
     const markersPrepared = markers.map((m) => (
       {
@@ -102,11 +104,6 @@ export default class Main extends Component {
     ));
     try {
       const { data } = await axios.post(`/api/marker/save/${listId}`, { markersPrepared });
-      if (data) {
-        this.setState({
-          markers: data,
-        });
-      }
     } catch (err) {
       this.setState({ errorMsg: err.message });
     }
@@ -138,31 +135,28 @@ export default class Main extends Component {
     });
   }
 
-  openLoginCard = () => {
-    this.setState({
-      loginCardActive: true,
-    });
-  }
+  openLoginCard = () => this.setState({ loginCardActive: true, signupCardActive: false });
 
-  closeLoginCard = () => {
-    this.setState({
-      loginCardActive: false,
-    });
-  }
+  closeLoginCard = () => this.setState({ loginCardActive: false });
+
+  openSignupCard = () => this.setState({ loginCardActive: false, signupCardActive: true });
+
+  closeSignupCard = () => this.setState({ signupCardActive: false });
 
   // --- AUTHENTICATION ---
 
   logout = () => {
+    this.clearMap();
+
     axios.delete('/auth/local/logout')
       .then(() => this.setState({
+        sidebarActive: false,
         isUserOnSession: false,
         currentUser: {},
       }))
       .catch((err) => {
         this.setState({ errorMsg: 'Logout was unsuccessful.' })
       });
-
-    this.clearMap();
   }
 
   setUserOnState = async (user) => {
@@ -202,6 +196,7 @@ export default class Main extends Component {
       introCardActive,
       isUserOnSession,
       loginCardActive,
+      signupCardActive,
       currentUser,
       lists,
     } = this.state;
@@ -224,6 +219,14 @@ export default class Main extends Component {
         <LoginCard
           loginCardActive={loginCardActive}
           closeLoginCard={this.closeLoginCard}
+          openSignupCard={this.openSignupCard}
+          setUserOnState={this.setUserOnState}
+          getUserFromSession={this.getUserFromSession}
+        />
+        <SignupCard
+          signupCardActive={signupCardActive}
+          closeSignupCard={this.closeSignupCard}
+          openLoginCard={this.openLoginCard}
           setUserOnState={this.setUserOnState}
           getUserFromSession={this.getUserFromSession}
         />
@@ -231,6 +234,7 @@ export default class Main extends Component {
           isUserOnSession={isUserOnSession}
           openSaved={this.openSaved}
           openLoginCard={this.openLoginCard}
+          openSignupCard={this.openSignupCard}
           logout={this.logout}
         />
         <Sidebar

@@ -2,8 +2,8 @@ const router = require('express').Router();
 const { User } = require('../db/models');
 
 router.post('/signup', (req, res, next) => {
-  const { username, password } = req.body;
-  User.create({ username, password })
+  const { username, email, password } = req.body;
+  User.create({ username, email, password })
     .then((user) => {
       req.login(user, (err) => {
         if (err) { return next(err); }

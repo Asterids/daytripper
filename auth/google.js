@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const passport = require('passport');
-const { User } = require('../db/models');
 
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const { googleClientId, googleClientSecret } = require('../secrets');
+const { User } = require('../db/models');
 
 passport.use(
   new GoogleStrategy({
@@ -21,9 +21,9 @@ passport.use(
       where: { googleId: userData.googleId },
       defaults: userData,
     })
-    .spread((user) => done(null, user))
-    .catch(done);
-  })
+      .spread((user) => done(null, user))
+      .catch(done);
+  }),
 );
 
 router.get('/',
