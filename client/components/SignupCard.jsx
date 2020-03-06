@@ -61,6 +61,17 @@ export default class SignupCard extends Component {
     this.setState({ password: '' });
   };
 
+  switchToLogin = () => {
+    const { openLoginCard } = this.props;
+    this.setState({
+      username: '',
+      email: '',
+      password: '',
+      errorMsg: '',
+    });
+    openLoginCard();
+  }
+
 
   render() {
     const { username, email, password, errorMsg } = this.state
@@ -69,13 +80,13 @@ export default class SignupCard extends Component {
 
     return (
       <div className={signupCardClasses}>
-        <button type="button" className="close secondaryButton" onClick={closeSignupCard}>x</button>
-        <h2 className="heading">Sign Up</h2>
-        {(
-        !!errorMsg.length
-        && <p className="error">{errorMsg}</p>
-        )}
         <div className="loginDetails">
+          <button type="button" className="close secondaryButton" onClick={closeSignupCard}>x</button>
+          <h2 className="heading">Sign Up</h2>
+          {(
+          !!errorMsg.length
+          && <p className="error">{errorMsg}</p>
+          )}
           Username:
           <input
             type="text"
@@ -117,7 +128,7 @@ export default class SignupCard extends Component {
         </div>
         <p>
           Already have an account?
-          <button type="button" className="greenLink" onClick={openLoginCard}>Login</button>
+          <button type="button" className="greenLink" onClick={this.switchToLogin}>Login</button>
           to save your itineraries!
         </p>
       </div>
