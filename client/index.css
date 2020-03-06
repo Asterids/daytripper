@@ -22,7 +22,7 @@ main {
 
 .error {
   position: absolute;
-  top: 40px;
+  top: 90px;
   font-size: 14px;
   color: red;
 }
@@ -178,7 +178,7 @@ ul {
 .loginSignup {
   position: absolute;
   left: 30%;
-  top: 150px;
+  top: 140px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -198,7 +198,8 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 40%;
+  align-items: center;
+  width: 60%;
   height: 80%;
   margin-top: 10px;
 }
@@ -322,6 +323,7 @@ ul {
 }
 
 .loginSignup .heading {
+  padding-bottom: 20px;
   color: #182229;
   font-size: 24px;
 }

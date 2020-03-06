@@ -58,21 +58,31 @@ export default class LoginCard extends Component {
     this.setState({ password: '' });
   };
 
+  switchToSignup = () => {
+    const { openSignupCard } = this.props
+    this.setState({
+      username: '',
+      password: '',
+      errorMsg: '',
+    });
+    openSignupCard();
+  }
+
 
   render() {
     const { username, password, errorMsg } = this.state
-    const { loginCardActive, closeLoginCard, openSignupCard } = this.props;
+    const { loginCardActive, closeLoginCard } = this.props;
     const loginCardClasses = loginCardActive ? 'loginSignup active' : 'loginSignup';
 
     return (
       <div className={loginCardClasses}>
-        <button type="button" className="close secondaryButton" onClick={closeLoginCard}>x</button>
-        <h2 className="heading">Login</h2>
-        {(
-        !!errorMsg.length &&
-        <p className="error">{errorMsg}</p>
-        )}
         <div className="loginDetails">
+          <button type="button" className="close secondaryButton" onClick={closeLoginCard}>x</button>
+          <h2 className="heading">Login</h2>
+          {(
+          !!errorMsg.length
+          && <p className="error">{errorMsg}</p>
+          )}
           Username:
           <input
             type="text"
@@ -104,7 +114,7 @@ export default class LoginCard extends Component {
         </div>
         <p>
           Don't have an account?
-          <button type="button" className="greenLink" onClick={openSignupCard}>Sign up</button>
+          <button type="button" className="greenLink" onClick={this.switchToSignup}>Sign up</button>
           to save your itineraries!
         </p>
       </div>
