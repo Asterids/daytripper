@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class LoginCard extends Component {
+export default class SignupCard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       username: '',
+      email: '',
       password: '',
       errorMsg: '',
     };
@@ -21,37 +22,39 @@ export default class LoginCard extends Component {
     });
   }
 
-  login = async (credentials) => {
-    const { setUserOnState, closeLoginCard, getUserFromSession } = this.props;
+  signup = async (credentials) => {
+    const { setUserOnState, closeSignupCard, getUserFromSession } = this.props;
     try {
-      const { data } = await axios.post('/auth/local/login', credentials);
+      const { data } = await axios.post('/auth/local/signup', credentials);
 
       if (data) {
         this.setState({
           username: '',
+          email: '',
           password: '',
           errorMsg: '',
         });
 
-        closeLoginCard();
+        closeSignupCard();
         getUserFromSession();
       }
     } catch (err) {
       console.error(err);
       if (err.message === 'Request failed with status code 400') {
-        this.setState({ errorMsg: 'Invalid login credentials! Please try again.' });
+        this.setState({ errorMsg: 'Invalid credentials! Please try again.' });
       } else {
         this.setState({ errorMsg: 'Oops, an error occurred!' });
       }
     }
   };
 
-  handleLogin = (e) => {
+  handleSignup = (e) => {
     e.preventDefault();
-    const { username, password } = this.state;
+    const { username, email, password } = this.state;
 
-    this.login({
+    this.signup({
       username,
+      email,
       password,
     });
 
@@ -60,17 +63,17 @@ export default class LoginCard extends Component {
 
 
   render() {
-    const { username, password, errorMsg } = this.state
-    const { loginCardActive, closeLoginCard, openSignupCard } = this.props;
-    const loginCardClasses = loginCardActive ? 'loginSignup active' : 'loginSignup';
+    const { username, email, password, errorMsg } = this.state
+    const { signupCardActive, closeSignupCard, openLoginCard } = this.props;
+    const signupCardClasses = signupCardActive ? 'loginSignup active' : 'loginSignup';
 
     return (
-      <div className={loginCardClasses}>
-        <button type="button" className="close secondaryButton" onClick={closeLoginCard}>x</button>
-        <h2 className="heading">Login</h2>
+      <div className={signupCardClasses}>
+        <button type="button" className="close secondaryButton" onClick={closeSignupCard}>x</button>
+        <h2 className="heading">Sign Up</h2>
         {(
-        !!errorMsg.length &&
-        <p className="error">{errorMsg}</p>
+        !!errorMsg.length
+        && <p className="error">{errorMsg}</p>
         )}
         <div className="loginDetails">
           Username:
@@ -80,6 +83,16 @@ export default class LoginCard extends Component {
             onChange={this.handleChange}
             id="username"
             name="username"
+            required
+            size="20"
+          />
+          Email:
+          <input
+            type="text"
+            value={email}
+            onChange={this.handleChange}
+            id="email"
+            name="email"
             required
             size="20"
           />
@@ -93,18 +106,18 @@ export default class LoginCard extends Component {
             required
             size="20"
           />
-          <button type="submit" id="submitLogin" onClick={this.handleLogin}>Submit</button>
+          <button type="submit" id="submitLogin" onClick={this.handleSignup}>Create Account</button>
           <a
             target="_self"
             href="/auth/google"
             className="googleLogin"
           >
-            <button type="button" className="secondaryButton">Continue with Google</button>
+            <button type="button" className="secondaryButton">Sign Up using your Google account</button>
           </a>
         </div>
         <p>
-          Don't have an account?
-          <button type="button" className="greenLink" onClick={openSignupCard}>Sign up</button>
+          Already have an account?
+          <button type="button" className="greenLink" onClick={openLoginCard}>Login</button>
           to save your itineraries!
         </p>
       </div>
