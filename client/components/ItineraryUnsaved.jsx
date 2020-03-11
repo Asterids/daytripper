@@ -30,32 +30,18 @@ export default class ItineraryUnsaved extends Component {
   render() {
     const { currentListTitle, currentListNotes } = this.state;
     const {
+      placeholderText,
       active,
       openLoginCard,
       isUserOnSession,
       currentUser,
       markers,
       removeMarker,
-      saveMap
+      saveMap,
     } = this.props;
 
     const itineraryClasses = active ? 'active' : '';
 
-    const placeholderSamples = [
-      'Camino de Santiago 2020', 'Banana Pancake Trail', 'Andes Adventure, July',
-      'The Final Frontier', 'Northern Lights Tour 2021', 'World Heritage Sites',
-      'Reunion Trip 2020', 'Road Trip Destinations', 'Archaeological Sites of Interest',
-      'Cheese Tour of Europe', 'Cycling Abroad', 'EcoTrek 2020',
-      'Post-Conference Stops', 'Architectural Wonders', 'Famous Filming Locations',
-      'Art Must-Sees', 'Springtime Trek (next year)',
-    ];
-
-    function generateText(dataset) {
-      const num = (1 + Math.floor(Math.random() * (dataset.length)));
-      return dataset[num - 1];
-    }
-
-    const placeholderText = generateText(placeholderSamples);
     const listDetails = {
       title: this.state.currentListTitle,
       notes: this.state.currentListNotes,
@@ -71,6 +57,7 @@ export default class ItineraryUnsaved extends Component {
     return (
       <div className={itineraryClasses}>
         <ul>
+          <h5 id="titleHeading">Name this list:</h5>
           <input
             type="text"
             id="currentListTitle"
@@ -87,12 +74,14 @@ export default class ItineraryUnsaved extends Component {
             <ol>
               {markers && markers.map((marker) => {
                 return (
-                  <li key={marker.marker_id}>{marker.placeName}<button className="remove" onClick={()=>removeMarker(marker)}> x </button></li>
+                  <li key={marker.marker_id}>
+                    {marker.placeName}
+                    <button type="button" className="remove" onClick={() => removeMarker(marker)}> x </button>
+                  </li>
                 );
               })}
             </ol>
-            <input
-              type="text"
+            <textarea
               id="currentListNotes"
               name="currentListNotes"
               onChange={this.handleChange}
