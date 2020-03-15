@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import SavedItineraries from "./SavedItineraries";
 import ItineraryUnsaved from "./ItineraryUnsaved";
 
-const Sidebar = props => {
-  let sidebarClasses = props.active ? 'sidebar active notMain' : 'sidebar notMain';
+const Sidebar = (props) => {
   const {
+    active,
     markers,
     editingItinerary,
     toggleSaved,
+    toggleSidebar,
     isUserOnSession,
     currentUser,
     openLoginCard,
@@ -17,6 +18,8 @@ const Sidebar = props => {
     saveMap,
     lists,
   } = props;
+
+  const sidebarClasses = active ? 'sidebar active notMain' : 'sidebar notMain';
 
   const placeholderSamples = [
     'Camino de Santiago 2020', 'Banana Pancake Trail', 'Andes Adventure, July',
@@ -41,6 +44,7 @@ const Sidebar = props => {
           placeholderText={placeholderText}
           markers={markers}
           toggleSaved={toggleSaved}
+          toggleSidebar={toggleSidebar}
           removeMarker={removeMarker}
           clearMap={clearMap}
           saveMap={saveMap}

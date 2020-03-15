@@ -10,21 +10,21 @@ export default class ItineraryUnsaved extends Component {
     };
   }
 
-  clearMapAndSidebar = () => {
-    const { clearMap } = this.props;
-    this.setState({
-      currentListTitle: '',
-      currentListNotes: '',
-    });
-    clearMap();
-  }
-
   handleChange = (e) => {
     const { name } = e.target;
 
     this.setState({
       [name]: e.target.value,
     });
+  }
+
+  handleClose = () => {
+    const { toggleSidebar } = this.props;
+    this.setState({
+      currentListTitle: '',
+      currentListNotes: '',
+    });
+    toggleSidebar();
   }
 
   render() {
@@ -37,6 +37,7 @@ export default class ItineraryUnsaved extends Component {
       currentUser,
       markers,
       removeMarker,
+      clearMap,
       saveMap,
     } = this.props;
 
@@ -58,6 +59,7 @@ export default class ItineraryUnsaved extends Component {
       <div className={itineraryClasses}>
         <ul>
           <h5 id="titleHeading">Name this list:</h5>
+          <button type="button" className="close secondaryButton" onClick={this.handleClose}>x</button>
           <input
             type="text"
             id="currentListTitle"
@@ -93,7 +95,7 @@ export default class ItineraryUnsaved extends Component {
               placeholder="Any notes about this list..."
             />
             <div className="sidebarButtons">
-              <button type="button" className="saveItinerary" onClick={this.clearMapAndSidebar}>Clear</button>
+              <button type="button" className="saveItinerary" onClick={clearMap}>Clear</button>
               {isUserOnSession ? saveButtonWithUser : saveButtonNoUser}
             </div>
           </div>

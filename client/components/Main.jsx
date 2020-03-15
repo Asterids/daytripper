@@ -55,7 +55,6 @@ export default class Main extends Component {
     const { markers } = this.state;
     markers.forEach((marker) => marker.remove());
     this.setState({
-      sidebarActive: false,
       markers: [],
     });
   }
@@ -65,6 +64,9 @@ export default class Main extends Component {
   // toggles sidebar 'active' class
   toggleSidebar = () => {
     const { sidebarActive } = this.state;
+    if (sidebarActive) {
+      this.clearMap();
+    }
 
     this.setState({
       sidebarActive: !sidebarActive,
@@ -242,6 +244,7 @@ export default class Main extends Component {
           markers={markers}
           editingItinerary={editingItinerary}
           toggleSaved={this.toggleSaved}
+          toggleSidebar={this.toggleSidebar}
           removeMarker={this.removeMarker}
           clearMap={this.clearMap}
           saveMap={this.saveList}
