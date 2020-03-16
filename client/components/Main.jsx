@@ -213,6 +213,7 @@ export default class Main extends Component {
         <IntroCard
           introCardActive={introCardActive}
           toggleIntroCard={this.toggleIntroCard}
+          openLoginCard={this.openLoginCard}
         />
         <Map
           markers={markers}

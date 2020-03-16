@@ -22,7 +22,7 @@ main {
 
 .error {
   position: absolute;
-  top: 90px;
+  top: 70px;
   font-size: 14px;
   color: red;
 }
@@ -129,7 +129,7 @@ ul {
   top: 106px;
   left: 28px;
   width: 25vw;
-  height: 20vh;
+  height: 25vh;
   padding: 10px 20px;
   background: rgba(229, 242, 251, 0.95);
   border-radius: 5px;
