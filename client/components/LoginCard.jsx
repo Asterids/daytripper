@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+const { guestName, guestPass } = require('../../secrets');
 
 export default class LoginCard extends Component {
   constructor(props) {
@@ -62,8 +63,8 @@ export default class LoginCard extends Component {
     e.preventDefault();
 
     this.login({
-      username: 'Guest',
-      password: 'CitizenOfTheWorld',
+      username: guestName,
+      password: guestPass,
     });
 
     this.setState({ password: '' });
