@@ -58,6 +58,17 @@ export default class LoginCard extends Component {
     this.setState({ password: '' });
   };
 
+  handleGuestLogin = (e) => {
+    e.preventDefault();
+
+    this.login({
+      username: 'Guest',
+      password: 'CitizenOfTheWorld',
+    });
+
+    this.setState({ password: '' });
+  }
+
   switchToSignup = () => {
     const { openSignupCard } = this.props
     this.setState({
@@ -68,16 +79,27 @@ export default class LoginCard extends Component {
     openSignupCard();
   }
 
+  handleClose = () => {
+    const { closeLoginCard } = this.props;
+
+    this.setState({
+      username: '',
+      password: '',
+      errorMsg: '',
+    });
+    closeLoginCard();
+  }
+
 
   render() {
     const { username, password, errorMsg } = this.state
-    const { loginCardActive, closeLoginCard } = this.props;
+    const { loginCardActive } = this.props;
     const loginCardClasses = loginCardActive ? 'loginSignup active' : 'loginSignup';
 
     return (
       <div className={loginCardClasses}>
         <div className="loginDetails">
-          <button type="button" className="close secondaryButton" onClick={closeLoginCard}>x</button>
+          <button type="button" className="close secondaryButton" onClick={this.handleClose}>x</button>
           <h2 className="heading">Login</h2>
           {(
           !!errorMsg.length
@@ -112,6 +134,7 @@ export default class LoginCard extends Component {
             <button type="button" className="secondaryButton">Continue with Google</button>
           </a>
         </div>
+        <button type="submit" className="secondaryButton" id="submitGuestLogin" onClick={this.handleGuestLogin}>Login as Guest</button>
         <p>
           Don't have an account?
           <button type="button" className="greenLink" onClick={this.switchToSignup}>Sign up</button>
