@@ -7,6 +7,7 @@ const Sidebar = (props) => {
   const {
     active,
     markers,
+    addMarker,
     editingItinerary,
     toggleSaved,
     toggleSidebar,
@@ -62,6 +63,8 @@ const Sidebar = (props) => {
         currentUser={currentUser}
         toggleSaved={toggleSaved}
         lists={lists}
+        clearMap={clearMap}
+        addMarker={addMarker}
       />
     </div>
   );
