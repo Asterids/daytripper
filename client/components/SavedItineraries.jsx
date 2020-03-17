@@ -33,6 +33,15 @@ export default class SavedItineraries extends Component {
     })
   }
 
+  handleHideList = () => {
+    this.setState({
+      listClasses: 'active saved',
+      listDetailClasses: 'hidden',
+      currentListTitle: '',
+      currentListMarkers: [],
+    })
+  }
+
   render() {
     const {
       listClasses,
@@ -45,16 +54,16 @@ export default class SavedItineraries extends Component {
     const { lists } = this.props;
 
     return (
-      <div>
+      <div className="saved-container">
         <div className={listClasses}>
           <h3>
             My Saved Itineraries
           </h3>
           <hr />
-          <div className="itinerary">
+          <div className="itinerary overview">
             <ul>
               {lists && lists.map((list) => (
-                <li key={list.id}><button type="button" className="remove" onClick={() => this.fetchListDetails(list)}>{list.title}</button></li>
+                <li key={list.id}>✈ <button type="button" className="itineraryButton" onClick={() => this.fetchListDetails(list)}>{list.title}</button></li>
               ))}
             </ul>
           </div>
@@ -65,10 +74,13 @@ export default class SavedItineraries extends Component {
             <div className="itinerary">
               <ol>
                 {currentListMarkers && currentListMarkers.map((marker) => (
-                  <li key={marker.id}><button type="button" className="remove" onClick={() => {}}>{marker.placeName}</button></li>
+                  <li key={marker.id}>
+                    <button type="button" className="remove" onClick={() => {}}>{marker.placeName}</button>
+                  </li>
                 ))}
               </ol>
               <div className="sidebarButtons">
+                <button type="button" className="editItinerary" onClick={this.handleHideList}>Back</button>
                 <button type="button" className="editItinerary" onClick={() => {}}>Edit</button>
               </div>
             </div>

@@ -298,12 +298,12 @@ ul {
 
 .sidebar ul {
   padding: 0;
-  margin: 30px 20px 5px 30px;
+  margin: 30px 20px 5px 25px;
 }
 
 .sidebar ol {
   padding: 0;
-  margin: 10px 20px 20px 20px;
+  margin: 10px 20px 20px 25px;
 }
 
 .sidebar ul li {
@@ -313,6 +313,29 @@ ul {
 .itinerary {
   display: flex;
   flex-direction: column;
+}
+
+.saved-container {
+  width: 100%;
+}
+
+.saved-container h3 {
+  margin-left: 25px;
+}
+
+.saved-container hr {
+  width: 90%;
+}
+
+.itineraryButton {
+  border: none;
+  background: none;
+  color: #52b380;
+}
+
+.itineraryButton:hover {
+  color: #2d4352;
+  background: none;
 }
 
 #currentListTitle {
