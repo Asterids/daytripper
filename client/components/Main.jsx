@@ -161,14 +161,16 @@ export default class Main extends Component {
       });
   }
 
+  // if there are no markers on state,
+  // open the sidebar with the My Saved Maps list view
   setUserOnState = async (user) => {
     let savedLists = [];
     try {
       const { data } = await axios.get(`/api/lists/${user.id}`);
 
       if (data) {
-        savedLists = data;
-      }
+        savedLists = data; // saved lists view should have an empty state that says
+      } // "You have no saved lists!" or similar
     } catch (err) {
       this.setState({ errorMsg: err.message });
     }
