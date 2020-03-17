@@ -40,7 +40,7 @@ export default class Main extends Component {
     this.setState((prevState) => ({
       sidebarActive: true,
       markers: [...prevState.markers, newMarker],
-      editingItinerary: true, // Should be controlling user intent independently of marker creation
+      // editingItinerary: true, // Should be controlling user intent independently of marker creation
     }));
   }
 
@@ -245,6 +245,7 @@ export default class Main extends Component {
         <Sidebar
           active={sidebarActive}
           markers={markers}
+          addMarker={this.addMarker}
           editingItinerary={editingItinerary}
           toggleSaved={this.toggleSaved}
           toggleSidebar={this.toggleSidebar}

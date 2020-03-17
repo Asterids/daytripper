@@ -15,12 +15,17 @@ export default class SavedItineraries extends Component {
   }
 
   fetchListDetails = async (list) => {
+    const { clearMap, addMarker } = this.props;
+    clearMap();
     let currentListMarkers = [];
     try {
       const { data } = await axios.get(`/api/markers/${list.id}`);
 
       if (data) {
         currentListMarkers = data.sort((a, b) => a.markerOrder - b.markerOrder);
+        currentListMarkers.forEach((marker) => {
+          addMarker(marker);
+        })
       }
     } catch (err) {
       this.setState({ errorMsg: err.message });
@@ -41,6 +46,8 @@ export default class SavedItineraries extends Component {
       currentListMarkers: [],
     })
   }
+
+  handle
 
   render() {
     const {
