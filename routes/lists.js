@@ -29,6 +29,21 @@ router.post('/new/:userId', (req, res, next) => {
     .catch(next);
 });
 
+router.put('/save/:listId', (req, res, next) => {
+  const { title, notes } = req.body;
+  const { listId } = req.params;
+
+  MarkerList.findByPk(listId)
+    .then((list) => list.update({
+      title,
+      notes,
+    }))
+    .then((list) => {
+      res.status(201).send(list);
+    })
+    .catch(next);
+});
+
 router.get('/', (req, res, next) => {
   MarkerList.findAll()
     .then((lists) => {

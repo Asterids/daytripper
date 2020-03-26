@@ -40,7 +40,14 @@ export default class Main extends Component {
     this.setState((prevState) => ({
       sidebarActive: true,
       markers: [...prevState.markers, newMarker],
-      // editingItinerary: true, // Should be controlling user intent independently of marker creation
+      editingItinerary: true,
+    }));
+  }
+
+  plotMarker = (newMarker) => {
+    this.setState((prevState) => ({
+      sidebarActive: true,
+      markers: [...prevState.markers, newMarker],
     }));
   }
 
@@ -90,6 +97,7 @@ export default class Main extends Component {
     });
   }
 
+  // RENAME TO "saveNewMarkers"
   // saves the markers corresponding with a given list
   saveMarkers = async (listId) => {
     const { markers } = this.state;
@@ -111,7 +119,8 @@ export default class Main extends Component {
     }
   }
 
- // saves a list with details, and calls saveMarkers to save the related markers
+  // RENAME TO "saveNewList"
+  // saves a list with details, and calls saveMarkers to save the related markers
   saveList = async (newList) => {
     const userId = this.state.currentUser.id;
     const { lists, markers } = this.state;
@@ -119,6 +128,24 @@ export default class Main extends Component {
       const { data } = await axios.post(`/api/lists/new/${userId}`, newList);
       if (data) {
         this.saveMarkers(data.id);
+        this.setState({
+          lists: [...lists, data],
+        });
+        this.toggleSaved();
+      }
+    } catch (err) {
+      this.setState({ errorMsg: err.message });
+    }
+  }
+
+  // Need to add logic for deleting markers from DB if they were removed from the list
+  updateList = async (list) => {
+    const listId = list.id;
+    const { lists, markers } = this.state;
+    try {
+      const { data } = await axios.put(`/api/lists/save/${listId}`, list);
+      if (data) {
+        this.updateMarkers(listId);
         this.setState({
           lists: [...lists, data],
         });
@@ -220,6 +247,7 @@ export default class Main extends Component {
         <Map
           markers={markers}
           addMarker={this.addMarker}
+          editingItinerary={editingItinerary}
         />
         <LoginCard
           loginCardActive={loginCardActive}
@@ -246,6 +274,7 @@ export default class Main extends Component {
           active={sidebarActive}
           markers={markers}
           addMarker={this.addMarker}
+          plotMarker={this.plotMarker}
           editingItinerary={editingItinerary}
           toggleSaved={this.toggleSaved}
           toggleSidebar={this.toggleSidebar}
