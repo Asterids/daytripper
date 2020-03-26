@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const { Marker } = require('mapbox-gl');
+
 export default class SavedItineraries extends Component {
   constructor(props) {
     super(props);
@@ -14,8 +16,17 @@ export default class SavedItineraries extends Component {
     };
   }
 
+  createMarker = (savedMarker) => {
+    const markerEl = document.createElement('div');
+    const newMarker = new Marker(markerEl).setLngLat([savedMarker.longitude, savedMarker.latitude]);
+    newMarker.marker_id = savedMarker.id;
+    newMarker.placeName = savedMarker.placeName;
+    newMarker.notes = savedMarker.notes;
+    return newMarker;
+  };
+
   fetchListDetails = async (list) => {
-    const { clearMap, addMarker } = this.props;
+    const { clearMap, plotMarker } = this.props;
     clearMap();
     let currentListMarkers = [];
     try {
@@ -24,8 +35,9 @@ export default class SavedItineraries extends Component {
       if (data) {
         currentListMarkers = data.sort((a, b) => a.markerOrder - b.markerOrder);
         currentListMarkers.forEach((marker) => {
-          addMarker(marker);
-        })
+          const markerToAdd = this.createMarker(marker); // create a new marker element
+          plotMarker(markerToAdd); // just want to view, not editing yet - add it to Main.js state
+        });
       }
     } catch (err) {
       this.setState({ errorMsg: err.message });
@@ -35,7 +47,7 @@ export default class SavedItineraries extends Component {
       listDetailClasses: 'active',
       currentListTitle: list.title,
       currentListMarkers,
-    })
+    });
   }
 
   handleHideList = () => {
@@ -44,10 +56,13 @@ export default class SavedItineraries extends Component {
       listDetailClasses: 'hidden',
       currentListTitle: '',
       currentListMarkers: [],
-    })
+    });
   }
 
-  handle
+  handleEditClick = () => {
+    const { toggleSaved } = this.props;
+    toggleSaved();
+  }
 
   render() {
     const {
@@ -55,7 +70,7 @@ export default class SavedItineraries extends Component {
       listDetailClasses,
       currentListTitle,
       currentListMarkers,
-      errorMsg
+      errorMsg,
     } = this.state;
 
     const { lists } = this.props;
@@ -88,7 +103,7 @@ export default class SavedItineraries extends Component {
               </ol>
               <div className="sidebarButtons">
                 <button type="button" className="editItinerary" onClick={this.handleHideList}>Back</button>
-                <button type="button" className="editItinerary" onClick={() => {}}>Edit</button>
+                <button type="button" className="editItinerary" onClick={this.handleEditClick}>Edit</button>
               </div>
             </div>
           </ul>

@@ -19,8 +19,12 @@ export default class Map extends Component {
     }
   }
 
+  // take in a list of new markers - "toAdd" = []
+  // forEach...
+  // marker.addTo(mapInstance)
+
   componentDidMount() {
-    const { addMarker } = this.props;
+    const { addMarker, editingItinerary } = this.props;
 
     MapboxGl.accessToken = mapboxAPIKey;
 
@@ -46,26 +50,28 @@ export default class Map extends Component {
     let counter = 1;
 
     mapInstance.on('click', (e) => {
-      axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
-        .then((res) => (
-          res.data.place_name
-        ))
-        .then((result) => {
-          const newMarker = new MapboxGl.Marker()
-            .setLngLat([e.lngLat.lng, e.lngLat.lat])
-            .addTo(mapInstance);
-          newMarker.marker_id = counter;
-          newMarker.placeName = result;
-          newMarker.notes = '';
-          counter++;
-          return newMarker;
-        })
-        .then((mrkr) => {
-          addMarker(mrkr);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      if (editingItinerary || !this.state.markers.length) {
+        axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
+          .then((res) => (
+            res.data.place_name
+          ))
+          .then((result) => {
+            const newMarker = new MapboxGl.Marker()
+              .setLngLat([e.lngLat.lng, e.lngLat.lat])
+              .addTo(mapInstance);
+            newMarker.marker_id = counter;
+            newMarker.placeName = result;
+            newMarker.notes = '';
+            counter++;
+            return newMarker;
+          })
+          .then((mrkr) => {
+            addMarker(mrkr);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     });
 
     // this.setState({ map: mapInstance });

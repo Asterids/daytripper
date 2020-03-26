@@ -10,6 +10,13 @@ export default class ItineraryUnsaved extends Component {
     };
   }
 
+  componentDidMount() {
+    const { markers, addMarker } = this.props;
+    if (markers.length) {
+      // if markers on state exist when sidebar is loaded, need to set the title and notes
+    }
+  }
+
   handleChange = (e) => {
     const { name } = e.target;
 
