@@ -8,7 +8,9 @@ export default class SavedItineraries extends Component {
     super(props);
 
     this.state = {
+      currentListId: 0,
       currentListTitle: '',
+      currentListNotes: '',
       currentListMarkers: [],
       errorMsg: '',
       listClasses: 'saved',
@@ -46,6 +48,7 @@ export default class SavedItineraries extends Component {
       listClasses: 'hidden saved',
       listDetailClasses: 'active',
       currentListTitle: list.title,
+      currentListNotes: list.notes,
       currentListMarkers,
     });
   }
@@ -64,11 +67,22 @@ export default class SavedItineraries extends Component {
     toggleSaved();
   }
 
+  handleDeleteList = async (list) => {
+    try {
+      const { data } = await axios.delete(`/api/lists/${list.id}`);
+      console.log("Delete {data}: ", data)
+    } catch (err) {
+      this.setState({ errorMsg: err.message });
+    }
+    this.handleHideList();
+  }
+
   render() {
     const {
       listClasses,
       listDetailClasses,
       currentListTitle,
+      currentListNotes,
       currentListMarkers,
       errorMsg,
     } = this.state;
@@ -92,7 +106,7 @@ export default class SavedItineraries extends Component {
         </div>
         <div className={listDetailClasses}>
           <ul>
-            <p>{currentListTitle}</p>
+            {currentListTitle}
             <div className="itinerary">
               <ol>
                 {currentListMarkers && currentListMarkers.map((marker) => (
@@ -101,10 +115,18 @@ export default class SavedItineraries extends Component {
                   </li>
                 ))}
               </ol>
+              <p>
+                <b>Notes:</b>
+                <br />
+                {currentListNotes}
+              </p>
               <div className="sidebarButtons">
                 <button type="button" className="editItinerary" onClick={this.handleHideList}>Back</button>
-                <button type="button" className="editItinerary" onClick={this.handleEditClick}>Edit</button>
+                {
+    // <button type="button" className="editItinerary" onClick={this.handleEditClick}>Edit</button>
+                }
               </div>
+              <button type="button" className="editItinerary" onClick={() => this.handleDeleteList(list)}>Delete List</button>
             </div>
           </ul>
         </div>

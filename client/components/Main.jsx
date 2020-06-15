@@ -36,6 +36,7 @@ export default class Main extends Component {
 
   //  --- MAP INTERACTION ---
 
+  // add marker to state in editing view (user adds a new marker)
   addMarker = (newMarker) => {
     this.setState((prevState) => ({
       sidebarActive: true,
@@ -44,13 +45,16 @@ export default class Main extends Component {
     }));
   }
 
+  // add a marker to state in read-only view (viewing an existing itinerary)
   plotMarker = (newMarker) => {
     this.setState((prevState) => ({
       sidebarActive: true,
       markers: [...prevState.markers, newMarker],
     }));
+    console.log("New Marker: ", newMarker)
   }
 
+  // delete a single marker from state
   removeMarker = (marker) => {
     marker.remove();
     this.setState((prevState) => ({
@@ -58,6 +62,7 @@ export default class Main extends Component {
     }));
   }
 
+  // clear the whole map of markers
   clearMap = () => {
     const { markers } = this.state;
     markers.forEach((marker) => marker.remove());

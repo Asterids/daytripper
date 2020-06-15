@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const request = require('supertest');
-const app = require('../app');
-const models = require('../db/models');
+const app = require('../../app');
+const models = require('../db/test-db');
 
 const { User, MarkerList } = models;
 
@@ -28,7 +28,7 @@ describe('USER', () => {
 
   describe('/api/lists/:userId', () => {
     beforeEach(() => User.create({
-      id: 1,
+      id: 'cf31fc3f-e77a-4a45-8e97-de12429606f1',
       username: 'ChurchPeanut',
       email: 'churchp@catmail.com',
       password: '123',
@@ -41,7 +41,7 @@ describe('USER', () => {
 
     it('GET /api/lists/:userId', () => {
       return request(app)
-        .get('/api/lists/1')
+        .get('/api/lists/cf31fc3f-e77a-4a45-8e97-de12429606f1')
         .expect(200)
         .then((res) => {
           expect(res.body).to.be.an('array');

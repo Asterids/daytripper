@@ -1,9 +1,9 @@
 const { expect } = require('chai');
 const request = require('supertest');
 
-const app = require('../app');
+const app = require('../../app');
 // const agent = request.agent(app);
-const { mapboxAPIKey } = require('../secrets');
+const { mapboxAPIKey } = require('../../secrets');
 
 describe('MAIN API & MARKERS', () => {
   describe('GET /', () => {

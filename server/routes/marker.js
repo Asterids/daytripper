@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const axios = require('axios');
-const { mapboxAPIKey } = require('../secrets')
-const { Marker } = require('../db/models');
+const { mapboxAPIKey } = require('../../secrets')
+
+let dbName = process.env.NODE_ENV === 'test' ? '../db/test-db' : '../db/models';
+const { Marker } = require(dbName);
 
 
 router.get('/:lat/:long/:token', async (req, res, next) => {
