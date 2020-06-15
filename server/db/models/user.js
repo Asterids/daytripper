@@ -1,9 +1,14 @@
-const crypto = require('crypto');
+const crypto = require('crypto'); // switch to either Node's built-in crypto package, or crypto-js
 const Sequelize = require('sequelize');
 const _ = require('lodash');
 const db = require('../_db');
 
 const User = db.define('user', {
+  id: {
+    type: Sequelize.DataTypes.UUID,
+    defaultValue: Sequelize.DataTypes.UUIDV4,
+    primaryKey: true,
+  },
   username: {
     type: Sequelize.STRING,
     unique: true,

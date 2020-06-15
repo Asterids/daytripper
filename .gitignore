@@ -5,3 +5,4 @@ package-lock.json
 .DS_Store
 secrets.js
 seed.js
+server/db/test-db

@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const passport = require('passport');
+const { sessionSecret } = require('./secrets');
 
 const app = express();
 process.env.PORT = 3200;
@@ -11,10 +12,12 @@ const port = process.env.PORT || 5000;
 if (process.env.NODE_ENV !== 'production') require('./secrets');
 
 const session = require('express-session');
-const { db, User } = require('./db/models');
+
+let dbName = process.env.NODE_ENV === 'test' ? './server/db/test-db' : './server/db/models';
+const { db, User } = require(dbName);
 
 app.use(session({
-  secret: 'APintsAPoundTheWorldAround',
+  secret: sessionSecret,
   resave: false,
   saveUninitialized: true,
 }));
@@ -31,18 +34,12 @@ passport.deserializeUser((userId, done) => {
 
 app.use(passport.session());
 
-// FOR DEBUGGING PURPOSES ONLY
-// app.use((req, res, next) => {
-//   console.log("Session REQ.USER:", req.user)
-//   next();
-// });
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan('dev'));
-app.use('/api', require('./routes'));
-app.use('/auth', require('./auth'));
+app.use('/api', require('./server/routes'));
+app.use('/auth', require('./server/auth'));
 
 app.use(express.static(path.join(__dirname, '/public')));
 

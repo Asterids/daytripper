@@ -1,5 +1,7 @@
 const router = require('express').Router();
-const { User, Marker, MarkerList } = require('../db/models');
+
+let dbName = process.env.NODE_ENV === 'test' ? '../db/test-db' : '../db/models';
+const { User, Marker, MarkerList } = require(dbName);
 
 router.use('/about', require('./about')); // matches all requests to /api/about/
 router.use('/lists', require('./lists'));

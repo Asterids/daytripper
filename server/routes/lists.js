@@ -1,5 +1,7 @@
 const router = require('express').Router();
-const { User, Marker, MarkerList } = require('../db/models');
+
+let dbName = process.env.NODE_ENV === 'test' ? '../db/test-db' : '../db/models';
+const { User, Marker, MarkerList } = require(dbName);
 
 router.get('/:userId', (req, res, next) => {
   const { userId } = req.params;
@@ -41,6 +43,15 @@ router.put('/save/:listId', (req, res, next) => {
     .then((list) => {
       res.status(201).send(list);
     })
+    .catch(next);
+});
+
+router.delete('/:listId', (req, res, next) => {
+  const { listId } = req.params;
+
+  console.log("INSIDE DELETE")
+  MarkerList.destroy({ where: { id: listId } })
+    .then(() => res.sendStatus(204))
     .catch(next);
 });
 
