@@ -50,8 +50,6 @@ export default class Map extends Component {
     let counter = 1;
 
     mapInstance.on('click', (e) => {
-      console.log("Editing? ", editingItinerary)
-      console.log("MARKERS: ", markers)
       if (editingItinerary || !markers.length) {
         axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
           .then((res) => (
