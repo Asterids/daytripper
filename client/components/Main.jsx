@@ -36,7 +36,7 @@ export default class Main extends Component {
 
   //  --- MAP INTERACTION ---
 
-  // add marker to state in editing view (user adds a new marker)
+  // add marker to state in editing view (user places a new marker on the map)
   addMarker = (newMarker) => {
     this.setState((prevState) => ({
       sidebarActive: true,
@@ -45,7 +45,7 @@ export default class Main extends Component {
     }));
   }
 
-  // add a marker to state in read-only view (viewing an existing itinerary)
+  // add a marker to state in read-only view (viewing an existing saved itinerary)
   plotMarker = (newMarker) => {
     this.setState((prevState) => ({
       sidebarActive: true,
@@ -73,7 +73,7 @@ export default class Main extends Component {
 
   // --- SURROUNDING PAGE INTERACTION ---
 
-  // toggles sidebar 'active' class
+  // toggles sidebar 'active' class (controls visibility)
   toggleSidebar = () => {
     const { sidebarActive } = this.state;
     if (sidebarActive) {
@@ -102,7 +102,7 @@ export default class Main extends Component {
     });
   }
 
-  // RENAME TO "saveNewMarkers"
+  // RENAME TO "saveNewMarkers" - ?
   // saves the markers corresponding with a given list
   saveMarkers = async (listId) => {
     const { markers } = this.state;

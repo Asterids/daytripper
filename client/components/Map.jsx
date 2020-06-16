@@ -24,7 +24,7 @@ export default class Map extends Component {
   // marker.addTo(mapInstance)
 
   componentDidMount() {
-    const { addMarker, editingItinerary } = this.props;
+    const { addMarker, editingItinerary, markers } = this.props;
 
     MapboxGl.accessToken = mapboxAPIKey;
 
@@ -36,21 +36,21 @@ export default class Map extends Component {
     });
 
     // *** Implement & test when markers are persistent/saveable to DB
-
-    // mapInstance.on('load', function (markers) {
-    //   markers.forEach(marker => {
-    //     let existingMarker = new MapboxGl.Marker()
-    //       .setLngLat(marker._lngLat.lng, marker._lngLat.lat)
-    //       .addTo(mapInstance)
-    //
-    //     addMarker(existingMarker)
-    //   })
-    // }
+    // mapInstance.on('load', function (e) {
+      // if (markers) {
+        // markers.forEach(marker) => {
+          // let existingMarker = new MapboxGl.Marker()
+          //   .setLngLat(marker._lngLat.lng, marker._lngLat.lat)
+          //   .addTo(mapInstance)
+      
+          // addMarker(existingMarker)
+        // }}
+      // })
 
     let counter = 1;
 
     mapInstance.on('click', (e) => {
-      if (editingItinerary || !this.state.markers.length) {
+      if (editingItinerary || !markers.length) {
         axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
           .then((res) => (
             res.data.place_name
