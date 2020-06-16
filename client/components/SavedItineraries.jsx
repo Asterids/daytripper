@@ -53,12 +53,14 @@ export default class SavedItineraries extends Component {
     });
   }
 
-  handleHideList = () => {
+  resetToAllLists = () => {
     this.setState({
+      currentListId: 0,
       listClasses: 'active saved',
       listDetailClasses: 'hidden',
       currentListTitle: '',
       currentListMarkers: [],
+      currentListNotes: '',
     });
   }
 
@@ -74,7 +76,13 @@ export default class SavedItineraries extends Component {
     } catch (err) {
       this.setState({ errorMsg: err.message });
     }
-    this.handleHideList();
+    this.resetToAllLists();
+  }
+
+  handleClose = () => {
+    const { toggleSidebar } = this.props;
+    toggleSidebar();
+    this.resetToAllLists();
   }
 
   render() {
@@ -91,6 +99,7 @@ export default class SavedItineraries extends Component {
 
     return (
       <div className="saved-container">
+        <button type="button" className="close secondaryButton" onClick={this.handleClose}>x</button>
         <div className={listClasses}>
           <h3>
             My Saved Itineraries
@@ -121,7 +130,7 @@ export default class SavedItineraries extends Component {
                 {currentListNotes}
               </p>
               <div className="sidebarButtons">
-                <button type="button" className="editItinerary" onClick={this.handleHideList}>Back</button>
+                <button type="button" className="editItinerary" onClick={this.resetToAllLists}>Back</button>
                 {
     // <button type="button" className="editItinerary" onClick={this.handleEditClick}>Edit</button>
                 }

@@ -63,6 +63,7 @@ const Sidebar = (props) => {
         isUserOnSession={isUserOnSession}
         currentUser={currentUser}
         toggleSaved={toggleSaved}
+        toggleSidebar={toggleSidebar}
         lists={lists}
         clearMap={clearMap}
         addMarker={addMarker}
