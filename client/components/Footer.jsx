@@ -4,7 +4,7 @@ import React from 'react';
 const Search = (props) => (
   <form onSubmit={(inputText) => props.handleSearchSubmit(inputText)}>
       <h4>
-      < label for="search-text">Search:</label>
+      <label for="search-text">Search:</label>
         <input
           type="text"
           id="search-text"
