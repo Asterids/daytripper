@@ -108,7 +108,7 @@ export default class LoginCard extends Component {
           && <p className="error">{errorMsg}</p>
           )}
           <form>
-            <label for="username">Username:</label>
+            <label htmlFor="username">Username:</label>
             <input
               type="text"
               value={username}
@@ -118,7 +118,7 @@ export default class LoginCard extends Component {
               required
               size="20"
             />
-            <label for="password">Password:</label>
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               value={password}

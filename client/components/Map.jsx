@@ -11,10 +11,10 @@ export default class Map extends Component {
   constructor(props) {
     super(props);
 
-    const { markers } = this.props
+    const { markers } = this.props;
 
     this.state = {
-      // map: {},
+      map: {},
       markers
     }
   }
@@ -22,6 +22,18 @@ export default class Map extends Component {
   // take in a list of new markers - "toAdd" = []
   // forEach...
   // marker.addTo(mapInstance)
+
+  // Need map state to keep track of unsaved markers as well as saved markers - sometimes both types will be displayed at the same time
+  renderMarkers = () => {
+    const { map, markers } = this.state;
+
+    markers.forEach((marker) => {
+      console.log("MARKER: ", marker)
+      // const newMarker = new MapboxGl.Marker()
+      //   .setLngLat([marker.lngLat.lng, marker.lngLat.lat])
+      //   .addTo(map);
+    })
+  } 
 
   componentDidMount() {
     const { addMarker, editingItinerary, markers } = this.props;
@@ -35,18 +47,7 @@ export default class Map extends Component {
       style: 'mapbox://styles/ruthtown/cjy1zfey01ai51cp31xzhmwnw',
     });
 
-    // *** Implement & test when markers are persistent/saveable to DB
-    // mapInstance.on('load', function (e) {
-      // if (markers) {
-        // markers.forEach(marker) => {
-          // let existingMarker = new MapboxGl.Marker()
-          //   .setLngLat(marker._lngLat.lng, marker._lngLat.lat)
-          //   .addTo(mapInstance)
-      
-          // addMarker(existingMarker)
-        // }}
-      // })
-
+    // Marker id's needs to be handled better
     let counter = 1;
 
     mapInstance.on('click', (e) => {
@@ -74,7 +75,7 @@ export default class Map extends Component {
       }
     });
 
-    // this.setState({ map: mapInstance });
+    this.setState({ map: mapInstance });
   }
 
   render() {
