@@ -92,6 +92,7 @@ export default class LoginCard extends Component {
   }
 
 
+  // NOTE: Should also add <fieldset> tags to all form elements for accessibility
   render() {
     const { username, password, errorMsg } = this.state
     const { loginCardActive } = this.props;
@@ -106,27 +107,29 @@ export default class LoginCard extends Component {
           !!errorMsg.length
           && <p className="error">{errorMsg}</p>
           )}
-          Username:
-          <input
-            type="text"
-            value={username}
-            onChange={this.handleChange}
-            id="username"
-            name="username"
-            required
-            size="20"
-          />
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={this.handleChange}
-            id="password"
-            name="password"
-            required
-            size="20"
-          />
-          <button type="submit" id="submitLogin" onClick={this.handleLogin}>Submit</button>
+          <form>
+            <label for="username">Username:</label>
+            <input
+              type="text"
+              value={username}
+              onChange={this.handleChange}
+              id="username"
+              name="username"
+              required
+              size="20"
+            />
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={this.handleChange}
+              id="password"
+              name="password"
+              required
+              size="20"
+            />
+            <button type="submit" id="submitLogin" onClick={this.handleLogin}>Submit</button>
+          </form>
           <a
             target="_self"
             href="/auth/google"

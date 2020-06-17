@@ -87,43 +87,45 @@ export default class SignupCard extends Component {
           !!errorMsg.length
           && <p className="error">{errorMsg}</p>
           )}
-          Username:
-          <input
-            type="text"
-            value={username}
-            onChange={this.handleChange}
-            id="username"
-            name="username"
-            required
-            size="20"
-          />
-          Email:
-          <input
-            type="text"
-            value={email}
-            onChange={this.handleChange}
-            id="email"
-            name="email"
-            required
-            size="20"
-          />
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={this.handleChange}
-            id="password"
-            name="password"
-            required
-            size="20"
-          />
-          <button type="submit" id="submitLogin" onClick={this.handleSignup}>Create Account</button>
+          <form>
+          <label for="username">Username:</label>
+            <input
+              type="text"
+              value={username}
+              onChange={this.handleChange}
+              id="username"
+              name="username"
+              required
+              size="20"
+            />
+            <label for="email">Email:</label>
+            <input
+              type="text"
+              value={email}
+              onChange={this.handleChange}
+              id="email"
+              name="email"
+              required
+              size="20"
+            />
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={this.handleChange}
+              id="password"
+              name="password"
+              required
+              size="20"
+            />
+            <button type="submit" id="submitLogin" onClick={this.handleSignup}>Create Account</button>
+          </form>
           <a
             target="_self"
             href="/auth/google"
             className="googleLogin"
           >
-            <button type="button" className="secondaryButton">Sign Up using your Google account</button>
+            <button type="button" className="secondaryButton">Continue with Google</button>
           </a>
         </div>
         <p>
