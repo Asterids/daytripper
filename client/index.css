@@ -198,7 +198,7 @@ ul {
   z-index: 3;
 }
 
-.loginDetails {
+.loginDetails, .loginDetails > form {
   display: flex;
   flex-direction: column;
   justify-content: center;

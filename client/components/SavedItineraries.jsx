@@ -107,7 +107,8 @@ export default class SavedItineraries extends Component {
           <hr />
           <div className="itinerary overview">
             <ul>
-              {lists && lists.map((list) => (
+              {!lists.length && (<p>You don't have any saved lists! Click to place a marker on the map and begin a new list.</p>)}
+              {!!lists.length && lists.map((list) => (
                 <li key={list.id}>✈ <button type="button" className="itineraryButton" onClick={() => this.fetchListDetails(list)}>{list.title}</button></li>
               ))}
             </ul>

@@ -2,17 +2,20 @@ import React from 'react';
 
 // Child Components
 const Search = (props) => (
-  <h4>
-    Search
-    <input
-      type="text"
-      id="searchtext"
-      name="searchtext"
-      placeholder="Country, city, or zip code"
-      required
-      size="25"
-    />
-  </h4>
+  <form onSubmit={(inputText) => props.handleSearchSubmit(inputText)}>
+      <h4>
+      <label for="search-text">Search:</label>
+        <input
+          type="text"
+          id="search-text"
+          name="search-text"
+          placeholder="Country, city, or zip code"
+          required
+          size="25"
+        />
+        <input type="submit" hidden ></input>
+      </h4>
+  </form>
 );
 
 const LoginButton = (props) => (
@@ -41,13 +44,13 @@ const LogoutButton = (props) => (
 
 // Main Footer Component
 const Footer = (props) => {
-  const { isUserOnSession, openSaved, openLoginCard, openSignupCard, logout } = props;
+  const { isUserOnSession, openSaved, openLoginCard, openSignupCard, logout, handleSearchSubmit } = props;
 
   return (
     <div className="footer notMain">
       <ul>
         <li>
-          <Search />
+          <Search handleSearchSubmit={handleSearchSubmit} />
         </li>
         <li>
           <h4>
