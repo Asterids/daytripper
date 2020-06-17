@@ -1,22 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 // Child Components
-const Search = (props) => (
-  <form onSubmit={(inputText) => props.handleSearchSubmit(inputText)}>
-      <h4>
-      <label for="search-text">Search:</label>
-        <input
-          type="text"
-          id="search-text"
-          name="search-text"
-          placeholder="Country, city, or zip code"
-          required
-          size="25"
-        />
-        <input type="submit" hidden ></input>
-      </h4>
-  </form>
-);
+class Search extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      inputText: '',
+    }
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      inputText: e.target.value
+    });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { inputText } = this.state;
+    this.props.handleSearchSubmit(inputText);
+  }
+
+  render() {
+    const { inputText } = this.state;
+
+    return (
+      <form onSubmit={this.handleSubmit}>
+          <h4>
+          <label htmlFor="search-text">Search:</label>
+            <input
+              type="text"
+              id="search-text"
+              name="search-text"
+              placeholder="Country, city, or zip code"
+              required
+              size="25"
+              onChange={this.handleChange}
+              value={inputText}
+            />
+            <input type="submit" hidden ></input>
+          </h4>
+      </form>
+  )}
+}
 
 const LoginButton = (props) => (
   <button type="button" className="toggleLogin" onClick={props.openLogin}>

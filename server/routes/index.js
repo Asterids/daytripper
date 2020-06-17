@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const axios = require('axios');
+const { mapboxAPIKey } = require('../../secrets')
 
 let dbName = process.env.NODE_ENV === 'test' ? '../db/test-db' : '../db/models';
 const { User, Marker, MarkerList } = require(dbName);
@@ -12,6 +14,16 @@ router.get('/users', (req, res, next) => {
     .then((users) => res.json(users))
     .catch(next);
 });
+
+router.get('/search/:text', async (req, res, next) => {
+  try {
+    const { text } = req.params;
+    const { data } = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${text}.json?access_token=${mapboxAPIKey}&language=en&limit=1`);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+})
 
 router.get('/markers/:listId', (req, res, next) => {
   const { listId } = req.params;

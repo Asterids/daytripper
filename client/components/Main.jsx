@@ -71,6 +71,18 @@ export default class Main extends Component {
     });
   }
 
+  handleSearchSubmit = async (inputText) => {
+    try {
+      const { data } = await axios.get(`/api/search/${inputText}`);
+      if (data) {
+        const foundPlace = data.features[0];
+        console.log("Center: ", foundPlace.center)
+      };
+    } catch (err) {
+      this.setState({ errorMsg: err.message });
+    }
+  }
+
   // --- SURROUNDING PAGE INTERACTION ---
 
   // toggles sidebar 'active' class (controls visibility)
@@ -274,6 +286,7 @@ export default class Main extends Component {
           openLoginCard={this.openLoginCard}
           openSignupCard={this.openSignupCard}
           logout={this.logout}
+          handleSearchSubmit={this.handleSearchSubmit}
         />
         <Sidebar
           active={sidebarActive}

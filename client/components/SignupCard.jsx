@@ -88,7 +88,7 @@ export default class SignupCard extends Component {
           && <p className="error">{errorMsg}</p>
           )}
           <form>
-          <label for="username">Username:</label>
+          <label htmlFor="username">Username:</label>
             <input
               type="text"
               value={username}
@@ -98,7 +98,7 @@ export default class SignupCard extends Component {
               required
               size="20"
             />
-            <label for="email">Email:</label>
+            <label htmlFor="email">Email:</label>
             <input
               type="text"
               value={email}
@@ -108,7 +108,7 @@ export default class SignupCard extends Component {
               required
               size="20"
             />
-            <label for="password">Password:</label>
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               value={password}
