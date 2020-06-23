@@ -22,12 +22,15 @@ export default class ItineraryUnsaved extends Component {
     const { name } = e.target;
 
     if (name === 'currentListTitle') {
-      this.setState({ errorMsg: '' })
+      this.setState({
+        [name]: e.target.value,
+        errorMsg: '',
+      })
+    } else {
+      this.setState({
+        [name]: e.target.value,
+      });
     }
-
-    this.setState({
-      [name]: e.target.value,
-    });
   }
 
   handleClose = () => {
