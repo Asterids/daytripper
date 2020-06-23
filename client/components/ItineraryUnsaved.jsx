@@ -39,6 +39,19 @@ export default class ItineraryUnsaved extends Component {
     toggleSidebar();
   }
 
+  handleSubmitSave = () => {
+    const listDetails = {
+      title: this.state.currentListTitle.trim(),
+      notes: this.state.currentListNotes,
+    };
+
+    if (!listDetails.title.length) {
+      this.setState({ errorMsg: 'Please add a title in order to save your list!' })
+    } else {
+      this.props.saveMap(listDetails);
+    }
+  }
+
   render() {
     const { currentListTitle, currentListNotes, errorMsg } = this.state;
     const {
@@ -50,25 +63,15 @@ export default class ItineraryUnsaved extends Component {
       markers,
       removeMarker,
       clearMap,
-      saveMap,
     } = this.props;
 
     const itineraryClasses = active ? 'active' : '';
-
-    const listDetails = {
-      title: this.state.currentListTitle,
-      notes: this.state.currentListNotes,
-    };
 
     const saveButtonNoUser = (
       <button type="button" className="openLoginCard" onClick={openLoginCard}>Login to Save</button>
     );
     const saveButtonWithUser = (
-      <button type="button" className="saveItinerary" onClick={() => {
-        if (!listDetails.title.length) {
-          this.setState({ errorMsg: 'Please add a title in order to save your list!' })
-        } else { saveMap(listDetails) }
-      }}>Save</button>
+      <button type="button" className="saveItinerary" onClick={this.handleSubmitSave}>Save</button>
     );
 
     return (
