@@ -94,9 +94,7 @@ export default class ItineraryUnsaved extends Component {
             size="30"
             placeholder={`"${placeholderText}"`}
           />
-          <p>
-            <h4 className="error">{errorMsg}</h4>
-          </p>
+          <p className="error">{errorMsg}</p>
           <div className="itinerary">
             <ol>
               {markers && markers.map((marker) => {

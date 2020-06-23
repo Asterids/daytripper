@@ -18,6 +18,7 @@ export default class Main extends Component {
       signupCardActive: false,
       introCardActive: false,
       markers: [],
+      markersToAdd: [],
       editingItinerary: false,
       isUserOnSession: false,
       currentUser: {},
@@ -37,11 +38,11 @@ export default class Main extends Component {
   //  --- MAP INTERACTION ---
 
   // add marker to state in editing view (user places a new marker on the map)
-  addMarker = (newMarker) => {
+  addMarker = (newMarker, isEditing = true) => {
     this.setState((prevState) => ({
       sidebarActive: true,
       markers: [...prevState.markers, newMarker],
-      editingItinerary: true,
+      editingItinerary: isEditing,
     }));
   }
 
@@ -49,9 +50,8 @@ export default class Main extends Component {
   plotMarker = (newMarker) => {
     this.setState((prevState) => ({
       sidebarActive: true,
-      markers: [...prevState.markers, newMarker],
+      markersToAdd: [...prevState.markersToAdd, newMarker],
     }));
-    console.log("New Marker: ", newMarker)
   }
 
   // delete a single marker from state
@@ -61,6 +61,8 @@ export default class Main extends Component {
       markers: [...prevState.markers.filter((elem) => elem !== marker)],
     }));
   }
+
+  clearMarkersToAdd = () => { this.setState({ markersToAdd: [] }) };
 
   // clear the whole map of markers
   clearMap = () => {
@@ -239,6 +241,7 @@ export default class Main extends Component {
   render() {
     const {
       markers,
+      markersToAdd,
       sidebarActive,
       editingItinerary,
       introCardActive,
@@ -248,6 +251,8 @@ export default class Main extends Component {
       currentUser,
       lists,
     } = this.state;
+
+    console.log("Current Markers on state in Main.js: ", markers)
 
     return (
       <div id="main">
@@ -263,8 +268,10 @@ export default class Main extends Component {
         />
         <Map
           markers={markers}
+          markersToAdd={markersToAdd}
           addMarker={this.addMarker}
           editingItinerary={editingItinerary}
+          clearMarkersToAdd={this.clearMarkersToAdd}
         />
         <LoginCard
           loginCardActive={loginCardActive}

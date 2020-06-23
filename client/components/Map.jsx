@@ -11,29 +11,36 @@ export default class Map extends Component {
   constructor(props) {
     super(props);
 
-    const { markers } = this.props;
+    const { markers, markersToAdd } = this.props;
 
     this.state = {
-      map: {},
-      markers
+      map: {}
     }
   }
 
-  // take in a list of new markers - "toAdd" = []
-  // forEach...
-  // marker.addTo(mapInstance)
-
   // Need map state to keep track of unsaved markers as well as saved markers - sometimes both types will be displayed at the same time
   renderMarkers = () => {
-    const { map, markers } = this.state;
+    const { map } = this.state;
+    const { addMarker, markersToAdd, clearMarkersToAdd } = this.props;
 
-    markers.forEach((marker) => {
-      console.log("MARKER: ", marker)
-      // const newMarker = new MapboxGl.Marker()
-      //   .setLngLat([marker.lngLat.lng, marker.lngLat.lat])
-      //   .addTo(map);
+    markersToAdd.forEach((marker) => {
+      const newMarker = new MapboxGl.Marker()
+        .setLngLat([marker.longitude, marker.latitude])
+        .addTo(map);
+
+      newMarker.id = marker.id;
+      newMarker.marker_id = marker.markerOrder;
+      newMarker.placeName = marker.placeName;
+      newMarker.notes = marker.notes;
+      newMarker.parentList = marker.parentList;
+
+      addMarker(newMarker, false);
     })
-  } 
+
+    if (markersToAdd.length) {
+      clearMarkersToAdd();
+    }
+  }
 
   componentDidMount() {
     const { addMarker, editingItinerary, markers } = this.props;
@@ -47,8 +54,12 @@ export default class Map extends Component {
       style: 'mapbox://styles/ruthtown/cjy1zfey01ai51cp31xzhmwnw',
     });
 
-    // Marker id's needs to be handled better
+    // Marker id's need to be handled better
     let counter = 1;
+
+    // mapInstance.on('load', function() {
+    //   // subscribe to changes in local state - display all markers on local state
+    // });
 
     mapInstance.on('click', (e) => {
       if (editingItinerary || !markers.length) {
@@ -76,6 +87,12 @@ export default class Map extends Component {
     });
 
     this.setState({ map: mapInstance });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.markersToAdd !== 0) {
+      this.renderMarkers();
+    }
   }
 
   render() {
