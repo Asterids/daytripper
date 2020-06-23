@@ -252,8 +252,6 @@ export default class Main extends Component {
       lists,
     } = this.state;
 
-    console.log("Current Markers on state in Main.js: ", markers)
-
     return (
       <div id="main">
         <Header

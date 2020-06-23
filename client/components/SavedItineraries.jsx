@@ -18,19 +18,6 @@ export default class SavedItineraries extends Component {
     };
   }
 
-  // createMarker = (savedMarker) => {
-  //   const markerEl = document.createElement('div');
-  //   // Need to save all markers on state in the same format
-  //   // Thus, need to create a Mapbox GL marker from saved marker data and standardize from there
-  //   // Markers should all be handled by the Map component - 
-  //   // 1. Create & add marker to map; 2. Add relevant data points for saving and add to state
-  //   const newMarker = new Marker(markerEl).setLngLat([savedMarker.longitude, savedMarker.latitude]);
-  //   newMarker.marker_id = savedMarker.id;
-  //   newMarker.placeName = savedMarker.placeName;
-  //   newMarker.notes = savedMarker.notes;
-  //   return newMarker;
-  // };
-
   fetchListDetails = async (list) => {
     const { clearMap, plotMarker } = this.props;
     clearMap();

@@ -18,7 +18,7 @@ export default class Map extends Component {
     }
   }
 
-  // Need map state to keep track of unsaved markers as well as saved markers - sometimes both types will be displayed at the same time
+  // renderMarkers needs to first create and add a marker to the map, and subsequently format it to be added to Main state
   renderMarkers = () => {
     const { map } = this.state;
     const { addMarker, markersToAdd, clearMarkersToAdd } = this.props;
@@ -57,10 +57,6 @@ export default class Map extends Component {
     // Marker id's need to be handled better
     let counter = 1;
 
-    // mapInstance.on('load', function() {
-    //   // subscribe to changes in local state - display all markers on local state
-    // });
-
     mapInstance.on('click', (e) => {
       if (editingItinerary || !markers.length) {
         axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
@@ -89,8 +85,8 @@ export default class Map extends Component {
     this.setState({ map: mapInstance });
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.markersToAdd !== 0) {
+  componentDidUpdate() {
+    if (this.props.markersToAdd.length !== 0) {
       this.renderMarkers();
     }
   }
