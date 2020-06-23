@@ -7,6 +7,7 @@ export default class ItineraryUnsaved extends Component {
     this.state = {
       currentListTitle: '',
       currentListNotes: '',
+      errorMsg: '',
     };
   }
 
@@ -19,6 +20,10 @@ export default class ItineraryUnsaved extends Component {
 
   handleChange = (e) => {
     const { name } = e.target;
+
+    if (name === 'currentListTitle') {
+      this.setState({ errorMsg: '' })
+    }
 
     this.setState({
       [name]: e.target.value,
@@ -35,7 +40,7 @@ export default class ItineraryUnsaved extends Component {
   }
 
   render() {
-    const { currentListTitle, currentListNotes } = this.state;
+    const { currentListTitle, currentListNotes, errorMsg } = this.state;
     const {
       placeholderText,
       active,
@@ -59,7 +64,11 @@ export default class ItineraryUnsaved extends Component {
       <button type="button" className="openLoginCard" onClick={openLoginCard}>Login to Save</button>
     );
     const saveButtonWithUser = (
-      <button type="button" className="saveItinerary" onClick={() => { saveMap(listDetails); }}>Save</button>
+      <button type="button" className="saveItinerary" onClick={() => {
+        if (!listDetails.title.length) {
+          this.setState({ errorMsg: 'Please add a title in order to save your list!' })
+        } else { saveMap(listDetails) }
+      }}>Save</button>
     );
 
     return (
@@ -79,6 +88,9 @@ export default class ItineraryUnsaved extends Component {
             size="30"
             placeholder={`"${placeholderText}"`}
           />
+          <p>
+            <h4 className="error">{errorMsg}</h4>
+          </p>
           <div className="itinerary">
             <ol>
               {markers && markers.map((marker) => {
