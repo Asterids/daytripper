@@ -18,15 +18,6 @@ export default class SavedItineraries extends Component {
     };
   }
 
-  createMarker = (savedMarker) => {
-    const markerEl = document.createElement('div');
-    const newMarker = new Marker(markerEl).setLngLat([savedMarker.longitude, savedMarker.latitude]);
-    newMarker.marker_id = savedMarker.id;
-    newMarker.placeName = savedMarker.placeName;
-    newMarker.notes = savedMarker.notes;
-    return newMarker;
-  };
-
   fetchListDetails = async (list) => {
     const { clearMap, plotMarker } = this.props;
     clearMap();
@@ -37,8 +28,7 @@ export default class SavedItineraries extends Component {
       if (data) {
         currentListMarkers = data.sort((a, b) => a.markerOrder - b.markerOrder);
         currentListMarkers.forEach((marker) => {
-          const markerToAdd = this.createMarker(marker); // create a new marker element
-          plotMarker(markerToAdd); // just want to view, not editing yet - add it to Main.js state
+          plotMarker(marker); // add it to Main.js state to be rendered on the map
         });
       }
     } catch (err) {
@@ -62,6 +52,7 @@ export default class SavedItineraries extends Component {
       currentListMarkers: [],
       currentListNotes: '',
     });
+    this.props.clearMap();
   }
 
   handleEditClick = () => {
@@ -133,7 +124,7 @@ export default class SavedItineraries extends Component {
               <div className="sidebarButtons">
                 <button type="button" className="editItinerary" onClick={this.resetToAllLists}>Back</button>
                 {
-    // <button type="button" className="editItinerary" onClick={this.handleEditClick}>Edit</button>
+                  <button type="button" className="editItinerary" onClick={this.handleEditClick}>Edit</button>
                 }
               </div>
               <button type="button" className="editItinerary" onClick={() => this.handleDeleteList(list)}>Delete List</button>
