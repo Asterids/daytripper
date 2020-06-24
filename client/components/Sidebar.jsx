@@ -58,13 +58,18 @@ export default class Sidebar extends Component {
   }
 
   handleDeleteList = async (listId) => {
-    try {
-      const { data } = await axios.delete(`/api/lists/${listId}`);
-      console.log("Delete {data}: ", data)
-    } catch (err) {
-      this.setState({ errorMsg: err.message });
+    const confirmed = confirm("Are you sure you want to delete this list?");
+    if (confirmed) {
+      try {
+        const { status }  = await axios.delete(`/api/lists/${listId}`);
+        if (status === 204) {
+          alert("List deleted!")
+        }
+      } catch (err) {
+        this.setState({ errorMsg: err.message });
+      }
+      this.resetToAllLists();
     }
-    this.resetToAllLists();
   }
 
   generateText = (dataset) => {
@@ -152,6 +157,7 @@ export default class Sidebar extends Component {
           addMarker={addMarker}
           plotMarker={plotMarker}
           fetchListDetails={this.fetchListDetails}
+          handleDeleteList={this.handleDeleteList}
         />
       </div>
     );

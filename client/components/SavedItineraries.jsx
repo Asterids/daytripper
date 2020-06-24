@@ -17,6 +17,7 @@ const SavedItineraries = (props) => {
     lists,
     listClasses,
     listDetailClasses,
+    currentListId,
     currentListTitle,
     currentListNotes,
     currentListMarkers,
@@ -65,7 +66,7 @@ const SavedItineraries = (props) => {
                 <button type="button" className="editItinerary" onClick={handleEditClick}>Edit</button>
               }
             </div>
-            <button type="button" className="editItinerary" onClick={() => handleDeleteList(list.id)}>Delete List</button>
+            <button type="button" className="editItinerary" onClick={() => handleDeleteList(currentListId)}>Delete List</button>
           </div>
         </ul>
       </div>

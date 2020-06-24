@@ -8,16 +8,12 @@ User.hasMany(MarkerList, { foreignKey: 'ownerId' });
 MarkerList.belongsTo(User, {
   targetKey: 'id',
   foreignKey: 'ownerId',
-  onDelete: 'cascade',
-  hooks: true,
 });
 
 MarkerList.hasMany(Marker, { foreignKey: 'parentList' });
 Marker.belongsTo(MarkerList, {
   targetKey: 'id',
   foreignKey: 'parentList',
-  onDelete: 'cascade',
-  hooks: true,
 });
 
 module.exports = {
