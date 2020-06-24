@@ -117,6 +117,7 @@ export default class Sidebar extends Component {
           <ItineraryUnsaved
             placeholderText={placeholderText}
             markers={markers}
+            resetToAllLists={this.resetToAllLists}
             toggleSaved={toggleSaved}
             toggleSidebar={toggleSidebar}
             removeMarker={removeMarker}
