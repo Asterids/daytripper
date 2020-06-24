@@ -32,9 +32,6 @@ export default class Main extends Component {
     this.getUserFromSession();
   }
 
-  // Consideration for persisting new markers through login -
-  // utilize session for temporary storage of new markers when a user is not yet logged in?
-
   //  --- MAP INTERACTION ---
 
   // add marker to state in editing view (user places a new marker on the map)
@@ -140,20 +137,34 @@ export default class Main extends Component {
 
   // RENAME TO "saveNewList"
   // saves a list with details, and calls saveMarkers to save the related markers
-  saveList = async (newList) => {
+  saveList = async (candidateList) => {
+    const { lists } = this.state;
     const userId = this.state.currentUser.id;
-    const { lists, markers } = this.state;
-    try {
-      const { data } = await axios.post(`/api/lists/new/${userId}`, newList);
-      if (data) {
-        this.saveMarkers(data.id);
-        this.setState({
-          lists: [...lists, data],
-        });
-        this.toggleSaved();
+    const listId = candidateList.id;
+
+    if (!listId) {
+      try {
+        const { data } = await axios.post(`/api/lists/new/${userId}`, candidateList);
+        if (data) {
+          this.saveMarkers(data.id);
+          this.setState({
+            lists: [...lists, data],
+          });
+          this.toggleSaved();
+        }
+      } catch (err) {
+        this.setState({ errorMsg: err.message });
       }
-    } catch (err) {
-      this.setState({ errorMsg: err.message });
+    } else {
+      try {
+        const { data } = await axios.put(`/api/lists/update/${listId}`, candidateList);
+        if (data) {
+          console.log("Response data: ", data)
+          // In Progress - determine how best to save updates to markers
+        }
+      } catch (err) {
+        this.setState({ errorMsg: err.message });
+      }
     }
   }
 
