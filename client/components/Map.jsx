@@ -16,6 +16,31 @@ export default class Map extends Component {
     }
   }
 
+  // renderMarkers needs to first create and add a marker to the map, and subsequently format it to be added to Main state
+  renderMarkers = (markersToAdd, options) => {
+    const { map } = this.state;
+    const { addMarker, clearMarkersToAdd } = this.props;
+
+    markersToAdd.forEach((marker) => {
+      const newMarker = new MapboxGl.Marker()
+        .setLngLat([marker.longitude, marker.latitude])
+        .addTo(map);
+
+      newMarker.id = marker.id;
+      newMarker.marker_id = marker.markerOrder;
+      newMarker.placeName = marker.placeName;
+      newMarker.notes = marker.notes;
+      newMarker.parentList = marker.parentList;
+
+      addMarker(newMarker, false);
+    })
+
+    map.flyTo(options);
+
+    clearMarkersToAdd();
+  }
+
+
   calculateNewMapData = (markersToAdd) => {
     // Find center point by averaging markers' latitude and longitude
     const avgLat = markersToAdd.reduce((accum, mrkr) => accum + mrkr.latitude, 0) / markersToAdd.length;
@@ -43,9 +68,9 @@ export default class Map extends Component {
     let zoomTo = ((diff) => {
       switch(true) {
         case diff <= 1:
-          return 10;
-        case diff <= 1.5:
           return 8;
+        case diff <= 1.5:
+          return 7;
         case diff <= 2:
           return 6.2;
         case diff <= 2.5:
@@ -65,8 +90,6 @@ export default class Map extends Component {
       }
     })(greatestDiff);
 
-    console.log("ZoomTo: ", zoomTo)
-
     const options = {
       center: [avgLng, avgLat],
       zoom: zoomTo,
@@ -74,31 +97,6 @@ export default class Map extends Component {
     }
 
     this.renderMarkers(markersToAdd, options);
-  }
-
-
-  // renderMarkers needs to first create and add a marker to the map, and subsequently format it to be added to Main state
-  renderMarkers = (markersToAdd, options) => {
-    const { map } = this.state;
-    const { addMarker, clearMarkersToAdd } = this.props;
-
-    markersToAdd.forEach((marker) => {
-      const newMarker = new MapboxGl.Marker()
-        .setLngLat([marker.longitude, marker.latitude])
-        .addTo(map);
-
-      newMarker.id = marker.id;
-      newMarker.marker_id = marker.markerOrder;
-      newMarker.placeName = marker.placeName;
-      newMarker.notes = marker.notes;
-      newMarker.parentList = marker.parentList;
-
-      addMarker(newMarker, false);
-    })
-
-    map.flyTo(options);
-
-    clearMarkersToAdd();
   }
 
 

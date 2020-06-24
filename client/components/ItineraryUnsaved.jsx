@@ -37,6 +37,12 @@ export default class ItineraryUnsaved extends Component {
     }
   }
 
+  handleCancel = () => {
+    const { resetToAllLists, toggleSaved } = this.props;
+    resetToAllLists();
+    toggleSaved();
+  }
+
   handleClose = () => {
     const { toggleSidebar } = this.props;
     toggleSidebar();
@@ -53,7 +59,6 @@ export default class ItineraryUnsaved extends Component {
       markers,
       removeMarker,
       clearMap,
-      toggleSaved,
       currentListTitle,
       currentListNotes,
       currentListId,
@@ -112,7 +117,7 @@ export default class ItineraryUnsaved extends Component {
               placeholder="Any notes about this list..."
             />
             <div className="sidebarButtons">
-              {!!currentListId && <button type="button" className="editItinerary" onClick={toggleSaved}>Cancel</button>}
+              {!!currentListId && <button type="button" className="editItinerary" onClick={this.handleCancel}>Cancel</button>}
               {!currentListId && <button type="button" className="saveItinerary" onClick={clearMap}>Clear</button>}
               {isUserOnSession ? saveButtonWithUser : saveButtonNoUser}
             </div>
