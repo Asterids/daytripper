@@ -49,8 +49,10 @@ router.put('/update/:listId', (req, res, next) => {
 router.delete('/:listId', (req, res, next) => {
   const { listId } = req.params;
 
-  console.log("INSIDE DELETE")
-  MarkerList.destroy({ where: { id: listId } })
+  Marker.destroy({ where: { parentList: listId } })
+    .then(() => {
+      return MarkerList.destroy({ where: { id: listId } })
+    })
     .then(() => res.sendStatus(204))
     .catch(next);
 });
