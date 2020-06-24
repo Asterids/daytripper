@@ -53,8 +53,10 @@ export default class ItineraryUnsaved extends Component {
       markers,
       removeMarker,
       clearMap,
+      toggleSaved,
       currentListTitle,
       currentListNotes,
+      currentListId,
     } = this.props;
   
     const itineraryClasses = active ? 'active' : '';
@@ -110,7 +112,8 @@ export default class ItineraryUnsaved extends Component {
               placeholder="Any notes about this list..."
             />
             <div className="sidebarButtons">
-              <button type="button" className="saveItinerary" onClick={clearMap}>Clear</button>
+              {!!currentListId && <button type="button" className="editItinerary" onClick={toggleSaved}>Cancel</button>}
+              {!currentListId && <button type="button" className="saveItinerary" onClick={clearMap}>Clear</button>}
               {isUserOnSession ? saveButtonWithUser : saveButtonNoUser}
             </div>
           </div>

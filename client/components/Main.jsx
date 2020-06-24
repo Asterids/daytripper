@@ -44,10 +44,10 @@ export default class Main extends Component {
   }
 
   // add a marker to state in read-only view (viewing an existing saved itinerary)
-  plotMarker = (newMarker) => {
+  plotMarkers = (newMarkers) => {
     this.setState((prevState) => ({
       sidebarActive: true,
-      markersToAdd: [...prevState.markersToAdd, newMarker],
+      markersToAdd: [...prevState.markersToAdd, ...newMarkers],
     }));
   }
 
@@ -161,6 +161,7 @@ export default class Main extends Component {
         if (data) {
           console.log("Response data: ", data)
           // In Progress - determine how best to save updates to markers
+          this.toggleSaved();
         }
       } catch (err) {
         this.setState({ errorMsg: err.message });
@@ -308,7 +309,7 @@ export default class Main extends Component {
           active={sidebarActive}
           markers={markers}
           addMarker={this.addMarker}
-          plotMarker={this.plotMarker}
+          plotMarkers={this.plotMarkers}
           editingItinerary={editingItinerary}
           toggleSaved={this.toggleSaved}
           toggleSidebar={this.toggleSidebar}

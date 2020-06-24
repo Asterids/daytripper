@@ -21,7 +21,7 @@ export default class Sidebar extends Component {
   }
 
   fetchListDetails = async (list) => {
-    const { clearMap, plotMarker } = this.props;
+    const { clearMap, plotMarkers } = this.props;
     const listId = list.id
     clearMap();
     let currentListMarkers = [];
@@ -30,9 +30,7 @@ export default class Sidebar extends Component {
 
       if (data) {
         currentListMarkers = data.sort((a, b) => a.markerOrder - b.markerOrder);
-        currentListMarkers.forEach((marker) => {
-          plotMarker(marker); // add it to Main.js state to be rendered on the map
-        });
+        plotMarkers(currentListMarkers); // add them to Main.js state to be rendered on the map
       }
     } catch (err) {
       this.setState({ errorMsg: err.message });
