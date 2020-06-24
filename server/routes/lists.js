@@ -31,7 +31,7 @@ router.post('/new/:userId', (req, res, next) => {
     .catch(next);
 });
 
-router.put('/save/:listId', (req, res, next) => {
+router.put('/update/:listId', (req, res, next) => {
   const { title, notes } = req.body;
   const { listId } = req.params;
 

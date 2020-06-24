@@ -1,73 +1,62 @@
 import React, { Component } from 'react';
+import { render } from 'react-dom';
+
 
 export default class ItineraryUnsaved extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    this.state = {
-      currentListTitle: '',
-      currentListNotes: '',
-      errorMsg: '',
-    };
-  }
+    this.state = { errorMsg: '' }
 
-  componentDidMount() {
-    const { markers, addMarker } = this.props;
-    if (markers.length) {
-      // if markers on state exist when sidebar is loaded, need to set the title and notes
-    }
+    this.titleInput = React.createRef();
+    this.notesInput = React.createRef();
   }
 
   handleChange = (e) => {
-    const { name } = e.target;
+    if (this.state.errorMsg.length) {
+      this.setState({ errorMsg: '' })
+    }
+  }
 
-    if (name === 'currentListTitle') {
-      this.setState({
-        [name]: e.target.value,
-        errorMsg: '',
-      })
+  handleSubmitSave = (e) => {
+    const { saveMap, currentListId } = this.props;
+
+    const listDetails = {
+      title: this.titleInput.value.trim(),
+      notes: this.notesInput.value.trim(),
+    };
+
+    if (currentListId) {
+      listDetails.id = currentListId
+    }
+
+    if (!listDetails.title.length) {
+      this.setState({ errorMsg: 'Please add a title in order to save your list!' })
     } else {
-      this.setState({
-        [name]: e.target.value,
-      });
+      saveMap(listDetails);
     }
   }
 
   handleClose = () => {
     const { toggleSidebar } = this.props;
-    this.setState({
-      currentListTitle: '',
-      currentListNotes: '',
-    });
     toggleSidebar();
   }
 
-  handleSubmitSave = () => {
-    const listDetails = {
-      title: this.state.currentListTitle.trim(),
-      notes: this.state.currentListNotes,
-    };
-
-    if (!listDetails.title.length) {
-      this.setState({ errorMsg: 'Please add a title in order to save your list!' })
-    } else {
-      this.props.saveMap(listDetails);
-    }
-  }
-
   render() {
-    const { currentListTitle, currentListNotes, errorMsg } = this.state;
+    const { errorMsg } = this.state;
+
     const {
       placeholderText,
       active,
       openLoginCard,
       isUserOnSession,
-      currentUser,
       markers,
       removeMarker,
       clearMap,
+      currentListTitle,
+      currentListNotes,
     } = this.props;
-
+  
     const itineraryClasses = active ? 'active' : '';
 
     const saveButtonNoUser = (
@@ -80,21 +69,24 @@ export default class ItineraryUnsaved extends Component {
     return (
       <div className={itineraryClasses}>
         <ul>
-          <h5 id="titleHeading">Name this list:</h5>
+          <h5 id="titleHeading">List title:</h5>
           <button type="button" className="close secondaryButton" onClick={this.handleClose}>x</button>
           <input
             type="text"
-            id="currentListTitle"
-            name="currentListTitle"
+            id="unsavedTitle"
+            name="unsavedTitle"
+            defaultValue={currentListTitle}
+            ref={unsavedTitle => this.titleInput = unsavedTitle}
             onChange={this.handleChange}
-            value={currentListTitle}
             required
             minLength="4"
             maxLength="200"
             size="30"
             placeholder={`"${placeholderText}"`}
           />
-          <p className="error">{errorMsg}</p>
+          <section>
+            <p className="error">{errorMsg}</p>
+          </section>
           <div className="itinerary">
             <ol>
               {markers && markers.map((marker) => {
@@ -107,10 +99,10 @@ export default class ItineraryUnsaved extends Component {
               })}
             </ol>
             <textarea
-              id="currentListNotes"
-              name="currentListNotes"
-              onChange={this.handleChange}
-              value={currentListNotes}
+              id="unsavedNotes"
+              name="unsavedNotes"
+              defaultValue={currentListNotes}
+              ref={unsavedNotes => this.notesInput = unsavedNotes}
               required
               minLength="4"
               maxLength="600"

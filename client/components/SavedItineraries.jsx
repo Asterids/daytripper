@@ -1,137 +1,76 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-const { Marker } = require('mapbox-gl');
+const SavedItineraries = (props) => {
 
-export default class SavedItineraries extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentListId: 0,
-      currentListTitle: '',
-      currentListNotes: '',
-      currentListMarkers: [],
-      errorMsg: '',
-      listClasses: 'saved',
-      listDetailClasses: 'hidden',
-    };
-  }
-
-  fetchListDetails = async (list) => {
-    const { clearMap, plotMarker } = this.props;
-    clearMap();
-    let currentListMarkers = [];
-    try {
-      const { data } = await axios.get(`/api/markers/${list.id}`);
-
-      if (data) {
-        currentListMarkers = data.sort((a, b) => a.markerOrder - b.markerOrder);
-        currentListMarkers.forEach((marker) => {
-          plotMarker(marker); // add it to Main.js state to be rendered on the map
-        });
-      }
-    } catch (err) {
-      this.setState({ errorMsg: err.message });
-    }
-    this.setState({
-      listClasses: 'hidden saved',
-      listDetailClasses: 'active',
-      currentListTitle: list.title,
-      currentListNotes: list.notes,
-      currentListMarkers,
-    });
-  }
-
-  resetToAllLists = () => {
-    this.setState({
-      currentListId: 0,
-      listClasses: 'active saved',
-      listDetailClasses: 'hidden',
-      currentListTitle: '',
-      currentListMarkers: [],
-      currentListNotes: '',
-    });
-    this.props.clearMap();
-  }
-
-  handleEditClick = () => {
-    const { toggleSaved } = this.props;
+  const handleEditClick = () => {
+    const { toggleSaved } = props;
     toggleSaved();
   }
 
-  handleDeleteList = async (list) => {
-    try {
-      const { data } = await axios.delete(`/api/lists/${list.id}`);
-      console.log("Delete {data}: ", data)
-    } catch (err) {
-      this.setState({ errorMsg: err.message });
-    }
-    this.resetToAllLists();
-  }
-
-  handleClose = () => {
-    const { toggleSidebar } = this.props;
+  const handleClose = () => {
+    const { toggleSidebar, resetToAllLists } = props;
     toggleSidebar();
-    this.resetToAllLists();
+    resetToAllLists();
   }
 
-  render() {
-    const {
-      listClasses,
-      listDetailClasses,
-      currentListTitle,
-      currentListNotes,
-      currentListMarkers,
-      errorMsg,
-    } = this.state;
+  const {
+    lists,
+    listClasses,
+    listDetailClasses,
+    currentListTitle,
+    currentListNotes,
+    currentListMarkers,
+    fetchListDetails,
+    handleDeleteList,
+    resetToAllLists,
+    errorMsg,
+  } = props;
 
-    const { lists } = this.props;
-
-    return (
-      <div className="saved-container">
-        <button type="button" className="close secondaryButton" onClick={this.handleClose}>x</button>
-        <div className={listClasses}>
-          <h3>
-            My Saved Itineraries
-          </h3>
-          <hr />
-          <div className="itinerary overview">
-            <ul>
-              {!lists.length && (<p>You don't have any saved lists! Click to place a marker on the map and begin a new list.</p>)}
-              {!!lists.length && lists.map((list) => (
-                <li key={list.id}>✈ <button type="button" className="itineraryButton" onClick={() => this.fetchListDetails(list)}>{list.title}</button></li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className={listDetailClasses}>
+  return (
+    <div className="saved-container">
+      <button type="button" className="close secondaryButton" onClick={handleClose}>x</button>
+      <div className={listClasses}>
+        <h3>
+          My Saved Itineraries
+        </h3>
+        <hr />
+        <div className="itinerary overview">
           <ul>
-            {currentListTitle}
-            <div className="itinerary">
-              <ol>
-                {currentListMarkers && currentListMarkers.map((marker) => (
-                  <li key={marker.id}>
-                    <button type="button" className="remove" onClick={() => {}}>{marker.placeName}</button>
-                  </li>
-                ))}
-              </ol>
-              <p>
-                <b>Notes:</b>
-                <br />
-                {currentListNotes}
-              </p>
-              <div className="sidebarButtons">
-                <button type="button" className="editItinerary" onClick={this.resetToAllLists}>Back</button>
-                {
-                  <button type="button" className="editItinerary" onClick={this.handleEditClick}>Edit</button>
-                }
-              </div>
-              <button type="button" className="editItinerary" onClick={() => this.handleDeleteList(list)}>Delete List</button>
-            </div>
+            {!lists.length && (<p>You don't have any saved lists! Click to place a marker on the map and begin a new list.</p>)}
+            {!!lists.length && lists.map((list) => (
+              <li key={list.id}>✈ <button type="button" className="itineraryButton" onClick={() => fetchListDetails(list)}>{list.title}</button></li>
+            ))}
           </ul>
         </div>
       </div>
-    );
-  }
+      <div className={listDetailClasses}>
+        <ul>
+          {currentListTitle}
+          <div className="itinerary">
+            <ol>
+              {currentListMarkers && currentListMarkers.map((marker) => (
+                <li key={marker.id}>
+                  <button type="button" className="remove" onClick={() => {}}>{marker.placeName}</button>
+                </li>
+              ))}
+            </ol>
+            <p>
+              <b>Notes:</b>
+              <br />
+              {currentListNotes}
+            </p>
+            <div className="sidebarButtons">
+              <button type="button" className="editItinerary" onClick={resetToAllLists}>Back</button>
+              {
+                <button type="button" className="editItinerary" onClick={handleEditClick}>Edit</button>
+              }
+            </div>
+            <button type="button" className="editItinerary" onClick={() => handleDeleteList(list.id)}>Delete List</button>
+          </div>
+        </ul>
+      </div>
+    </div>
+  );
 }
+
+export default SavedItineraries;
