@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import M from 'materialize-css';
 import axios from 'axios';
 import Header from './Header';
 import IntroCard from './IntroCard';
@@ -151,6 +152,7 @@ export default class Main extends Component {
             lists: [...lists, data],
           });
           this.toggleSaved();
+          M.toast({html: 'List saved!', classes: 'success green lighten-2', displayLength: 2500});
         }
       } catch (err) {
         this.setState({ errorMsg: err.message });

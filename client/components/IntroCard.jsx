@@ -6,15 +6,15 @@ const IntroCard = (props) => {
 
   return (
     <div className={classes}>
-      <h3>
+      <h6>
         <b>Welcome to DayTripper!</b>
-      </h3>
-      <h3>
+      </h6>
+      <h6>
         → Begin by adding markers to the map. You'll need to login if you want to start saving your lists.
-      </h3>
-      <h3>
+      </h6>
+      <h6>
         → You can <button type="button" className="greenLink" onClick={openLoginCard}>login as a guest</button> if you just want to see how things work!
-      </h3>
+      </h6>
       <button type="button" className="close secondaryButton" onClick={toggleIntroCard}>x</button>
     </div>
   );

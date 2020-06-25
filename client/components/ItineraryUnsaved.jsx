@@ -76,7 +76,7 @@ export default class ItineraryUnsaved extends Component {
     return (
       <div className={itineraryClasses}>
         <ul>
-          <h5 id="titleHeading">List title:</h5>
+          <h6 id="titleHeading">List title:</h6>
           <button type="button" className="close secondaryButton" onClick={this.handleClose}>x</button>
           <input
             type="text"
