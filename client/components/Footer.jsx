@@ -27,20 +27,18 @@ class Search extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-          <h4>
-          <label htmlFor="search-text">Search:</label>
-            <input
-              type="text"
-              id="search-text"
-              name="search-text"
-              placeholder="Country, city, or zip code"
-              required
-              size="25"
-              onChange={this.handleChange}
-              value={inputText}
-            />
-            <input type="submit" hidden ></input>
-          </h4>
+        <label htmlFor="search-text">Search:</label>
+          <input
+            type="text"
+            id="search-text"
+            name="search-text"
+            placeholder="Country, city, or zip code"
+            required
+            size="25"
+            onChange={this.handleChange}
+            value={inputText}
+          />
+          <input type="submit" hidden ></input>
       </form>
   )}
 }
@@ -80,18 +78,21 @@ const Footer = (props) => {
           <Search handleSearchSubmit={handleSearchSubmit} />
         </li>
         <li>
-          <h4>
+          <div></div>
+        </li>
+        <li>
+          <h6>
             {
               isUserOnSession ? <MyMapsButton openSaved={openSaved} /> : <LoginButton openLogin={openLoginCard} />
             }
-          </h4>
+          </h6>
         </li>
         <li>
-          <h4>
+          <h6>
             {
               isUserOnSession ? <LogoutButton logout={logout} /> : <SignupButton openSignup={openSignupCard} />
             }
-          </h4>
+          </h6>
         </li>
       </ul>
     </div>

@@ -31,9 +31,9 @@ const SavedItineraries = (props) => {
     <div className="saved-container">
       <button type="button" className="close secondaryButton" onClick={handleClose}>x</button>
       <div className={listClasses}>
-        <h3>
+        <h5>
           My Saved Itineraries
-        </h3>
+        </h5>
         <hr />
         <div className="itinerary overview">
           <ul>
