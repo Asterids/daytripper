@@ -1,5 +1,9 @@
 * {
   box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
   overflow: hidden;
 }
 
@@ -22,25 +26,19 @@ main {
 }
 
 .error {
-  position: absolute;
-  top: 70px;
+  margin: 0;
   font-size: 14px;
   color: red;
 }
 
-section {
-  padding: 10px 0;
-}
-
 a {
   color: #d5e5f0;
-  font-family: 'Nunito', sans-serif;
   text-decoration: none;
+  font-weight: 400;
 }
 
 button {
   color: #aeb6bf;
-  font-family: 'Nunito', sans-serif;
   font-size: 1em;
   font-weight: bold;
   text-decoration: none;
@@ -49,6 +47,7 @@ button {
   border: 0;
   border-radius: 3px;
   transition: all 0.4s ease 0s;
+  font-weight: 400;
 }
 
 button:focus {
@@ -73,14 +72,36 @@ h5 {
 }
 
 input {
+  padding: 0 10px !important;
   margin-left: 12px;
   width: 140px;
   height: 30px;
   border-style: hidden;
   border: 1px #adbbc4 solid;
   border-radius: 2px;
-  font-family:  'Nunito', sans-serif;
   font-size: 16px;
+}
+
+textarea {
+  padding: 5px;
+  height: 100px;
+}
+
+.sidebar input, textarea, .loginSignup input {
+  background-color: rgba(255, 255, 255, .8) !important;
+}
+
+.unsavedTitle {
+  width: 90% !important;
+}
+
+.footer input {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, .15) !important;
+}
+
+.footer input::placeholder {
+  color: #6f7781;
 }
 
 ul {
@@ -112,7 +133,6 @@ ul {
   align-self: center;
   justify-content: center;
   color: #d5e5f0;
-  font-family: 'Nunito', sans-serif;
   font-size: 32px;
 }
 
@@ -137,7 +157,6 @@ ul {
   background: rgba(229, 242, 251, 0.95);
   border-radius: 5px;
   z-index: 4;
-  font-family: 'Nunito', sans-serif;
   font-size: 13px;
   transform: translateX(-150%);
 }
@@ -199,7 +218,6 @@ ul {
   transform: translateX(180%);
   transition: transform 0.1s ease;
   color: #182229;
-  font-family: 'Nunito', sans-serif;
   border: #182229 2px solid;
   border-radius: 5px;
   z-index: 3;
@@ -237,7 +255,6 @@ ul {
 
 .greenLink {
   color: #52b380;
-  font-family: 'Nunito', sans-serif;
   text-decoration: none;
   background: none;
   border: none;
@@ -285,7 +302,6 @@ ul {
   transform: translateX(110%);
   transition: transform 0.3s ease;
   color: #182229;
-  font-family: 'Nunito', sans-serif;
 }
 
 .sidebarButtons {
@@ -310,28 +326,39 @@ ul {
 
 .sidebar ol {
   padding: 0;
-  margin: 10px 20px 20px 25px;
 }
 
-.sidebar ul li {
+.sidebar li {
   padding: 0 0 8px 0;
 }
 
 .itinerary {
   display: flex;
   flex-direction: column;
+  padding: 0 10px;
+}
+
+.editing-container {
+  width: 100%;
+  padding: 30px 20px 15px 20px;
 }
 
 .saved-container {
   width: 100%;
-}
-
-.saved-container h3 {
-  margin-left: 25px;
+  padding: 45px 20px 15px 20px;
 }
 
 .saved-container hr {
   width: 90%;
+}
+
+.list-header {
+  text-align: center;
+}
+
+.strong-header {
+  font-family: 'Spectral', serif;
+  text-align: center;
 }
 
 .itineraryButton {

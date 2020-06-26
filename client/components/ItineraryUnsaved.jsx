@@ -64,7 +64,7 @@ export default class ItineraryUnsaved extends Component {
       currentListId,
     } = this.props;
   
-    const itineraryClasses = active ? 'active' : '';
+    const itineraryClasses = active ? 'active editing-container' : 'editing-container';
 
     const saveButtonNoUser = (
       <button type="button" className="openLoginCard" onClick={openLoginCard}>Login to Save</button>
@@ -75,54 +75,53 @@ export default class ItineraryUnsaved extends Component {
 
     return (
       <div className={itineraryClasses}>
-        <ul>
-          <h6 id="titleHeading">List title:</h6>
-          <button type="button" className="close secondaryButton" onClick={this.handleClose}>x</button>
-          <input
-            type="text"
-            id="unsavedTitle"
-            name="unsavedTitle"
-            defaultValue={currentListTitle}
-            ref={unsavedTitle => this.titleInput = unsavedTitle}
-            onChange={this.handleChange}
+        <h6 id="titleHeading">List title:</h6>
+        <button type="button" className="close secondaryButton" onClick={this.handleClose}>x</button>
+        <input
+          type="text"
+          id="unsavedTitle"
+          name="unsavedTitle"
+          className="unsavedTitle"
+          defaultValue={currentListTitle}
+          ref={unsavedTitle => this.titleInput = unsavedTitle}
+          onChange={this.handleChange}
+          required
+          minLength="4"
+          maxLength="200"
+          size="30"
+          placeholder={`"${placeholderText}"`}
+        />
+        <section>
+          <p className="error">{errorMsg}</p>
+        </section>
+        <div className="itinerary">
+          <ol>
+            {markers && markers.map((marker) => {
+              return (
+                <li key={marker.marker_id}>
+                  {marker.placeName}
+                  <button type="button" className="remove" onClick={() => removeMarker(marker)}> x </button>
+                </li>
+              );
+            })}
+          </ol>
+          <textarea
+            id="unsavedNotes"
+            name="unsavedNotes"
+            defaultValue={currentListNotes}
+            ref={unsavedNotes => this.notesInput = unsavedNotes}
             required
             minLength="4"
-            maxLength="200"
-            size="30"
-            placeholder={`"${placeholderText}"`}
+            maxLength="600"
+            size="60"
+            placeholder="Any notes about this list..."
           />
-          <section>
-            <p className="error">{errorMsg}</p>
-          </section>
-          <div className="itinerary">
-            <ol>
-              {markers && markers.map((marker) => {
-                return (
-                  <li key={marker.marker_id}>
-                    {marker.placeName}
-                    <button type="button" className="remove" onClick={() => removeMarker(marker)}> x </button>
-                  </li>
-                );
-              })}
-            </ol>
-            <textarea
-              id="unsavedNotes"
-              name="unsavedNotes"
-              defaultValue={currentListNotes}
-              ref={unsavedNotes => this.notesInput = unsavedNotes}
-              required
-              minLength="4"
-              maxLength="600"
-              size="60"
-              placeholder="Any notes about this list..."
-            />
-            <div className="sidebarButtons">
-              {!!currentListId && <button type="button" className="editItinerary" onClick={this.handleCancel}>Cancel</button>}
-              {!currentListId && <button type="button" className="saveItinerary" onClick={clearMap}>Clear</button>}
-              {isUserOnSession ? saveButtonWithUser : saveButtonNoUser}
-            </div>
+          <div className="sidebarButtons">
+            {!!currentListId && <button type="button" className="editItinerary" onClick={this.handleCancel}>Cancel</button>}
+            {!currentListId && <button type="button" className="saveItinerary" onClick={clearMap}>Clear</button>}
+            {isUserOnSession ? saveButtonWithUser : saveButtonNoUser}
           </div>
-        </ul>
+        </div>
       </div>
     );
   }

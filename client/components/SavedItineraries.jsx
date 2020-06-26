@@ -31,7 +31,7 @@ const SavedItineraries = (props) => {
     <div className="saved-container">
       <button type="button" className="close secondaryButton" onClick={handleClose}>x</button>
       <div className={listClasses}>
-        <h5>
+        <h5 className="list-header">
           My Saved Itineraries
         </h5>
         <hr />
@@ -45,8 +45,8 @@ const SavedItineraries = (props) => {
         </div>
       </div>
       <div className={listDetailClasses}>
+        <h5 className="strong-header">{currentListTitle}</h5>
         <ul>
-          {currentListTitle}
           <div className="itinerary">
             <ol>
               {currentListMarkers && currentListMarkers.map((marker) => (
