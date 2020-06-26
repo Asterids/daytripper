@@ -46,7 +46,7 @@ const SavedItineraries = (props) => {
       </div>
       <div className={listDetailClasses}>
         <h5 className="strong-header">{currentListTitle}</h5>
-        <ul>
+        <hr />
           <div className="itinerary">
             <ol>
               {currentListMarkers && currentListMarkers.map((marker) => (
@@ -55,11 +55,9 @@ const SavedItineraries = (props) => {
                 </li>
               ))}
             </ol>
-            <p>
-              <b>Notes:</b>
-              <br />
-              {currentListNotes}
-            </p>
+            <h6 className="strong-header">Notes:</h6>
+            <br />
+            {currentListNotes}
             <div className="sidebarButtons">
               <button type="button" className="editItinerary" onClick={resetToAllLists}>Back</button>
               {
@@ -68,7 +66,6 @@ const SavedItineraries = (props) => {
             </div>
             <button type="button" className="editItinerary" onClick={() => handleDeleteList(currentListId)}>Delete List</button>
           </div>
-        </ul>
       </div>
     </div>
   );

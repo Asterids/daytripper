@@ -16,7 +16,7 @@ export default class Sidebar extends Component {
       currentListMarkers: [],
       errorMsg: '',
       listClasses: 'saved',
-      listDetailClasses: 'hidden',
+      listDetailClasses: 'hidden detail',
     };
   }
 
@@ -37,7 +37,7 @@ export default class Sidebar extends Component {
     }
     this.setState({
       listClasses: 'hidden saved',
-      listDetailClasses: 'active',
+      listDetailClasses: 'active detail',
       currentListId: listId,
       currentListTitle: list.title,
       currentListNotes: list.notes,
@@ -49,7 +49,7 @@ export default class Sidebar extends Component {
     this.setState({
       currentListId: 0,
       listClasses: 'active saved',
-      listDetailClasses: 'hidden',
+      listDetailClasses: 'hidden detail',
       currentListTitle: '',
       currentListMarkers: [],
       currentListNotes: '',
@@ -63,7 +63,7 @@ export default class Sidebar extends Component {
       try {
         const { status }  = await axios.delete(`/api/lists/${listId}`);
         if (status === 204) {
-          alert("List deleted!")
+          M.toast({html: 'List deleted!', classes: 'success green lighten-2', displayLength: 2500});
         }
       } catch (err) {
         this.setState({ errorMsg: err.message });
