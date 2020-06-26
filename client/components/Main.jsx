@@ -164,6 +164,7 @@ export default class Main extends Component {
           console.log("Response data: ", data)
           // In Progress - determine how best to save updates to markers
           this.toggleSaved();
+          M.toast({html: 'List saved!', classes: 'success green lighten-2', displayLength: 2500});
         }
       } catch (err) {
         this.setState({ errorMsg: err.message });

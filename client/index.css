@@ -75,7 +75,7 @@ input {
   padding: 0 10px !important;
   margin-left: 12px;
   width: 140px;
-  height: 30px;
+  height: 2.5rem !important;
   border-style: hidden;
   border: 1px #adbbc4 solid;
   border-radius: 2px;
@@ -293,11 +293,11 @@ ul {
   top: 0;
   z-index: 2;
   padding: 0;
-  margin: 103px 20px 0 0;
+  margin: 115px 20px 0 0;
   background: rgba(229, 242, 251, 0.95);
   border-radius: 5px;
   height: 73vh;
-  width: 25vw;
+  width: 300px;
   overflow-y: auto;
   transform: translateX(110%);
   transition: transform 0.3s ease;
@@ -319,17 +319,16 @@ ul {
   transform: translateX(0);
 }
 
-.sidebar ul {
-  padding: 0;
-  margin: 30px 20px 5px 25px;
-}
-
 .sidebar ol {
   padding: 0;
 }
 
 .sidebar li {
   padding: 0 0 8px 0;
+}
+
+.detail {
+  margin: 30px 20px 15px 20px;
 }
 
 .itinerary {
@@ -365,6 +364,7 @@ ul {
   border: none;
   background: none;
   color: #52b380;
+  text-align: left;
 }
 
 .itineraryButton:hover {
