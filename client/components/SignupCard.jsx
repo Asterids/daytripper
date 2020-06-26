@@ -23,7 +23,7 @@ export default class SignupCard extends Component {
   }
 
   signup = async (credentials) => {
-    const { setUserOnState, closeSignupCard, getUserFromSession } = this.props;
+    const { closeSignupCard, getUserFromSession } = this.props;
     try {
       const { data } = await axios.post('/auth/local/signup', credentials);
 
@@ -120,14 +120,14 @@ export default class SignupCard extends Component {
             />
             <button type="submit" id="submitLogin" onClick={this.handleSignup}>Create Account</button>
           </form>
-          <a
+        </div>
+        <a
             target="_self"
             href="/auth/google"
             className="googleLogin"
           >
             <button type="button" className="secondaryButton">Continue with Google</button>
           </a>
-        </div>
         <p>
           Already have an account?
           <button type="button" className="greenLink" onClick={this.switchToLogin}>Login</button>

@@ -45,14 +45,16 @@ button {
   font-weight: bold;
   text-decoration: none;
   background: #2d4352;
-  border-color: #2d4352;
   padding: 5px;
+  border: 0;
   border-radius: 3px;
   transition: all 0.4s ease 0s;
 }
 
 button:focus {
   outline: none;
+  color: #aeb6bf;
+  background: #2d4352;
 }
 
 button:hover {
@@ -130,7 +132,7 @@ ul {
   top: 106px;
   left: 28px;
   width: 300px;
-  height: 190px;
+  height: 210px;
   padding: 10px 20px;
   background: rgba(229, 242, 251, 0.95);
   border-radius: 5px;
@@ -151,13 +153,14 @@ ul {
 	border-bottom-color: rgba(229, 242, 251, 0.95);
 	border-top: 0;
 	margin-left: -15px;
-	margin-top: -15px;
+  margin-top: -15px;
 }
 
 .footer {
   position: fixed;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   left: 0;
   bottom: 0;
   z-index: 5;
@@ -168,17 +171,19 @@ ul {
   overflow-y: auto;
 }
 
-.footer ul {
+.footer div {
   margin: 0;
+  width: 300px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   color: #d0dbd3;
   height: 100%;
 }
 
-.footer ul li {
-  padding: 0 15px;
+.footer button {
+  margin: 0px 15px;
 }
 
 .loginSignup {
@@ -228,7 +233,6 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
 }
 
 .greenLink {

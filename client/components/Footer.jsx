@@ -32,6 +32,7 @@ class Search extends Component {
             type="text"
             id="search-text"
             name="search-text"
+            color="white"
             placeholder="Country, city, or zip code"
             required
             size="25"
@@ -43,29 +44,27 @@ class Search extends Component {
   )}
 }
 
-const LoginButton = (props) => (
-  <button type="button" className="toggleLogin" onClick={props.openLogin}>
-    Login
-  </button>
-);
+const UserIsLoggedInButtons = (props) => (
+  <div id="user-buttons">
+    <button type="button" className="toggleButton" onClick={props.openSaved}>
+      My Saved Maps
+    </button>
+    <button type="button" className="logout" onClick={props.logout}>
+      Logout
+    </button>
+  </div>
+)
 
-const SignupButton = (props) => (
-  <button type="button" className="toggleLogin" onClick={props.openSignup}>
-    Sign Up
-  </button>
-);
-
-const MyMapsButton = (props) => (
-  <button type="button" className="toggleButton" onClick={props.openSaved}>
-    My Saved Maps
-  </button>
-);
-
-const LogoutButton = (props) => (
-  <button type="button" className="logout" onClick={props.logout}>
-    Logout
-  </button>
-);
+const NoUserButtons = (props) => (
+  <div>
+    <button type="button" className="toggleLogin" onClick={props.openLogin}>
+      Login
+    </button>
+    <button type="button" className="toggleLogin" onClick={props.openSignup}>
+      Sign Up
+    </button>
+  </div>
+)
 
 // Main Footer Component
 const Footer = (props) => {
@@ -73,28 +72,12 @@ const Footer = (props) => {
 
   return (
     <div className="footer notMain">
-      <ul>
-        <li>
-          <Search handleSearchSubmit={handleSearchSubmit} />
-        </li>
-        <li>
-          <div></div>
-        </li>
-        <li>
-          <h6>
-            {
-              isUserOnSession ? <MyMapsButton openSaved={openSaved} /> : <LoginButton openLogin={openLoginCard} />
-            }
-          </h6>
-        </li>
-        <li>
-          <h6>
-            {
-              isUserOnSession ? <LogoutButton logout={logout} /> : <SignupButton openSignup={openSignupCard} />
-            }
-          </h6>
-        </li>
-      </ul>
+      <Search handleSearchSubmit={handleSearchSubmit} />
+      <div>
+        {
+          isUserOnSession ? <UserIsLoggedInButtons openSaved={openSaved} logout={logout} /> : <NoUserButtons openLogin={openLoginCard} openSignup={openSignupCard} />
+        }
+      </div>
     </div>
   );
 };

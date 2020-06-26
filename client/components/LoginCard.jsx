@@ -23,7 +23,7 @@ export default class LoginCard extends Component {
   }
 
   login = async (credentials) => {
-    const { setUserOnState, closeLoginCard, getUserFromSession } = this.props;
+    const { closeLoginCard, getUserFromSession } = this.props;
     try {
       const { data } = await axios.post('/auth/local/login', credentials);
 
@@ -130,14 +130,14 @@ export default class LoginCard extends Component {
             />
             <button type="submit" id="submitLogin" onClick={this.handleLogin}>Submit</button>
           </form>
-          <a
+        </div>
+        <a
             target="_self"
             href="/auth/google"
             className="googleLogin"
           >
             <button type="button" className="secondaryButton">Continue with Google</button>
-          </a>
-        </div>
+        </a>
         <button type="submit" className="secondaryButton" id="submitGuestLogin" onClick={this.handleGuestLogin}>Login as Guest</button>
         <p>
           Don't have an account?

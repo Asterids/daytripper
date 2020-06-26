@@ -229,8 +229,8 @@ export default class Main extends Component {
       const { data } = await axios.get(`/api/lists/${user.id}`);
 
       if (data) {
-        savedLists = data; // saved lists view should have an empty state that says
-      } // "You have no saved lists!" or similar
+        savedLists = data;
+      }
     } catch (err) {
       this.setState({ errorMsg: err.message });
     }
@@ -240,6 +240,10 @@ export default class Main extends Component {
       currentUser: { id: user.id, username: user.username },
       lists: savedLists,
     });
+
+    if (this.state.introCardActive) {
+      this.state.toggleIntroCard()
+    }
   }
 
   getUserFromSession = async () => {
@@ -289,14 +293,12 @@ export default class Main extends Component {
           loginCardActive={loginCardActive}
           closeLoginCard={this.closeLoginCard}
           openSignupCard={this.openSignupCard}
-          setUserOnState={this.setUserOnState}
           getUserFromSession={this.getUserFromSession}
         />
         <SignupCard
           signupCardActive={signupCardActive}
           closeSignupCard={this.closeSignupCard}
           openLoginCard={this.openLoginCard}
-          setUserOnState={this.setUserOnState}
           getUserFromSession={this.getUserFromSession}
         />
         <Footer
