@@ -10,8 +10,6 @@ const DeleteModal = (props) => {
   return (
     <Modal
       actions={[
-        // <button type="button" node="button" className="modal-close editItinerary">Cancel</button>
-        // <button type="button" node="button" className="modal-close editItinerary" onClick={() => handleDeleteList(currentListId)}>Confirm</button>
         <Button flat modal="close"  node="button" waves="green" className="editItinerary" onClick={() => handleDeleteList(currentListId)}>Confirm</Button>,
         <Button flat modal="close"  node="button" waves="green" className="editItinerary">Close</Button>
       ]}
