@@ -58,18 +58,15 @@ export default class Sidebar extends Component {
   }
 
   handleDeleteList = async (listId) => {
-    const confirmed = confirm("Are you sure you want to delete this list?");
-    if (confirmed) {
-      try {
-        const { status }  = await axios.delete(`/api/lists/${listId}`);
-        if (status === 204) {
-          M.toast({html: 'List deleted!', classes: 'success green lighten-2', displayLength: 2500});
-        }
-      } catch (err) {
-        this.setState({ errorMsg: err.message });
+    try {
+      const { status }  = await axios.delete(`/api/lists/${listId}`);
+      if (status === 204) {
+        M.toast({html: 'List deleted!', classes: 'success green lighten-2', displayLength: 2000});
       }
-      this.resetToAllLists();
+    } catch (err) {
+      this.setState({ errorMsg: err.message });
     }
+    this.resetToAllLists();
   }
 
   generateText = (dataset) => {
