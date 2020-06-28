@@ -356,7 +356,7 @@ ul {
 }
 
 .strong-header {
-  font-family: 'Spectral', serif;
+  font-weight: bold;
   text-align: center;
 }
 
@@ -420,6 +420,17 @@ ul {
 .remove:hover {
   color: #2d4352;
   background: none;
+}
+
+.modal {
+  width: 500px !important;
+  height: 250px !important;
+  top: 25% !important;
+}
+
+.modal-content:nth-child(2) {
+  font-size: 18px;
+  padding: 10px 24px !important;
 }
 
 #toast-container {

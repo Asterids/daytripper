@@ -1,4 +1,5 @@
 import React from 'react';
+import DeleteModal from './DeleteModal';
 
 const SavedItineraries = (props) => {
 
@@ -45,7 +46,7 @@ const SavedItineraries = (props) => {
         </div>
       </div>
       <div className={listDetailClasses}>
-        <h5 className="strong-header">{currentListTitle}</h5>
+        <h5 className="list-header">{currentListTitle}</h5>
         <hr />
           <div className="itinerary">
             <ol>
@@ -64,7 +65,7 @@ const SavedItineraries = (props) => {
                 <button type="button" className="editItinerary" onClick={handleEditClick}>Edit</button>
               }
             </div>
-            <button type="button" className="editItinerary" onClick={() => handleDeleteList(currentListId)}>Delete List</button>
+            <DeleteModal handleDeleteList={handleDeleteList} currentListId={currentListId} />
           </div>
       </div>
     </div>

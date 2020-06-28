@@ -152,7 +152,7 @@ export default class Main extends Component {
             lists: [...lists, data],
           });
           this.toggleSaved();
-          M.toast({html: 'List saved!', classes: 'success green lighten-2', displayLength: 2500});
+          M.toast({html: 'List saved!', classes: 'success green lighten-2', displayLength: 2000});
         }
       } catch (err) {
         this.setState({ errorMsg: err.message });
