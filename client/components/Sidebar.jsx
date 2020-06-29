@@ -20,28 +20,31 @@ export default class Sidebar extends Component {
     };
   }
 
-  fetchListDetails = async (list) => {
-    const { clearMap, plotMarkers } = this.props;
-    const listId = list.id
+  fetchListMarkers = async (listId) => {
+    const { plotMarkers, clearMap } = this.props;
     clearMap();
-    let currentListMarkers = [];
+
     try {
       const { data } = await axios.get(`/api/markers/${listId}`);
 
       if (data) {
-        currentListMarkers = data.sort((a, b) => a.markerOrder - b.markerOrder);
+        const currentListMarkers = data.sort((a, b) => a.markerOrder - b.markerOrder);
         plotMarkers(currentListMarkers); // add them to Main.js state to be rendered on the map
+        this.setState({ currentListMarkers })
       }
     } catch (err) {
       this.setState({ errorMsg: err.message });
     }
+  }
+
+  prepareListDetails = (list) => {
+    this.fetchListMarkers(list.id);
     this.setState({
       listClasses: 'hidden saved',
       listDetailClasses: 'active detail',
-      currentListId: listId,
+      currentListId: list.id,
       currentListTitle: list.title,
       currentListNotes: list.notes,
-      currentListMarkers,
     });
   }
 
@@ -131,6 +134,8 @@ export default class Sidebar extends Component {
             currentListId={currentListId}
             currentListTitle={currentListTitle}
             currentListNotes={currentListNotes}
+            fetchListMarkers={this.fetchListMarkers}
+            prepareListDetails={this.prepareListDetails}
           />
         </div>
       );
@@ -153,7 +158,7 @@ export default class Sidebar extends Component {
           clearMap={clearMap}
           addMarker={addMarker}
           plotMarker={plotMarker}
-          fetchListDetails={this.fetchListDetails}
+          prepareListDetails={this.prepareListDetails}
           handleDeleteList={this.handleDeleteList}
         />
       </div>
