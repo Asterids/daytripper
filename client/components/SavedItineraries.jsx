@@ -56,17 +56,19 @@ const SavedItineraries = (props) => {
                 </li>
               ))}
             </ol>
-            <h6 className="strong-header">Notes:</h6>
-            <br />
-            {currentListNotes}
-            <div className="sidebarButtons">
-              <button type="button" className="editItinerary" onClick={resetToAllLists}>Back</button>
-              {
-                <button type="button" className="editItinerary" onClick={handleEditClick}>Edit</button>
-              }
-            </div>
-            <DeleteModal handleDeleteList={handleDeleteList} currentListId={currentListId} />
           </div>
+          <section className="notes-and-action-section">
+              <h6 className="strong-header">Notes:</h6>
+              <br />
+              {currentListNotes}
+              <div className="sidebarButtons">
+                <button type="button" className="editItinerary" onClick={resetToAllLists}>Back</button>
+                <DeleteModal handleDeleteList={handleDeleteList} currentListId={currentListId} />
+                {
+                  <button type="button" className="editItinerary" onClick={handleEditClick}>Edit</button>
+                }
+              </div>
+            </section>
       </div>
     </div>
   );
