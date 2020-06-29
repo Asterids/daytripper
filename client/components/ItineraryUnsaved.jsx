@@ -6,7 +6,9 @@ export default class ItineraryUnsaved extends Component {
   constructor (props) {
     super(props)
 
-    this.state = { errorMsg: '' }
+    this.state = {
+      errorMsg: '',
+    }
 
     this.titleInput = React.createRef();
     this.notesInput = React.createRef();
@@ -18,8 +20,12 @@ export default class ItineraryUnsaved extends Component {
     }
   }
 
-  handleSubmitSave = (e) => {
-    const { saveMap, currentListId } = this.props;
+  handleRemoveMarker = (marker) => {
+    this.props.removeMarker(marker);
+  }
+
+  handleSubmitSave = async (e) => {
+    const { saveMap, currentListId, prepareListDetails } = this.props;
 
     const listDetails = {
       title: this.titleInput.value.trim(),
@@ -33,13 +39,18 @@ export default class ItineraryUnsaved extends Component {
     if (!listDetails.title.length) {
       this.setState({ errorMsg: 'Please add a title in order to save your list!' })
     } else {
-      saveMap(listDetails);
+      const newList = await saveMap(listDetails);
+      prepareListDetails(newList);
     }
   }
 
   handleCancel = () => {
-    const { resetToAllLists, toggleSaved } = this.props;
-    resetToAllLists();
+    const { currentListId, fetchListMarkers, toggleSaved, resetToAllLists } = this.props;
+    if (currentListId) {
+      fetchListMarkers(currentListId);
+    } else {
+      resetToAllLists();
+    }
     toggleSaved();
   }
 
@@ -57,7 +68,6 @@ export default class ItineraryUnsaved extends Component {
       openLoginCard,
       isUserOnSession,
       markers,
-      removeMarker,
       clearMap,
       currentListTitle,
       currentListNotes,
@@ -100,7 +110,7 @@ export default class ItineraryUnsaved extends Component {
               return (
                 <li key={marker.marker_id}>
                   {marker.placeName}
-                  <button type="button" className="remove" onClick={() => removeMarker(marker)}> x </button>
+                  <button type="button" className="remove" onClick={() => this.handleRemoveMarker(marker)}> x </button>
                 </li>
               );
             })}
