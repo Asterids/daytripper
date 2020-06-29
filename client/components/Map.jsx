@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import MapboxGl from 'mapbox-gl/dist/mapbox-gl';
 import axios from 'axios';
 // import SVG from 'react-inlinesvg';

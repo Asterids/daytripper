@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Header = (props) => {
 const { toggleIntroCard, isUserOnSession, currentUser } = props;

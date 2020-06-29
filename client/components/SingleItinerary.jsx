@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const SingleItinerary = (props) => {
   const itineraryClasses = props.active ? 'active' : '';
-  const { loggedInUser } = props;
 
   getUserData = () => {
 
