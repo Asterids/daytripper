@@ -7,7 +7,6 @@ export default class ItineraryUnsaved extends Component {
     super(props)
 
     this.state = {
-      removedMarkers: [],
       errorMsg: '',
     }
 
