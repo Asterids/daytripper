@@ -149,14 +149,15 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  top: 106px;
-  left: 28px;
-  width: 300px;
-  height: 210px;
-  padding: 10px 20px;
+  top: 88px;
+  left: 25px;
+  width: 320px;
+  height: auto;
+  overflow: visible;
+  padding: 20px;
   background: rgba(229, 242, 251, 0.95);
   border-radius: 5px;
-  z-index: 4;
+  z-index: 8;
   font-size: 13px;
   transform: translateX(-150%);
 }
@@ -274,8 +275,12 @@ ul {
   position: absolute;
   top: 5px;
   right: 5px;
-  padding: 3px 9px;
+  padding: 3px 7px 4px 7px;
+  border-radius: 50px !important;
   z-index: 5;
+  font-size: 14px;
+  font-weight: 700;
+  border: none !important;
 }
 
 .secondaryButton {
@@ -306,9 +311,9 @@ ul {
 
 .sidebarButtons {
   display: flex;
-  justify-content: center;
-  width: 90%;
-  margin: 5px;
+  justify-content: space-between;
+  width: 100%;
+  margin: 15px 5px 5px 2px;
 }
 
 .sidebarButtons button {
@@ -328,7 +333,7 @@ ul {
 }
 
 .detail {
-  margin: 30px 20px 15px 20px;
+  margin: 0 20px 15px 20px;
 }
 
 .itinerary {
@@ -344,7 +349,7 @@ ul {
 
 .saved-container {
   width: 100%;
-  padding: 45px 20px 15px 20px;
+  padding: 38px 20px 15px 20px;
 }
 
 .saved-container hr {
@@ -356,7 +361,7 @@ ul {
 }
 
 .strong-header {
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -420,17 +425,6 @@ ul {
 .remove:hover {
   color: #2d4352;
   background: none;
-}
-
-.modal {
-  width: 500px !important;
-  height: 250px !important;
-  top: 25% !important;
-}
-
-.modal-content:nth-child(2) {
-  font-size: 18px;
-  padding: 10px 24px !important;
 }
 
 #toast-container {

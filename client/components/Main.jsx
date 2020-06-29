@@ -216,6 +216,7 @@ export default class Main extends Component {
         sidebarActive: false,
         isUserOnSession: false,
         currentUser: {},
+        introCardActive: false,
       }))
       .catch((err) => {
         this.setState({ errorMsg: 'Logout was unsuccessful.' })
@@ -268,7 +269,7 @@ export default class Main extends Component {
       loginCardActive,
       signupCardActive,
       currentUser,
-      lists,
+      lists
     } = this.state;
 
     return (
@@ -282,6 +283,8 @@ export default class Main extends Component {
           introCardActive={introCardActive}
           toggleIntroCard={this.toggleIntroCard}
           openLoginCard={this.openLoginCard}
+          isUserOnSession={isUserOnSession}
+          currentUser={currentUser}
         />
         <Map
           markers={markers}
