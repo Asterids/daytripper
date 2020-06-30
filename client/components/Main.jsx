@@ -224,28 +224,30 @@ export default class Main extends Component {
       });
   }
 
-  // if there are no markers on state,
-  // open the sidebar with the My Saved Maps list view
-  setUserOnState = async (user) => {
-    let savedLists = [];
+  getSavedLists = async (userId) => {
     try {
-      const { data } = await axios.get(`/api/lists/${user.id}`);
+      const { data } = await axios.get(`/api/lists/${userId}`);
 
       if (data) {
-        savedLists = data;
+        this.setState({ lists: data })
       }
     } catch (err) {
       this.setState({ errorMsg: err.message });
     }
+  }
 
+  // if there are no markers on state,
+  // open the sidebar with the My Saved Maps list view
+  setUserOnState = (user) => {
     this.setState({
       isUserOnSession: true,
-      currentUser: { id: user.id, username: user.username },
-      lists: savedLists,
+      currentUser: { id: user.id, username: user.username }
     });
 
+    this.getSavedLists(user.id);
+
     if (this.state.introCardActive) {
-      this.state.toggleIntroCard()
+      this.state.toggleIntroCard();
     }
   }
 
@@ -270,7 +272,7 @@ export default class Main extends Component {
       loginCardActive,
       signupCardActive,
       currentUser,
-      lists
+      lists,
     } = this.state;
 
     return (
@@ -329,6 +331,7 @@ export default class Main extends Component {
           currentUser={currentUser}
           lists={lists}
           openLoginCard={this.openLoginCard}
+          getSavedLists={this.getSavedLists}
         />
       </div>
     );

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import SavedItineraries from './SavedItineraries';
 import ItineraryUnsaved from './ItineraryUnsaved';
 import axios from 'axios';
@@ -49,6 +48,9 @@ export default class Sidebar extends Component {
   }
 
   resetToAllLists = () => {
+    const { currentUser, getSavedLists } = this.props;
+    getSavedLists(currentUser.id);
+
     this.setState({
       currentListId: 0,
       listClasses: 'active saved',
