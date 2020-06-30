@@ -21,6 +21,9 @@ router.get('/:lat/:long/:token', async (req, res, next) => {
   }
 });
 
+
+// list object comes in containing all markers
+// bulk create all markers in the object - route used for adding new markers only
 router.post('/save/:listId', (req, res, next) => {
   const { markersPrepared } = req.body;
   const { listId } = req.params;
@@ -38,5 +41,15 @@ router.post('/save/:listId', (req, res, next) => {
     })
     .catch(next);
 });
+
+
+router.delete('/:markerId', (req, res, next) => {
+  const { markerId } = req.params;
+
+  Marker.destroy({ where: { id: markerId } })
+  .then(() => res.sendStatus(204))
+  .catch(next);
+});
+
 
 module.exports = router;

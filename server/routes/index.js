@@ -5,7 +5,7 @@ const { mapboxAPIKey } = require('../../secrets')
 let dbName = process.env.NODE_ENV === 'test' ? '../db/test-db' : '../db/models';
 const { User, Marker, MarkerList } = require(dbName);
 
-router.use('/about', require('./about')); // matches all requests to /api/about/
+router.use('/about', require('./about'));
 router.use('/lists', require('./lists'));
 router.use('/marker', require('./marker'));
 
