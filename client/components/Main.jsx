@@ -20,6 +20,7 @@ export default class Main extends Component {
       introCardActive: false,
       markers: [],
       markersToAdd: [],
+      markersToDelete: [],
       editingItinerary: false,
       isUserOnSession: false,
       currentUser: {},
@@ -51,6 +52,7 @@ export default class Main extends Component {
   removeMarker = (marker) => {
     marker.remove();
     this.setState((prevState) => ({
+      markersToDelete: [...prevState.markersToDelete, marker.id],
       markers: [...prevState.markers.filter((elem) => elem !== marker)],
     }));
   }
@@ -109,41 +111,51 @@ export default class Main extends Component {
     });
   }
 
-  // RENAME TO "saveNewMarkers" - ?
-  // saves the markers corresponding with a given list
+  // Prepare the marker data & save - only want to save markers that don't already exist
   saveMarkers = async (listId) => {
     const { markers } = this.state;
-    // Prepare the data - only want to send the relevant data points to the db
-    const markersPrepared = markers.map((m) => (
-      {
-        markerOrder: m.marker_id,
-        placeName: m.placeName,
-        latitude: m._lngLat.lat,
-        longitude: m._lngLat.lng,
-        notes: m.notes,
-        parentList: listId,
-      }
+    const markersPrepared = markers.filter(m => (m.id === undefined))
+      .map((m) => (
+        {
+          markerOrder: m.marker_id,
+          placeName: m.placeName,
+          latitude: m._lngLat.lat,
+          longitude: m._lngLat.lng,
+          notes: m.notes,
+          parentList: listId,
+        }
     ));
     try {
-      const { data } = await axios.post(`/api/marker/save/${listId}`, { markersPrepared });
+      const savedMarkers = await axios.post(`/api/marker/save/${listId}`, { markersPrepared });
+      return savedMarkers;
     } catch (err) {
       this.setState({ errorMsg: err.message });
     }
   }
 
-  // RENAME TO "saveNewList"
-  // saves a list with details, and calls saveMarkers to save the related markers
+  deleteMarkers = async (markerIds) => {
+    try {
+      for (const m of markerIds) {
+        await axios.delete(`/api/marker/${m}`);
+      }
+      this.setState({ markersToDelete: [] })
+    } catch (err) {
+      this.setState({ errorMsg: err.message });
+    }
+  }
+
+  // REFACTOR THIS - Messy and not DRY
   saveList = async (candidateList) => {
-    const { lists } = this.state;
+    const { lists, markersToDelete } = this.state;
     const userId = this.state.currentUser.id;
     const listId = candidateList.id;
 
-    // if no list id, then save as a new list
+    // if no list id then save as a new list, else handle list update
     if (!listId) {
       try {
         const { data } = await axios.post(`/api/lists/new/${userId}`, candidateList);
         if (data) {
-          this.saveMarkers(data.id);
+          await this.saveMarkers(data.id);
           this.setState({
             lists: [...lists, data],
           });
@@ -155,36 +167,20 @@ export default class Main extends Component {
         this.setState({ errorMsg: err.message });
       }
     } else {
+      if (markersToDelete.length) {
+        await this.deleteMarkers(markersToDelete);
+      }
       try {
         const { data } = await axios.put(`/api/lists/update/${listId}`, candidateList);
         if (data) {
-          console.log("Response data: ", data)
-          console.log("Markers on state: ", this.state.markers)
-          // In Progress - determine how best to save updates to markers
+          await this.saveMarkers(data.id);
           this.toggleSaved();
           M.toast({html: 'List updated!', classes: 'success green lighten-2', displayLength: 2000});
+          return data;
         }
       } catch (err) {
         this.setState({ errorMsg: err.message });
       }
-    }
-  }
-
-  // Need to add logic for deleting markers from DB if they were removed from the list
-  updateList = async (list) => {
-    const listId = list.id;
-    const { lists, markers } = this.state;
-    try {
-      const { data } = await axios.put(`/api/lists/save/${listId}`, list);
-      if (data) {
-        this.updateMarkers(listId);
-        this.setState({
-          lists: [...lists, data],
-        });
-        this.toggleSaved();
-      }
-    } catch (err) {
-      this.setState({ errorMsg: err.message });
     }
   }
 

@@ -38,8 +38,8 @@ export default class ItineraryUnsaved extends Component {
     if (!listDetails.title.length) {
       this.setState({ errorMsg: 'Please add a title in order to save your list!' })
     } else {
-      const newList = await saveMap(listDetails);
-      prepareListDetails(newList);
+      const savedList = await saveMap(listDetails);
+      prepareListDetails(savedList);
     }
   }
 
