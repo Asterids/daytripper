@@ -138,6 +138,7 @@ export default class Main extends Component {
     const userId = this.state.currentUser.id;
     const listId = candidateList.id;
 
+    // if no list id, then save as a new list
     if (!listId) {
       try {
         const { data } = await axios.post(`/api/lists/new/${userId}`, candidateList);
@@ -147,7 +148,7 @@ export default class Main extends Component {
             lists: [...lists, data],
           });
           this.toggleSaved();
-          M.toast({html: 'List saved!', classes: 'success green lighten-2', displayLength: 2000});
+          M.toast({html: 'List added!', classes: 'success green lighten-2', displayLength: 2000});
           return data;
         }
       } catch (err) {
@@ -158,9 +159,10 @@ export default class Main extends Component {
         const { data } = await axios.put(`/api/lists/update/${listId}`, candidateList);
         if (data) {
           console.log("Response data: ", data)
+          console.log("Markers on state: ", this.state.markers)
           // In Progress - determine how best to save updates to markers
           this.toggleSaved();
-          M.toast({html: 'List saved!', classes: 'success green lighten-2', displayLength: 2500});
+          M.toast({html: 'List updated!', classes: 'success green lighten-2', displayLength: 2000});
         }
       } catch (err) {
         this.setState({ errorMsg: err.message });

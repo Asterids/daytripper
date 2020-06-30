@@ -99,12 +99,7 @@ export default class Map extends Component {
     this.renderMarkers(markersToAdd, options);
   }
 
-  getNextMarkerId = () => this.state.nextMarkerId;
-
-
   componentDidMount() {
-    const { addMarker, editingItinerary, markers } = this.props;
-
     MapboxGl.accessToken = mapboxAPIKey;
 
     const mapInstance = new MapboxGl.Map({
@@ -116,8 +111,10 @@ export default class Map extends Component {
     });
 
     mapInstance.on('click', (e) => {
+      const { addMarker, markers, editingItinerary } = this.props;
+
       if (editingItinerary || !markers.length) {
-        const nextMarkerId = this.getNextMarkerId();
+        const { nextMarkerId } = this.state;
         axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
           .then((res) => (
             res.data.place_name
