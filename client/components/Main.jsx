@@ -71,10 +71,13 @@ export default class Main extends Component {
   handleSearchSubmit = async (inputText) => {
     try {
       const { data } = await axios.get(`/api/search/${inputText}`);
-      if (data) {
+      if (data.features.length) {
         const foundPlace = data.features[0];
+        console.log("Found Place: ", foundPlace)
         console.log("Center: ", foundPlace.center)
-      };
+      } else {
+        M.toast({html: 'Hmm, we couldn&#39;t find that place!', classes: 'deep-orange lighten-2', displayLength: 2500});
+      }
     } catch (err) {
       this.setState({ errorMsg: err.message });
     }
@@ -160,7 +163,7 @@ export default class Main extends Component {
             lists: [...lists, data],
           });
           this.toggleSaved();
-          M.toast({html: 'List added!', classes: 'success green lighten-2', displayLength: 2000});
+          M.toast({html: 'List added!', classes: 'teal accent-4', displayLength: 2000});
           return data;
         }
       } catch (err) {
@@ -175,7 +178,7 @@ export default class Main extends Component {
         if (data) {
           await this.saveMarkers(data.id);
           this.toggleSaved();
-          M.toast({html: 'List updated!', classes: 'success green lighten-2', displayLength: 2000});
+          M.toast({html: 'List updated!', classes: 'teal accent-4', displayLength: 2000});
           return data;
         }
       } catch (err) {

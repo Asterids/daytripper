@@ -66,7 +66,7 @@ export default class Sidebar extends Component {
     try {
       const { status }  = await axios.delete(`/api/lists/${listId}`);
       if (status === 204) {
-        M.toast({html: 'List deleted!', classes: 'success green lighten-2', displayLength: 2000});
+        M.toast({html: 'List deleted!', classes: 'teal accent-4', displayLength: 2000});
       }
     } catch (err) {
       this.setState({ errorMsg: err.message });
