@@ -48,6 +48,9 @@ export default class Sidebar extends Component {
   }
 
   resetToAllLists = () => {
+    const { currentUser, getSavedLists } = this.props;
+    getSavedLists(currentUser.id);
+
     this.setState({
       currentListId: 0,
       listClasses: 'active saved',
