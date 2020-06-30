@@ -11,7 +11,8 @@ export default class Map extends Component {
     super(props);
 
     this.state = {
-      map: {}
+      map: {},
+      nextMarkerId: 1,
     }
   }
 
@@ -98,6 +99,8 @@ export default class Map extends Component {
     this.renderMarkers(markersToAdd, options);
   }
 
+  getNextMarkerId = () => this.state.nextMarkerId;
+
 
   componentDidMount() {
     const { addMarker, editingItinerary, markers } = this.props;
@@ -112,11 +115,10 @@ export default class Map extends Component {
       style: 'mapbox://styles/ruthtown/cjy1zfey01ai51cp31xzhmwnw',
     });
 
-    // Marker id's need to be handled better
-    let counter = 1;
-
     mapInstance.on('click', (e) => {
       if (editingItinerary || !markers.length) {
+        const nextMarkerId = this.getNextMarkerId();
+        console.log("ID for marker being added: ", nextMarkerId)
         axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
           .then((res) => (
             res.data.place_name
@@ -125,10 +127,9 @@ export default class Map extends Component {
             const newMarker = new MapboxGl.Marker()
               .setLngLat([e.lngLat.lng, e.lngLat.lat])
               .addTo(mapInstance);
-            newMarker.marker_id = counter;
+            newMarker.marker_id = nextMarkerId;
             newMarker.placeName = result;
             newMarker.notes = '';
-            counter++;
             return newMarker;
           })
           .then((mrkr) => {
@@ -143,10 +144,22 @@ export default class Map extends Component {
     this.setState({ map: mapInstance });
   }
 
+
+  // Check to see if any new markers need to be added & add them, set the next marker_id for the next potential marker
   componentDidUpdate() {
-    const { markersToAdd } = this.props
+    const { markersToAdd, markers } = this.props;
+    const { nextMarkerId } = this.state;
+
     if (markersToAdd.length !== 0) {
       this.calculateNewMapData(markersToAdd);
+    }
+    if (markers.length && (nextMarkerId !== 1 + markers[markers.length-1].marker_id)) {
+      this.setState({
+        nextMarkerId: 1 + markers[markers.length-1].marker_id
+      })
+    }
+    if (!markers.length && nextMarkerId !== 1) {
+      this.setState({ nextMarkerId: 1 })
     }
   }
 
