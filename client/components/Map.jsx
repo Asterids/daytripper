@@ -118,7 +118,6 @@ export default class Map extends Component {
     mapInstance.on('click', (e) => {
       if (editingItinerary || !markers.length) {
         const nextMarkerId = this.getNextMarkerId();
-        console.log("ID for marker being added: ", nextMarkerId)
         axios.get(`/api/marker/${e.lngLat.lat}/${e.lngLat.lng}/${MapboxGl.accessToken}`)
           .then((res) => (
             res.data.place_name
