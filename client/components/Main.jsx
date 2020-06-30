@@ -28,11 +28,6 @@ export default class Main extends Component {
     };
   }
 
-  // check if a user is already on the session when the component mounts
-  componentDidMount() {
-    this.getUserFromSession();
-  }
-
   //  --- MAP INTERACTION ---
 
   // add marker to state in editing view (user places a new marker on the map)
@@ -260,6 +255,11 @@ export default class Main extends Component {
     }
     return loggedInUser;
   };
+
+  // check if a user is already on the session when the component mounts
+  componentDidMount() {
+    this.getUserFromSession();
+  }
 
   render() {
     const {
