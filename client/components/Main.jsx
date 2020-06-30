@@ -114,7 +114,7 @@ export default class Main extends Component {
   // Prepare the marker data & save - only want to save markers that don't already exist
   saveMarkers = async (listId) => {
     const { markers } = this.state;
-    const markersPrepared = markers.filter(m => (m.id === undefined))
+    const markersPrepared = markers.filter(m => !m.id)
       .map((m) => (
         {
           markerOrder: m.marker_id,
