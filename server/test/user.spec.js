@@ -11,7 +11,6 @@ describe('USER', () => {
   describe('/api/users', () => {
     beforeEach(() => User.create({
       username: 'ChurchPeanut',
-      email: 'churchp@catmail.com',
       password: '123',
     }));
 
@@ -21,7 +20,7 @@ describe('USER', () => {
         .expect(200)
         .then((res) => {
           expect(res.body).to.be.an('array');
-          expect(res.body[0].email).to.equal('churchp@catmail.com');
+          expect(res.body[0].username).to.equal('ChurchPeanut');
         });
     });
   });
@@ -30,7 +29,6 @@ describe('USER', () => {
     beforeEach(() => User.create({
       id: 'cf31fc3f-e77a-4a45-8e97-de12429606f1',
       username: 'ChurchPeanut',
-      email: 'churchp@catmail.com',
       password: '123',
     })
       .then((createdUser) => MarkerList.create({

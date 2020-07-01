@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import M from 'materialize-css';
 import axios from 'axios';
+import CookieConsent from "react-cookie-consent";
 import Header from './Header';
 import IntroCard from './IntroCard';
 import Map from './Map';
@@ -341,6 +342,15 @@ export default class Main extends Component {
           openLoginCard={this.openLoginCard}
           getSavedLists={this.getSavedLists}
         />
+        <CookieConsent
+          buttonText="I understand"
+          cookieName="cookieConsent"
+          location="bottom"
+          containerClasses="consent"
+          buttonClasses="consentButton"
+        >
+          This website uses cookies to provide a good user experience. By using this site you agree to our use of cookies. {" "}
+        </CookieConsent>
       </div>
     );
   }

@@ -3,14 +3,14 @@ const { User } = require('../db/models');
 const crypto = require('crypto');
 
 router.post('/signup', (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
 
   User.findOne({where:
     { username },
   })
     .then((user) => {
       if (!user) {
-        User.create({ username, email, password })
+        User.create({ username, password })
         .then((user) => {
           req.login(user, (err) => {
             if (err) { return next(err); }

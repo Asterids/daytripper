@@ -149,6 +149,25 @@ ul li::before {
   color: #8298a1;
 }
 
+.consent {
+  font-size: 16px !important;
+  font-weight: 200 !important;
+  transform: translateY(-80px) !important;
+  background: #00897b !important;
+  padding: 0 25px !important;
+}
+
+.consentButton {
+  background: #fff9c4 !important;
+  border: 1px solid #2d4352 !important;
+  border-radius: 5px !important;
+}
+
+.consentButton:hover {
+  background: #d5e5f0 !important;
+  border-color: #d5e5f0 !important;
+}
+
 .introText {
   position: absolute;
   display: flex;
