@@ -52,7 +52,8 @@ const SavedItineraries = (props) => {
             <ol>
               {currentListMarkers && currentListMarkers.map((marker) => (
                 <li key={marker.id}>
-                  <button type="button" className="remove" onClick={() => {}}>{marker.placeName}</button>
+                  {marker.placeName}
+                  {/* <button type="button" className="remove" onClick={() => {}}>{marker.placeName}</button> */}
                 </li>
               ))}
             </ol>
