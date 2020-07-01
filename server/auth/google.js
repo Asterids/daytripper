@@ -14,7 +14,6 @@ passport.use(
   (token, refreshToken, profile, done) => {
     const userData = {
       username: (profile.displayName || profile.emails[0].value),
-      email: profile.emails[0].value,
       googleId: profile.id,
     };
     User.findOrCreate({
