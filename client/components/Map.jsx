@@ -41,6 +41,16 @@ export default class Map extends Component {
   }
 
 
+  mapFlyTo = (coords) => {
+    const { map } = this.state;
+    const { clearSearchCoords } = this.props;
+    
+    map.flyTo({ center: coords, zoom: 6, speed: 2 })
+
+    clearSearchCoords();
+  }
+
+
   calculateNewMapData = (markersToAdd) => {
     // Find center point by averaging markers' latitude and longitude
     const avgLat = markersToAdd.reduce((accum, mrkr) => accum + mrkr.latitude, 0) / markersToAdd.length;
@@ -143,11 +153,14 @@ export default class Map extends Component {
 
   // Check to see if any new markers need to be added & add them, set the next marker_id for the next potential marker
   componentDidUpdate() {
-    const { markersToAdd, markers } = this.props;
+    const { markersToAdd, markers, searchCenter } = this.props;
     const { nextMarkerId } = this.state;
 
     if (markersToAdd.length !== 0) {
       this.calculateNewMapData(markersToAdd);
+    }
+    if (searchCenter.length) {
+      this.mapFlyTo(searchCenter)
     }
     if (markers.length && (nextMarkerId !== 1 + markers[markers.length-1].marker_id)) {
       this.setState({
