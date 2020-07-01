@@ -26,6 +26,7 @@ export default class Main extends Component {
       currentUser: {},
       lists: [],
       errorMsg: '',
+      searchCenter: [],
     };
   }
 
@@ -68,13 +69,13 @@ export default class Main extends Component {
     });
   }
 
+  // user must click to add a marker, but search can zoom to a location
   handleSearchSubmit = async (inputText) => {
     try {
       const { data } = await axios.get(`/api/search/${inputText}`);
       if (data.features.length) {
-        const foundPlace = data.features[0];
-        console.log("Found Place: ", foundPlace)
-        console.log("Center: ", foundPlace.center)
+        const foundPlace = data.features[0].center;
+        this.setState({ searchCenter: foundPlace })
       } else {
         M.toast({html: 'Hmm, we couldn&#39;t find that place!', classes: 'deep-orange lighten-2', displayLength: 2500});
       }
@@ -82,6 +83,8 @@ export default class Main extends Component {
       this.setState({ errorMsg: err.message });
     }
   }
+
+  clearSearchCoords = () => this.setState({ searchCenter: [] });
 
   // --- SURROUNDING PAGE INTERACTION ---
 
@@ -274,6 +277,8 @@ export default class Main extends Component {
       signupCardActive,
       currentUser,
       lists,
+      searchCenter,
+      clearSearchCoords
     } = this.state;
 
     return (
@@ -296,6 +301,8 @@ export default class Main extends Component {
           addMarker={this.addMarker}
           editingItinerary={editingItinerary}
           clearMarkersToAdd={this.clearMarkersToAdd}
+          searchCenter={searchCenter}
+          clearSearchCoords={this.clearSearchCoords}
         />
         <LoginCard
           loginCardActive={loginCardActive}
