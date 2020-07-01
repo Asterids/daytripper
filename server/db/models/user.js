@@ -1,4 +1,4 @@
-const crypto = require('crypto'); // switch to either Node's built-in crypto package, or crypto-js
+const crypto = require('crypto'); // Node's built-in crypto pkg
 const Sequelize = require('sequelize');
 const _ = require('lodash');
 const db = require('../_db');
@@ -45,9 +45,8 @@ User.prototype.sanitize = () => (
   _.omit(this.toJSON(), ['password', 'salt'])
 );
 
-
 User.generateSalt = () => (
-  crypto.randomBytes(16).toString('base64')
+  crypto.randomBytes(32).toString('hex')
 );
 
 User.encryptPassword = (plainText, salt) => (
@@ -66,5 +65,5 @@ const setSaltAndPassword = (user) => {
   }
 };
 
-// User.beforeCreate(setSaltAndPassword);
-// User.beforeUpdate(setSaltAndPassword);
+User.beforeCreate(setSaltAndPassword);
+User.beforeUpdate(setSaltAndPassword);

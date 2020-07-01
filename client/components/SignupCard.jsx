@@ -41,7 +41,7 @@ export default class SignupCard extends Component {
     } catch (err) {
       console.error(err);
       if (err.message === 'Request failed with status code 400') {
-        this.setState({ errorMsg: 'Invalid credentials! Please try again.' });
+        this.setState({ errorMsg: 'Sorry, this username already exists. Please choose a different one.' });
       } else {
         this.setState({ errorMsg: 'Oops, an error occurred!' });
       }

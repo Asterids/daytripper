@@ -40,7 +40,7 @@ const SavedItineraries = (props) => {
           <ul>
             {!lists.length && (<p>You don't have any saved lists! Click to place a marker on the map and begin a new list.</p>)}
             {!!lists.length && lists.map((list) => (
-              <li key={list.id}>✈ <button type="button" className="itineraryButton" onClick={() => prepareListDetails(list)}>{list.title}</button></li>
+              <li key={list.id}><button type="button" className="itineraryButton" onClick={() => prepareListDetails(list)}>{list.title}</button></li>
             ))}
           </ul>
         </div>
