@@ -39,6 +39,7 @@ export default class LoginCard extends Component {
       }
     } catch (err) {
       console.error(err);
+      // need to improve error handling here
       if (err.message === 'Request failed with status code 400') {
         this.setState({ errorMsg: 'Invalid login credentials! Please try again.' });
       } else {

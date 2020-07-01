@@ -29,6 +29,7 @@ main {
   margin: 0;
   font-size: 14px;
   color: red;
+  text-align: center;
 }
 
 a {
@@ -107,6 +108,10 @@ textarea {
 ul {
   padding: none;
   list-style-type: none;
+}
+
+ul li::before {
+  content: "\200B";
 }
 
 .header {
