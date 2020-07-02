@@ -52,7 +52,7 @@ app.use('/auth', require('./server/auth'));
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('*', (req, res) => {
-  if (process.env.NODE_ENV = 'development') {
+  if (process.env.NODE_ENV === 'development') {
     res.sendFile(path.join(__dirname, '/public/index-dev.html'));
   } else {
     res.sendFile(path.join(__dirname, '/public/index.html'));
