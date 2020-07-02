@@ -2,7 +2,9 @@ const router = require('express').Router();
 const passport = require('passport');
 
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const { googleClientId, googleClientSecret } = require('../../secrets');
+
+const googleClientId = process.env.googleClientId;
+const googleClientSecret = process.env.googleClientSecret;
 const { User } = require('../db/models');
 
 passport.use(
