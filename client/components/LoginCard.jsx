@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-const { guestName, guestPass } = require('../../secrets');
+
+const guestName = 'Guest';
+const guestPass = 'CitizenOfTheWorld';
 
 export default class LoginCard extends Component {
   constructor(props) {
