@@ -9,6 +9,7 @@ let mapboxAPIKey = null;
 const isDev = document.getElementById('development') !== undefined;
 
 if (isDev) {
+  console.log('WE ARE LOADING THE WRONG THING')
   mapboxAPIKey = require('../../secrets').mapboxAPIKey;
 } else {
   mapboxAPIKey = 'pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2tjNHhoczR1MGM3ZTJycW85aXQyNGw0ZSJ9.ArVhsQSxpzIDWbX_BHUAeg';
