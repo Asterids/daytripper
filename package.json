@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "NODE_ENV='test' mocha ./server/test/*.spec.js",
-    "start": "NODE_ENV='production' node app.js",
+    "start": "webpack & NODE_ENV='production' node app.js",
     "start-dev": "webpack -w & NODE_ENV='development' nodemon app.js",
     "seed": "node seed"
   },
