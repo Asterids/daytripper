@@ -16,6 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
   process.env.guestName = SECRETS.guestName;
   process.env.guestPass = SECRETS.guestPass;
   process.env.sessionSecret = SECRETS.sessionSecret;
+  process.env.prodPostgres = SECRETS.prodPostgres;
 }
 
 const session = require('express-session');
