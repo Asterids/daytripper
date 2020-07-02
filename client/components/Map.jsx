@@ -4,7 +4,15 @@ import axios from 'axios';
 // import SVG from 'react-inlinesvg';
 
 // const Icon = () => <SVG src='../../public/images/marker-15.svg' />;
-const { mapboxAPIKey } = require('../../secrets')
+let mapboxAPIKey = null;
+
+const isDev = document.getElementById('development') !== undefined;
+
+if (isDev) {
+  mapboxAPIKey = require('../../secrets').mapboxAPIKey;
+} else {
+  mapboxAPIKey = 'pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2tjNHhoczR1MGM3ZTJycW85aXQyNGw0ZSJ9.ArVhsQSxpzIDWbX_BHUAeg';
+}
 
 export default class Map extends Component {
   constructor(props) {
