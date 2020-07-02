@@ -4,14 +4,14 @@ import axios from 'axios';
 // import SVG from 'react-inlinesvg';
 
 // const Icon = () => <SVG src='../../public/images/marker-15.svg' />;
-let mapboxAPIKey = null;
+let mapboxAPIPublicKey = null;
 
 const isDev = document.getElementById('development') !== undefined;
 
 if (isDev) {
-  mapboxAPIKey = 'pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2s2NzFweXZyMTJ0cjNkb2R1bHk5azMyZSJ9.u97kpihmKKCqGVA1BgRH9w';
+  mapboxAPIPublicKey = 'pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2s2NzFweXZyMTJ0cjNkb2R1bHk5azMyZSJ9.u97kpihmKKCqGVA1BgRH9w';
 } else {
-  mapboxAPIKey = 'pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2tjNHhoczR1MGM3ZTJycW85aXQyNGw0ZSJ9.ArVhsQSxpzIDWbX_BHUAeg';
+  mapboxAPIPublicKey = 'pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2tjNHhoczR1MGM3ZTJycW85aXQyNGw0ZSJ9.ArVhsQSxpzIDWbX_BHUAeg';
 }
 
 export default class Map extends Component {
@@ -118,7 +118,7 @@ export default class Map extends Component {
   }
 
   componentDidMount() {
-    MapboxGl.accessToken = mapboxAPIKey;
+    MapboxGl.accessToken = mapboxAPIPublicKey;
 
     const mapInstance = new MapboxGl.Map({
       container: 'map',
