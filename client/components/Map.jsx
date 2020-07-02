@@ -9,8 +9,7 @@ let mapboxAPIKey = null;
 const isDev = document.getElementById('development') !== undefined;
 
 if (isDev) {
-  console.log('WE ARE LOADING THE WRONG THING')
-  mapboxAPIKey = require('../../secrets').mapboxAPIKey;
+  mapboxAPIKey = 'pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2s2NzFweXZyMTJ0cjNkb2R1bHk5azMyZSJ9.u97kpihmKKCqGVA1BgRH9w';
 } else {
   mapboxAPIKey = 'pk.eyJ1IjoicnV0aHRvd24iLCJhIjoiY2tjNHhoczR1MGM3ZTJycW85aXQyNGw0ZSJ9.ArVhsQSxpzIDWbX_BHUAeg';
 }

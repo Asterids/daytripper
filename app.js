@@ -53,7 +53,6 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('*', (req, res) => {
   if (process.env.NODE_ENV === 'development') {
-    console.log('YOU SHOULD NOT SEE ME IN PRODUCTION')
     res.sendFile(path.join(__dirname, '/public/index-dev.html'));
   } else {
     res.sendFile(path.join(__dirname, '/public/index.html'));
