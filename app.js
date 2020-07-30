@@ -20,6 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const session = require('express-session');
+const sessionStore = require('sessionstore');
 
 let dbName = process.env.NODE_ENV === 'test' ? './server/db/test-db' : './server/db/models';
 const { db, User } = require(dbName);
@@ -28,6 +29,8 @@ app.use(session({
   secret: process.env.sessionSecret,
   resave: false,
   saveUninitialized: true,
+  cookie: { maxAge: 3600000 },
+  store: sessionStore.createSessionStore(),
 }));
 
 app.use(passport.initialize());
