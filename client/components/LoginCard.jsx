@@ -141,7 +141,7 @@ export default class LoginCard extends Component {
           >
             <button type="button" className="secondaryButton">Continue with Google</button>
         </a>
-        <button type="submit" className="secondaryButton" id="submitGuestLogin" onClick={this.handleGuestLogin}>Login as Guest</button>
+        <button type="submit" className="secondaryButton" id="submitGuestLogin" onClick={this.handleGuestLogin}>Log In as Guest</button>
         <p>
           Don't have an account?
           <button type="button" className="greenLink" onClick={this.switchToSignup}>Sign up</button>

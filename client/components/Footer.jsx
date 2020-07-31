@@ -50,7 +50,7 @@ const UserIsLoggedInButtons = (props) => (
       My Saved Maps
     </button>
     <button type="button" className="logout" onClick={props.logout}>
-      Logout
+      Log Out
     </button>
   </div>
 )
@@ -58,7 +58,7 @@ const UserIsLoggedInButtons = (props) => (
 const NoUserButtons = (props) => (
   <div>
     <button type="button" className="toggleLogin" onClick={props.openLogin}>
-      Login
+      Log In
     </button>
     <button type="button" className="toggleLogin" onClick={props.openSignup}>
       Sign Up
