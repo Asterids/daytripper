@@ -135,7 +135,7 @@ export default class SignupCard extends Component {
         </a>
         <p>
           Already have an account?
-          <button type="button" className="greenLink" onClick={this.switchToLogin}>Login</button>
+          <button type="button" className="greenLink" onClick={this.switchToLogin}>Log in</button>
           to save your itineraries!
         </p>
       </div>
