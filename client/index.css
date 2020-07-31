@@ -52,7 +52,7 @@ button {
 }
 
 button:focus {
-  outline: none;
+  outline: 2px solid #52b380;
   color: #aeb6bf;
   background: #2d4352;
 }
@@ -235,6 +235,8 @@ ul li::before {
   left: 30%;
   top: 140px;
   display: flex;
+  /* display: none; */
+  visibility: hidden;
   align-items: center;
   flex-direction: column;
   width: 40vw;
@@ -345,6 +347,8 @@ ul li::before {
 }
 
 .active {
+  /* display: flex; */
+  visibility: visible;
   transform: translateX(0);
 }
 
