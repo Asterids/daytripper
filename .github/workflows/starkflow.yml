@@ -1,0 +1,33 @@
+name: Run audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      token:
+        description: 'Token'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Authenticate with private NPM package
+      run: |
+        echo "@OWNER:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" >> ~/.npmrc
+        echo "@stark-contrast:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+      
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run audit
+      run: ./bin/dev scan -U localhost:3200 --run-id="xyz" --stark-token="${{ github.event.inputs.token }}" --metadata=""
